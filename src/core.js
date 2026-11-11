@@ -1,279 +1,224 @@
-// Geode Drift — pure game logic (no DOM). Shared by the game and the headless pacing sim.
-export const VERSION = 1;
-
-export const GENS = [
-  { id: 'picker', name: 'Pebble Picker', desc: 'A tiny drone that nibbles loose shards.', cost: 15, rate: 0.15, color: 0x9fe7ff },
-  { id: 'chisel', name: 'Laser Chisel', desc: 'Traces glowing lines and pops crystals free.', cost: 150, rate: 1, color: 0xff9ee6 },
-  { id: 'drill', name: 'Hover Drill', desc: 'Spins down into the softer layers.', cost: 2000, rate: 6, color: 0xffd27a },
-  { id: 'harvest', name: 'Crystal Harvester', desc: 'Scoops whole clusters at once.', cost: 30000, rate: 35, color: 0x8affc1 },
-  { id: 'reso', name: 'Sonic Resonator', desc: 'Sings at the exact note that cracks quartz.', cost: 500000, rate: 200, color: 0xb8a4ff },
-  { id: 'press', name: 'Gravity Press', desc: 'Squeezes dust back into gems.', cost: 8e+06, rate: 1100, color: 0x7ab8ff },
-  { id: 'tug', name: 'Comet Tug', desc: 'Drags fresh comets in to be mined.', cost: 1.4e+08, rate: 6000, color: 0xffb27a },
-  { id: 'forge', name: 'Star Forge', desc: 'Grows new crystals from starlight.', cost: 2.5e+09, rate: 33000, color: 0xfff07a },
-  { id: 'loom', name: 'Nebula Loom', desc: 'Weaves nebula clouds into geodes.', cost: 4.5e+10, rate: 180000, color: 0xff7ad0 },
-  { id: 'prism', name: 'Prism Engine', desc: 'Splits one shard into a rainbow of them.', cost: 8e+11, rate: 1e+06, color: 0x7affef },
-  { id: 'lathe', name: 'Galaxy Lathe', desc: 'Turns whole spiral arms into gemstones.', cost: 1.5e+13, rate: 5.5e+06, color: 0xc6ff7a },
-  { id: 'sieve', name: 'Aurora Sieve', desc: 'Sifts the northern lights of the cosmos.', cost: 3e+14, rate: 3e+07, color: 0xa0ffb0 },
-  { id: 'halo', name: 'Halo Harp', desc: 'Plucks rings of light off distant planets.', cost: 6.6e+15, rate: 1.65e+08, color: 0xffc6f0 },
-  { id: 'tide', name: 'Tidal Spinner', desc: 'Rides gravity waves between stars.', cost: 1.45e+17, rate: 9.08e+08, color: 0x9ad0ff },
-  { id: 'bloom', name: 'Starbloom Garden', desc: 'Grows crystal flowers the size of moons.', cost: 3.19e+18, rate: 4.99e+09, color: 0xffe08a },
-  { id: 'wish', name: 'Wishing Well', desc: 'Every wish across the galaxy drops a gem in.', cost: 7.03e+19, rate: 2.75e+10, color: 0xb0ffd8 },
-  { id: 'dream', name: 'Dream Foundry', desc: 'Turns sweet dreams into solid starlight.', cost: 1.55e+21, rate: 1.51e+11, color: 0xd2b0ff },
-  { id: 'heart', name: 'Cosmic Heartbeat', desc: 'The universe itself hums along with you.', cost: 3.4e+22, rate: 8.3e+11, color: 0xffffff },
+// Geode Drift v2 — run-based mining. Pure logic shared by the game and the headless sim.
+export const VERSION = 2;
+export const ORES = [
+  { name: 'Dust', color: 0xc9bfe8 }, { name: 'Copper', color: 0xff9a5c }, { name: 'Cobalt', color: 0x5ca8ff },
+  { name: 'Gold', color: 0xffd25c }, { name: 'Crystal', color: 0xff7ae0 }, { name: 'Starsteel', color: 0x9ffff0 }, { name: 'Voidglass', color: 0xb07aff },
 ];
-export const COST_GROWTH = 1.15;
-export const MILESTONES = [10, 25, 50, 100, 150, 200, 250, 300, 400, 500, 600, 800, 1000];
+export const ZONE_LEN = 150;
+export const ZONES = ['Dust Belt', 'Copper Reef', 'Cobalt Caverns', 'Golden Hollow', 'Crystal Heart', 'Starsteel Core', 'Void Rift'];
+export const ZONE_HUE = [0x8a7fb8, 0xff8a4a, 0x4a8cff, 0xffc94a, 0xff6ad5, 0x6afff0, 0x9a5cff];
+export const zoneName = z => ZONES[z] || `Deep Rift ${z - ZONES.length + 2}`;
+export const zoneHue = z => ZONE_HUE[z % ZONE_HUE.length];
 
-export const STRATA = [
-  { name: 'Dusty Crust', at: 0, hue: 0x8a7f9e },
-  { name: 'Quartz Vein', at: 1e3, hue: 0xdfe8ff },
-  { name: 'Amethyst Hollow', at: 1e5, hue: 0xb27aff },
-  { name: 'Citrine Seam', at: 1e7, hue: 0xffc94a },
-  { name: 'Emerald Grotto', at: 1e9, hue: 0x3dff9a },
-  { name: 'Sapphire Deep', at: 1e11, hue: 0x4a8cff },
-  { name: 'Ruby Mantle', at: 1e13, hue: 0xff4a6e },
-  { name: 'Opal Abyss', at: 1e15, hue: 0xffa6f0 },
-  { name: 'Moonstone Core', at: 1e17, hue: 0xc8f4ff },
-  { name: 'Starglass Heart', at: 1e19, hue: 0xfff6a6 },
-  { name: 'Prismatic Singularity', at: 1e21, hue: 0xffffff },
+// ---------- Upgrade tree ----------
+// x,y = grid position in the web; req = parents (any one owned unlocks it); cost = [oreTier, base, growth]
+const N = (id, name, x, y, req, max, cost, desc) => ({ id, name, x, y, req, max, cost, desc });
+export const TREE = [
+  N('rig', 'Drift Rig', 0, 0, [], 1, [0, 0, 1], 'Your trusty mining rig.'),
+  // time (up)
+  N('t1', 'Bigger Battery', 0, -1, ['rig'], 5, [0, 14, 1.6], '+3s run time'),
+  N('t2', 'Chrono Shards', -1, -2, ['t1'], 5, [0, 70, 1.8], '+0.12s for every rock broken'),
+  N('t3', 'Fusion Cell', 0, -2, ['t1'], 5, [1, 18, 1.8], '+4s run time'),
+  N('t4', 'Boss Clock', 1, -3, ['t3'], 3, [2, 25, 2.4], '+8s whenever a Guardian falls'),
+  N('t5', 'Time Crystal', 0, -3, ['t3'], 5, [3, 20, 2], '+5s run time'),
+  N('t6', 'Eternity Coil', 0, -4, ['t5'], 5, [4, 18, 2.1], '+5s run time'),
+  // damage (right)
+  N('d1', 'Sharper Laser', 1, 0, ['rig'], 15, [0, 8, 1.45], '+35% laser damage'),
+  N('d2', 'Twin Beam', 2, -1, ['d1'], 1, [0, 140, 1], '+1 laser beam'),
+  N('d4', 'Plasma Coils', 2, 0, ['d1'], 25, [1, 14, 2], 'Laser damage x1.4'),
+  N('d3', 'Crit Lens', 2, 1, ['d1'], 5, [1, 16, 1.8], '+8% chance to crit for x3'),
+  N('d5', 'Triple Beam', 3, -1, ['d2', 'd4'], 1, [2, 40, 1], '+1 laser beam'),
+  N('d6', 'Ion Furnace', 3, 0, ['d4'], 25, [2, 18, 2], 'Laser damage x1.4'),
+  N('d7', 'Boss Breaker', 3, 1, ['d3'], 5, [2, 30, 1.8], 'x1.6 damage to Guardians'),
+  N('d8', 'Star Lance', 4, 0, ['d6'], 25, [3, 18, 2], 'Laser damage x1.5'),
+  N('d9', 'Quad Beam', 4, -1, ['d5', 'd8'], 1, [4, 40, 1], '+1 laser beam'),
+  N('d10', 'Nova Lance', 5, 0, ['d8'], 25, [4, 18, 2], 'Laser damage x1.6'),
+  N('d11', 'Void Laser', 6, 0, ['d10'], 25, [5, 18, 2], 'Laser damage x1.7'),
+  N('d12', 'Rift Cannon', 7, 0, ['d11'], 99, [6, 15, 1.9], 'Laser damage x1.8'),
+  // drill (down)
+  N('r1', 'Drill Bit', 0, 1, ['rig'], 15, [0, 10, 1.5], 'Drill power x1.3 (dig through harder rock)'),
+  N('r2', 'Thrusters', -1, 2, ['r1'], 8, [0, 30, 1.6], '+15% descent speed'),
+  N('r3', 'Diamond Bit', 0, 2, ['r1'], 25, [1, 14, 2], 'Drill power x1.35'),
+  N('r4', 'Launch Pad', 1, 2, ['r1'], 10, [1, 25, 1.7], 'Start each run 15m deeper (up to 60% of your record)'),
+  N('r6', 'Afterburner', -1, 3, ['r2'], 8, [2, 22, 1.7], '+15% descent speed'),
+  N('r5', 'Tungsten Head', 0, 3, ['r3'], 25, [2, 16, 2], 'Drill power x1.4'),
+  N('r10', 'Sky Cannon', 1, 3, ['r4'], 10, [3, 20, 1.7], 'Start each run 40m deeper'),
+  N('r7', 'Gold Auger', 0, 4, ['r5'], 25, [3, 16, 2], 'Drill power x1.45'),
+  N('r8', 'Crystal Auger', 0, 5, ['r7'], 25, [4, 16, 2], 'Drill power x1.5'),
+  N('r9', 'Star Auger', 0, 6, ['r8'], 25, [5, 16, 2], 'Drill power x1.6'),
+  N('r11', 'Rift Auger', 0, 7, ['r9'], 99, [6, 14, 1.9], 'Drill power x1.7'),
+  // area (left)
+  N('a1', 'Wide Lens', -1, 0, ['rig'], 6, [0, 18, 1.6], '+0.5m laser range'),
+  N('a2', 'Rich Field', -2, -1, ['a1'], 8, [0, 40, 1.6], '+20% more rocks'),
+  N('a4', 'Long Lens', -2, 0, ['a1'], 6, [1, 22, 1.7], '+0.5m laser range'),
+  N('a3', 'Shatter', -2, 1, ['a1'], 5, [1, 20, 1.8], 'Broken rocks blast neighbours for 30% of their health'),
+  N('a5', 'Dense Field', -3, -1, ['a2'], 8, [2, 25, 1.7], '+20% more rocks'),
+  N('a7', 'Gravity Lens', -3, 0, ['a4'], 6, [3, 25, 1.8], '+0.6m laser range'),
+  N('a6', 'Chain Blast', -3, 1, ['a3'], 5, [3, 25, 1.9], '+0.5m blast radius'),
+  // economy (diagonals)
+  N('e1', 'Dust Sifter', 1, -1, ['rig'], 10, [0, 12, 1.5], '+30% Dust'),
+  N('e2', 'Copper Sieve', 2, -2, ['e1'], 10, [1, 12, 1.5], '+30% Copper'),
+  N('e3', 'Cobalt Sieve', 3, -3, ['e2'], 10, [2, 12, 1.5], '+30% Cobalt'),
+  N('e4', 'Gold Sieve', 4, -4, ['e3'], 10, [3, 12, 1.5], '+30% Gold'),
+  N('e5', 'Crystal Sieve', 5, -5, ['e4'], 10, [4, 12, 1.5], '+30% Crystal'),
+  N('e10', 'Star Sieve', 6, -6, ['e5'], 10, [5, 12, 1.5], '+30% Starsteel'),
+  N('e6', 'Lucky Veins', -1, -1, ['rig'], 10, [0, 22, 1.6], '+6% chance for double ore'),
+  N('e7', 'Motherlode', -2, -2, ['e6'], 5, [2, 30, 2.4], 'All ore x1.2'),
+  N('e8', 'Star Market', -3, -3, ['e7'], 5, [4, 25, 2.4], 'All ore x1.25'),
+  N('e9', 'Void Bazaar', -4, -4, ['e8'], 25, [6, 15, 2.2], 'All ore x1.3'),
+  // automation (lower diagonals)
+  N('u1', 'Auto-Relaunch', -1, 1, ['rig'], 1, [1, 30, 1], 'Next run launches by itself after the summary'),
+  N('u2', 'Idle Rig', -2, 2, ['u1'], 5, [2, 25, 2], '+15% offline mining (base 10%)'),
+  N('u3', 'Ore Scanner', 1, 1, ['rig'], 1, [1, 20, 1], 'Lasers prefer the richest rocks'),
+  N('u4', 'Overdrive', 2, 2, ['u3'], 5, [2, 30, 2], 'Last 5s of a run: x2 damage and speed (+1s per level)'),
 ];
-const ECHO = ['Aurora', 'Nebula', 'Comet', 'Halo', 'Rainbow', 'Starlight', 'Moonbeam', 'Sunflare'];
-for (let i = 0; i < 60; i++) STRATA.push({ name: `${ECHO[i % ECHO.length]} Echo ${Math.floor(i / ECHO.length) + 1}`, at: 1e23 * Math.pow(100, i), hue: [0x7affef, 0xff7ad0, 0xffd27a, 0xb8a4ff, 0x8affc1, 0xfff07a, 0xc8f4ff, 0xffb27a][i % 8] });
-export const STRATUM_MULT = 1.25;
+export const NODE = Object.fromEntries(TREE.map(n => [n.id, n]));
+export const lvl = (s, id) => s.tree[id] || 0;
+export function nodeCost(s, n) { const L = lvl(s, n.id); return Math.ceil(n.cost[1] * Math.pow(n.cost[2], L)); }
+export function nodeVisible(s, n) { return n.id === 'rig' || n.req.some(r => lvl(s, r) > 0); }
+export function canBuy(s, n) { return nodeVisible(s, n) && lvl(s, n.id) < n.max && s.ore[n.cost[0]] >= nodeCost(s, n); }
+export function buyNode(s, id) { const n = NODE[id]; if (!canBuy(s, n)) return false; s.ore[n.cost[0]] -= nodeCost(s, n); s.tree[id] = lvl(s, id) + 1; return true; }
 
-// ---------- Upgrades (generated) ----------
-const TIER_REQ = [1, 5, 25, 50, 100, 150, 200, 300, 400, 500, 700, 1000];
-const TIER_COST = [10, 50, 500, 5e4, 5e6, 5e8, 5e10, 5e13, 5e16, 5e19, 5e24, 5e30];
-const TIER_NAMES = ['Polished', 'Tuned', 'Overclocked', 'Mirror-Plated', 'Star-Fused', 'Quantum', 'Mythic', 'Legendary', 'Celestial', 'Cosmic', 'Eternal', 'Infinite'];
-export const UPGRADES = [];
-GENS.forEach((g, gi) => TIER_REQ.forEach((req, t) => UPGRADES.push({
-  id: `g${gi}t${t}`, kind: 'gen', gen: gi, req, cost: g.cost * TIER_COST[t], mult: 2,
-  name: `${TIER_NAMES[t]} ${g.name}s`, desc: `${g.name}s mine twice as fast.`,
-})));
-const CLICK = [[100, 'Sturdy Gloves'], [600, 'Diamond Fingertips'], [8000, 'Echo Tap'], [9e4, 'Thunder Tap']];
-CLICK.forEach(([c, n], i) => UPGRADES.push({ id: `c${i}`, kind: 'click', cost: c, mult: 2, name: n, desc: 'Taps are twice as strong.' }));
-const PCT = [[5e4, 'Resonant Touch'], [5e6, 'Harmonic Touch'], [5e8, 'Crystal Song'], [5e10, 'Choir of Gems'], [5e12, 'Cosmic Chord'], [5e14, 'Song of Stars']];
-PCT.forEach(([c, n], i) => UPGRADES.push({ id: `p${i}`, kind: 'clickpct', cost: c, pct: 0.01, name: n, desc: 'Each tap also gives +1% of your shards per second.' }));
-const GLOBAL = ['Lattice Insight', 'Facet Mapping', 'Lucky Streak', 'Gem Whisperer', 'Crystal Choir', 'Glimmer Grid', 'Shimmer Shield', 'Prism Pact', 'Radiant Rhythm', 'Aurora Accord', 'Starlight Seal', 'Infinity Facet', 'Celestial Cut', 'Wonder Weave', 'Dreamstone Dial', 'Everglow'];
-for (let i = 0; GLOBAL.length < 45; i++) GLOBAL.push(`${['Cosmic', 'Radiant', 'Glittering', 'Boundless', 'Dazzling'][i % 5]} ${['Lens', 'Facet', 'Bloom', 'Spiral', 'Crown', 'Lattice'][Math.floor(i / 5) % 6]} ${['II', 'III', 'IV', 'V', 'VI'][Math.floor(i / 30) % 5] || ''}`.trim());
-GLOBAL.forEach((n, i) => UPGRADES.push({ id: `w${i}`, kind: 'global', cost: 5000 * Math.pow(60, i), mult: 1.5, name: n, desc: 'All shard production x1.5.' }));
-const COMET = [[2e4, 'Comet Lure'], [2e7, 'Tail Catcher'], [2e10, 'Meteor Shower']];
-COMET.forEach(([c, n], i) => UPGRADES.push({ id: `k${i}`, kind: 'comet', cost: c, name: n, desc: 'Comets appear 20% more often and boosts last longer.' }));
-export const UPG_BY_ID = Object.fromEntries(UPGRADES.map(u => [u.id, u]));
-
-// ---------- Prestige layer 1: Polish -> Gems (milestones unlock perks, nothing is ever spent) ----------
-export const GEM_PER = 0.2; // +20% production per gem
-// Gems grow with the *depth* (log) of a run, normalised by the Supernova multiplier: steady, never runaway.
-export const gemsFor = (runTotal, s) => { const d = Math.log10(Math.max(1, runTotal)) - gemDepth(s); return d > 0 ? Math.floor(2 * d * d) : 0; };
-export const POLISH_PERKS = [
-  { at: 1, id: 'head1', name: 'Head Start', desc: 'Start every run with 10 Pickers and 5 Chisels.' },
-  { at: 3, id: 'tapper1', name: 'Auto-Tapper', desc: 'A helper taps the geode twice a second.' },
-  { at: 10, id: 'hands', name: 'Quick Hands', desc: 'Taps are 3x stronger.' },
-  { at: 15, id: 'auto', name: 'Drone Autobuyer', desc: 'Automatically buys the best drone you can afford.' },
-  { at: 30, id: 'head2', name: 'Bigger Head Start', desc: 'Start runs with 25 Pickers, 15 Chisels and 10 Drills.' },
-  { at: 60, id: 'sleep', name: 'Deep Sleep', desc: 'Offline mining at 100% for up to 24 hours.' },
-  { at: 120, id: 'autoU', name: 'Upgrade Autobuyer', desc: 'Automatically buys upgrades you can afford.' },
-  { at: 250, id: 'magnet', name: 'Comet Magnet', desc: 'Comets come twice as often.' },
-  { at: 500, id: 'keepClick', name: 'Muscle Memory', desc: 'Keep tap upgrades after Polish.' },
-  { at: 1000, id: 'tapper2', name: 'Tapping Choir', desc: 'Auto-Tapper taps 6 times a second.' },
-];
-
-// ---------- Prestige layer 2: Supernova -> Stardust ----------
-export const NOVA_MIN_GEMS = 400, NOVA_NEED_GROW = 1;
-export const gemDepth = s => 8 + NOVA_DEPTH * Math.log10(s.novaMult); // shards (as a power of ten) needed for the first gem
-export const NOVA_DEPTH = 1.5; // each x10 of Supernova power pushes the gem threshold 4 orders of magnitude deeper
-export const dustFor = gems => Math.floor(Math.sqrt(gems / 10));
-export const NOVA_BONUS = 1.25;
-// A Supernova is only allowed when the new Stardust multiplier beats the Gem multiplier you give up, so it always leaves you stronger.
-export const NOVA_PERKS = [
-  { at: 1, id: 'dkeep', name: 'Stellar Memory', desc: 'Every run starts already at the Quartz Vein layer.' },
-  { at: 3, id: 'dauto', name: 'Auto-Polish', desc: 'Optionally Polish automatically when gems would double.' },
-  { at: 10, id: 'dhead', name: 'Nova Head Start', desc: 'Start runs with 50 of each of the first four drones.' },
-  { at: 25, id: 'dcomet', name: 'Comet Season', desc: 'Comet boosts are twice as strong.' },
-];
+// ---------- Prestige: Supernova -> Stardust ----------
+export const NOVA_ZONE = 3; // beat the Cobalt Caverns Guardian (450m) to unlock
+export const dustFor = s => Math.floor(Math.pow(Math.max(0, s.bestDepth) / 100, 1.6));
+export const starMult = s => 1 + 0.25 * s.dust;
+export const canNova = s => s.zoneMax >= NOVA_ZONE && dustFor(s) >= 1;
+export function nova(s) {
+  if (!canNova(s)) return 0; const d = dustFor(s);
+  s.dust += d; s.novas++; s.tree = { rig: 1 }; s.ore = ORES.map(() => 0); s.bestDepth = 0; s.zoneMax = 0; s.lastRun = null;
+  return d;
+}
 
 export function newState(now = Date.now()) {
+  return { v: VERSION, ore: ORES.map(() => 0), oreEver: ORES.map(() => 0), tree: { rig: 1 }, bestDepth: 0, zoneMax: 0, runs: 0, dust: 0, novas: 0,
+    played: 0, lastSave: now, lastRun: null, autoRelaunch: true, muted: false, seenIntro: false };
+}
+
+// ---------- Stats ----------
+export function stats(s) {
+  const L = id => lvl(s, id), sm = starMult(s);
+  const pw = (id, b) => Math.pow(b, L(id));
   return {
-    v: VERSION, shards: 0, runTotal: 0, lifetime: 0, clicks: 0,
-    gens: GENS.map(() => 0), upg: {}, gems: 0, gemsEver: 0, gemsThisNova: 0, novaGemPeak: 0,
-    dust: 0, dustEver: 0, polishes: 0, novas: 0, played: 0, runTime: 0,
-    lastSave: now, boost: null, comet: { next: 60 }, autoOn: true, autoUOn: true, autoPolish: false,
-    best: { rate: 0 }, stratum: 0, novaMult: 1, reso: 0,
+    time: 25 + 3 * L('t1') + 4 * L('t3') + 5 * L('t5') + 5 * L('t6') + 2 * Math.min(10, s.novas),
+    chrono: 0.12 * L('t2'), bossTime: 8 * L('t4'),
+    dps: 5 * (1 + 0.35 * L('d1')) * pw('d4', 1.4) * pw('d6', 1.4) * pw('d8', 1.5) * pw('d10', 1.6) * pw('d11', 1.7) * pw('d12', 1.8) * sm,
+    beams: 1 + L('d2') + L('d5') + L('d9'),
+    crit: 0.08 * L('d3'), bossMult: pw('d7', 1.6),
+    drill: pw('r1', 1.3) * pw('r3', 1.35) * pw('r5', 1.4) * pw('r7', 1.45) * pw('r8', 1.5) * pw('r9', 1.6) * pw('r11', 1.7) * sm,
+    speed: 1.1 * (1 + 0.15 * L('r2') + 0.15 * L('r6')),
+    launch: 15 * L('r4') + 40 * L('r10'),
+    range: 3.2 + 0.5 * L('a1') + 0.5 * L('a4') + 0.6 * L('a7'),
+    density: 1.1 * (1 + 0.2 * L('a2') + 0.2 * L('a5')),
+    blast: 0.3 * Math.min(1, L('a3')) + 0.1 * Math.max(0, L('a3') - 1), blastR: 1.6 + 0.5 * L('a6'),
+    oreMult: ORES.map((_, t) => (1 + 0.3 * L(['e1', 'e2', 'e3', 'e4', 'e5', 'e10', 'none'][t])) * pw('e7', 1.2) * pw('e8', 1.25) * pw('e9', 1.3) * sm),
+    lucky: 0.06 * L('e6'), scanner: L('u3') > 0, overdrive: L('u4') ? 4 + L('u4') : 0,
+    offline: 0.1 + 0.15 * L('u2'),
   };
 }
 
-export const has = (s, id) => !!s.upg[id];
-export const perk = (s, id) => (POLISH_PERKS.find(p => p.id === id)?.at ?? Infinity) <= s.gemsEver
-  || (NOVA_PERKS.find(p => p.id === id)?.at ?? Infinity) <= s.dustEver;
+// ---------- RNG ----------
+export function rng(seed) { let a = seed >>> 0 || 1; return () => { a ^= a << 13; a >>>= 0; a ^= a >> 17; a ^= a << 5; a >>>= 0; return a / 4294967296; }; }
 
-export const AFTERGLOW = 240; // seconds of x3 production at the start of each run after your first Polish
-export function afterglow(s) { return s.polishes > 0 && s.runTime < AFTERGLOW ? 3 : 1; }
-// +20% per gem up to 100 gems, then a gentle square-root softcap so runs can't snowball to infinity
-export function gemMult(s) { const g = s.gems; return g <= 100 ? 1 + GEM_PER * g : 21 * Math.pow(g / 100, 0.35); }
-export function dustMult(s) { return s.novaMult; }
-export function stratumIndex(runTotal) { let i = 0; STRATA.forEach((x, k) => { if (runTotal >= x.at) i = k; }); return i; }
+// ---------- Run ----------
+export const HP_GROW = 1.03;
+export const rockHP = (y, size) => 3 * size * Math.pow(HP_GROW, y);
+export const hardness = y => Math.pow(1.026, y);
+export const bossHP = B => 40 * Math.pow(HP_GROW, B);
+export const W = 6.5; // half width of the field
 
-export function genCost(s, gi, n = s.gens[gi]) { return GENS[gi].cost * Math.pow(COST_GROWTH, n); }
-export function costOfN(s, gi, k) { const r = COST_GROWTH; return genCost(s, gi) * (Math.pow(r, k) - 1) / (r - 1); }
-export function maxAffordable(s, gi) {
-  const c = genCost(s, gi), r = COST_GROWTH;
-  if (s.shards < c) return 0;
-  return Math.floor(Math.log(s.shards * (r - 1) / c + 1) / Math.log(r));
+export function startRun(s, seed = (Math.random() * 1e9) | 0) {
+  const st = stats(s);
+  const start = Math.min(st.launch, Math.floor(s.bestDepth * 0.6));
+  return { st, r: rng(seed), t: 0, tmax: st.time, depth: start, startDepth: start, x: 0, rocks: [], nid: 1, spawnedTo: start + 1, ore: ORES.map(() => 0),
+    broken: 0, boss: null, bossesKilled: 0, ended: false, ev: [], bonusTime: 0, prio: null, targets: [] };
 }
-export function milestoneMult(n) { let m = 1; for (const x of MILESTONES) if (n >= x) m *= 2; if (n >= 1100) m *= Math.pow(2, Math.floor((n - 1000) / 100)); return m; }
-export function nextMilestone(n) { return MILESTONES.find(x => x > n) ?? (Math.floor(n / 100) + 1) * 100; }
-
-export function genMult(s, gi) {
-  let m = milestoneMult(s.gens[gi]);
-  for (let t = 0; t < TIER_REQ.length; t++) if (s.upg[`g${gi}t${t}`]) m *= 2;
-  return m;
+// the next ore tier starts showing up 90m before its zone, so you can start saving for it
+function oreTier(run, y) { const zz = (y + 90) / ZONE_LEN, top = Math.min(Math.floor(zz), ORES.length - 1); if (top === 0) return 0; const f = zz - Math.floor(zz); const p = top > Math.floor(y / ZONE_LEN) ? 0.12 + f * 0.5 : 0.65; return run.r() < p ? top : top - 1; }
+function spawnRock(run, y) {
+  const size = 0.6 + run.r() * 0.9 + (run.r() < 0.08 ? 0.8 : 0);
+  const hp = rockHP(y, size), tier = oreTier(run, y);
+  run.rocks.push({ id: run.nid++, x: (run.r() * 2 - 1) * W, y, z: (run.r() - 0.5) * 2.2, size, hp, max: hp, tier, hit: 0, rich: tier });
 }
-export const RESO_BASE = 1e4, RESO_GROW = 100, RESO_MULT = 2;
-export const resoCost = s => RESO_BASE * Math.pow(RESO_GROW, s.reso || 0);
-export function buyReso(s) { const c = resoCost(s); if (s.shards < c || s.runTotal < 5e3) return false; s.shards -= c; s.reso = (s.reso || 0) + 1; return true; }
-export function globalMult(s) {
-  let m = 1;
-  for (let i = 0; i < GLOBAL.length; i++) if (s.upg[`w${i}`]) m *= 1.5;
-  m *= Math.pow(STRATUM_MULT, stratumIndex(s.runTotal));
-  m *= gemMult(s) * dustMult(s);
-  return m;
+function breakRock(run, rk, s) {
+  const st = run.st, yz = rk.y - Math.floor(rk.y / ZONE_LEN) * ZONE_LEN;
+  let amt = rk.size * (1 + yz / 40) * st.oreMult[rk.tier];
+  if (run.r() < st.lucky) { amt *= 2; run.ev.push({ type: 'lucky', rock: rk }); }
+  run.ore[rk.tier] += amt; run.broken++; rk.hp = 0;
+  if (st.chrono) { const add = Math.min(st.chrono, Math.max(0, run.st.time * 0.4 - run.bonusTime)); run.tmax += add; run.bonusTime += add; }
+  run.ev.push({ type: 'break', rock: rk, amt });
+  if (st.blast) for (const o of run.rocks) if (o.hp > 0 && o !== rk && Math.hypot(o.x - rk.x, o.y - rk.y) < st.blastR) { o.hp -= rk.max * st.blast; o.hit = 1; }
 }
-export function boostMult(s) { return (s.boost && s.boost.kind === 'frenzy' ? s.boost.mult : 1) * afterglow(s); }
-export function genRate(s, gi) { return GENS[gi].rate * s.gens[gi] * genMult(s, gi); }
-export function baseRate(s) { let r = 0; for (let i = 0; i < GENS.length; i++) r += genRate(s, i); return r * globalMult(s); }
-export function rate(s) { return baseRate(s) * boostMult(s); }
-export function clickValue(s) {
-  let c = 1;
-  for (let i = 0; i < CLICK.length; i++) if (s.upg[`c${i}`]) c *= 2;
-  if (perk(s, 'hands')) c *= 3;
-  c *= Math.max(1, gemMult(s) * dustMult(s) * 0.25);
-  let pct = 0; for (let i = 0; i < PCT.length; i++) if (s.upg[`p${i}`]) pct += 0.01;
-  const tapBoost = s.boost && s.boost.kind === 'tap' ? s.boost.mult : 1;
-  return (c + baseRate(s) * pct) * boostMult(s) * tapBoost;
-}
-export function autoTapsPerSec(s) { return perk(s, 'tapper2') ? 6 : perk(s, 'tapper1') ? 2 : 0; }
-
-export function upgradeVisible(s, u) {
-  if (s.upg[u.id]) return false;
-  if (u.kind === 'gen') return s.gens[u.gen] >= u.req;
-  return s.runTotal >= u.cost * 0.15;
-}
-export function availableUpgrades(s) { return UPGRADES.filter(u => upgradeVisible(s, u)).sort((a, b) => a.cost - b.cost); }
-
-const CAP = 1e300; // keep numbers finite in extremely long saves
-function earn(s, x) { if (!(x > 0)) return; s.shards = Math.min(CAP, s.shards + x); s.runTotal = Math.min(CAP, s.runTotal + x); s.lifetime = Math.min(CAP, s.lifetime + x); }
-
-export function click(s, n = 1) { const v = clickValue(s) * n; earn(s, v); s.clicks += n; return v; }
-export function buyGen(s, gi, k = 1) {
-  k = Math.max(1, Math.min(k, 1e6)); const c = costOfN(s, gi, k);
-  if (s.shards < c) return false;
-  s.shards -= c; s.gens[gi] += k; return true;
-}
-export function buyUpgrade(s, id) {
-  const u = UPG_BY_ID[id]; if (!u || s.upg[id] || !upgradeVisible(s, u) || s.shards < u.cost) return false;
-  s.shards -= u.cost; s.upg[id] = 1; return true;
-}
-export function genUnlocked(s, gi) { return gi === 0 || s.gens[gi - 1] > 0 || s.runTotal >= GENS[gi].cost * 0.5; }
-
-// ---------- Comets ----------
-export function cometInterval(s) {
-  let f = 1; for (let i = 0; i < COMET.length; i++) if (s.upg[`k${i}`]) f *= 1.2;
-  if (perk(s, 'magnet')) f *= 2;
-  return 90 / f;
-}
-export function cometDuration(s) { let d = 30; for (let i = 0; i < COMET.length; i++) if (s.upg[`k${i}`]) d += 10; return d; }
-export function catchComet(s, roll = Math.random()) {
-  const strong = perk(s, 'dcomet') ? 2 : 1;
-  if (roll < 0.5) { s.boost = { kind: 'frenzy', mult: 7 * strong, left: cometDuration(s), total: cometDuration(s) }; return { type: 'frenzy', text: `Comet Frenzy! x${7 * strong} for ${cometDuration(s)}s` }; }
-  if (roll < 0.75) { s.boost = { kind: 'tap', mult: 50 * strong, left: 15, total: 15 }; return { type: 'tap', text: `Supercharged Taps! x${50 * strong} for 15s` }; }
-  const v = baseRate(s) * 120 * strong + 50; earn(s, v); return { type: 'lump', text: 'Comet Haul!', value: v };
-}
-
-// ---------- Tick ----------
-export function tick(s, dt, events) {
-  const r = rate(s); earn(s, r * dt);
-  const taps = autoTapsPerSec(s) * dt; if (taps > 0) click(s, taps);
-  s.played += dt; s.runTime += dt;
-  if (s.boost) { s.boost.left -= dt; if (s.boost.left <= 0) s.boost = null; }
-  const si = stratumIndex(s.runTotal);
-  if (si > s.stratum) { s.stratum = si; events && events.push({ type: 'stratum', index: si }); }
-  if (perk(s, 'auto') && s.autoOn) autoBuyGens(s);
-  if (perk(s, 'autoU') && s.autoUOn) { for (const u of availableUpgrades(s)) if (s.shards >= u.cost) buyUpgrade(s, u.id); }
-  if (perk(s, 'dauto') && s.autoPolish && s.runTime > 30) { const g = gemsFor(s.runTotal, s); if (g >= Math.max(10, s.gems)) { polish(s); events && events.push({ type: 'autopolish', gems: g }); } }
-  const rr = baseRate(s); if (rr > s.best.rate) s.best.rate = rr;
-}
-export function bestGen(s) {
-  // best value drone = lowest cost per extra shard/s among unlocked
-  let best = -1, bv = Infinity;
-  for (let i = 0; i < GENS.length; i++) {
-    if (!genUnlocked(s, i)) continue;
-    const c = genCost(s, i), before = genRate(s, i);
-    s.gens[i]++; const after = genRate(s, i); s.gens[i]--;
-    const v = c / Math.max(1e-9, after - before);
-    if (v < bv) { bv = v; best = i; }
+export function stepRun(run, s, dt) {
+  if (run.ended) return;
+  const st = run.st; run.t += dt;
+  const od = st.overdrive && run.tmax - run.t < st.overdrive ? 2 : 1; run.od = od > 1;
+  if (run.t >= run.tmax) return endRun(run, s);
+  // spawn rows ahead
+  const nextBoss = (Math.floor(run.depth / ZONE_LEN) + 1) * ZONE_LEN;
+  while (run.spawnedTo < run.depth + 16) { run.spawnedTo += 1 / (st.density * 2); if (Math.abs(run.spawnedTo - nextBoss) > 2.5) spawnRock(run, run.spawnedTo); }
+  // boss gate at the end of each zone
+  if (!run.boss && run.depth >= nextBoss - 2.01) { const z = Math.floor(nextBoss / ZONE_LEN) - 1; run.boss = { hp: bossHP(nextBoss), max: bossHP(nextBoss), y: nextBoss, zone: z }; run.ev.push({ type: 'boss', boss: run.boss }); }
+  // descend
+  const v = st.speed * od * Math.max(0.04, Math.min(1, st.drill / hardness(run.depth)));
+  run.v = v;
+  if (!run.boss) run.depth = Math.min(run.depth + v * dt, nextBoss - 2);
+  // targets
+  const dmg = st.dps * od * (1 + st.crit * 2) * dt;
+  run.targets = [];
+  if (run.boss) {
+    run.boss.hp -= dmg * st.beams * st.bossMult * 1.0; run.targets.push(run.boss);
+    if (run.boss.hp <= 0) {
+      const b = run.boss, t = Math.min(b.zone + 1, ORES.length - 1);
+      const bonus = (25 + 10 * b.zone) * st.oreMult[t]; run.ore[t] += bonus; run.bossesKilled++; run.tmax = Math.min(run.st.time * 1.6, run.tmax + st.bossTime);
+      s.zoneMax = Math.max(s.zoneMax, b.zone + 1); run.ev.push({ type: 'bossdown', boss: b, tier: t, amt: bonus });
+      run.boss = null; run.depth = b.y + 0.5; run.spawnedTo = Math.max(run.spawnedTo, run.depth + 1);
+    }
+  } else {
+    const R = st.range, cand = [];
+    for (const rk of run.rocks) { if (rk.hp <= 0) continue; const d = Math.hypot(rk.x - run.x, rk.y - run.depth); if (d < R + rk.size * 0.4) cand.push([st.scanner ? d - rk.tier * 3 - rk.size : d, rk]); }
+    cand.sort((a, b) => a[0] - b[0]);
+    if (run.prio && run.prio.hp > 0 && cand.some(c => c[1] === run.prio)) { cand.unshift([0, run.prio]); }
+    const used = new Set();
+    for (const [, rk] of cand) { if (used.size >= st.beams) break; if (used.has(rk)) continue; used.add(rk); rk.hp -= dmg; rk.hit = 1; run.targets.push(rk); }
+    // drill contact
+    for (const rk of run.rocks) if (rk.hp > 0 && Math.abs(rk.x - run.x) < 0.9 + rk.size * 0.4 && Math.abs(rk.y - run.depth) < 0.8 + rk.size * 0.3) { rk.hp -= st.dps * 0.5 * st.drill / Math.max(1, hardness(rk.y)) * dt + dmg * 0.25; rk.hit = 1; }
+    // steer toward the best nearby rock
+    let tx = run.x, best = Infinity;
+    for (const rk of run.rocks) { if (rk.hp <= 0 || rk.y < run.depth - 1) continue; const sc = Math.abs(rk.x - run.x) * 0.6 + (rk.y - run.depth) - (st.scanner ? rk.tier * 2 : 0); if (sc < best) { best = sc; tx = rk.x; } }
+    run.x += Math.max(-1, Math.min(1, tx - run.x)) * Math.min(1, dt * 2.2) * 1.2;
   }
-  return best;
+  for (const rk of run.rocks) if (rk.hp <= 0 && rk.max > 0 && !rk.done) { rk.done = true; breakRock(run, rk, s); }
+  run.rocks = run.rocks.filter(rk => !rk.done && rk.y > run.depth - 5);
 }
-function autoBuyGens(s) { for (let k = 0; k < 20; k++) { const b = bestGen(s); if (b < 0 || !buyGen(s, b)) break; } }
+export function endRun(run, s) {
+  if (run.ended) return run.summary;
+  run.ended = true;
+  const prevBest = s.bestDepth;
+  for (let i = 0; i < ORES.length; i++) { s.ore[i] += run.ore[i]; s.oreEver[i] += run.ore[i]; }
+  s.bestDepth = Math.max(s.bestDepth, run.depth); s.runs++; s.played += run.t;
+  run.summary = { depth: run.depth, startDepth: run.startDepth, prevBest, record: run.depth > prevBest, ore: run.ore.slice(), broken: run.broken, bosses: run.bossesKilled, time: run.t, zone: Math.floor(run.depth / ZONE_LEN) };
+  s.lastRun = { ore: run.ore.slice(), time: run.t };
+  return run.summary;
+}
 
 // ---------- Offline ----------
 export function offlineGain(s, now = Date.now()) {
-  const sec = Math.max(0, (now - s.lastSave) / 1000);
-  const cap = (perk(s, 'sleep') ? 24 : 8) * 3600, eff = perk(s, 'sleep') ? 1 : 0.5;
-  const t = Math.min(sec, cap);
-  if (t < 30) return { seconds: 0, gain: 0 };
-  const gain = (baseRate(s) + clickValue(s) * autoTapsPerSec(s) / boostMult(s)) * t * eff;
-  return { seconds: t, gain };
+  const sec = Math.min(8 * 3600, Math.max(0, (now - s.lastSave) / 1000));
+  if (sec < 60 || !s.lastRun) return null;
+  const eff = stats(s).offline, k = sec / Math.max(20, s.lastRun.time) * eff;
+  return { seconds: sec, ore: s.lastRun.ore.map(x => x * k) };
 }
-export function applyOffline(s, now = Date.now()) { const o = offlineGain(s, now); if (o.gain > 0) earn(s, o.gain); s.lastSave = now; return o; }
-
-// ---------- Prestige ----------
-function resetRun(s) {
-  const keepClick = perk(s, 'keepClick');
-  const kept = {}; if (keepClick) for (const k of Object.keys(s.upg)) if (/^[cp]/.test(k)) kept[k] = 1;
-  s.shards = 0; s.runTotal = 0; s.gens = GENS.map(() => 0); s.upg = kept; s.reso = 0; s.boost = null; s.runTime = 0; s.stratum = 0;
-  if (perk(s, 'head1')) { s.gens[0] = 10; s.gens[1] = 5; }
-  if (perk(s, 'head2')) { s.gens[0] = 25; s.gens[1] = 15; s.gens[2] = 10; }
-  if (perk(s, 'dhead')) for (let i = 0; i < 4; i++) s.gens[i] = Math.max(s.gens[i], 50);
-  if (perk(s, 'dkeep')) { s.runTotal = 1e3; s.stratum = 1; }
-}
-export function canPolish(s) { return gemsFor(s.runTotal, s) >= 1; }
-export function polish(s) {
-  const g = gemsFor(s.runTotal, s); if (g < 1) return 0;
-  s.gems += g; s.gemsEver += g; s.gemsThisNova += g; s.polishes++; resetRun(s); return g;
-}
-export function novaNeed(s) { return Math.round(NOVA_MIN_GEMS * Math.pow(NOVA_NEED_GROW, s.novas)); }
-export function canNova(s) { return s.gems >= novaNeed(s); }
-export function novaPreview(s) {
-  const d = dustFor(s.gems); const newDust = s.dust + d;
-  // Stardust mult: (1+dust)^2, but never below what you had (guarantees a nova always leaves you stronger)
-  // Supernova locks your whole Gem multiplier into Stardust at 125% value, so it ALWAYS leaves you stronger,
-  // and new Gems then stack multiplicatively on top.
-  const now = gemMult(s) * s.novaMult;
-  const mult = now * NOVA_BONUS;
-  return { dust: d, mult, now, stronger: true };
-}
-export function nova(s) {
-  if (!canNova(s)) return 0;
-  const p = novaPreview(s);
-  s.dust += p.dust; s.dustEver += p.dust; s.novaMult = Math.min(1e250, p.mult); s.gems = 0; s.gemsThisNova = 0; s.novas++;
-  resetRun(s); return p.dust;
-}
+export function applyOffline(s, now = Date.now()) { const o = offlineGain(s, now); if (o) o.ore.forEach((x, i) => { s.ore[i] += x; s.oreEver[i] += x; }); s.lastSave = now; return o; }
 
 // ---------- Format ----------
-const SUF = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc', 'Ud', 'Dd', 'Td'];
-export function fmt(x, dp = 2) {
-  if (!isFinite(x)) return '∞';
-  if (x < 1000) return x < 10 && x % 1 ? x.toFixed(1) : Math.floor(x).toString();
-  const e = Math.floor(Math.log10(x) / 3);
-  if (e < SUF.length) return (x / Math.pow(1000, e)).toFixed(dp) + SUF[e];
-  return x.toExponential(2).replace('+', '');
+const SUF = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi', 'Sx', 'Sp', 'Oc', 'No', 'Dc'];
+export function fmt(x) {
+  if (!isFinite(x)) return '∞'; if (x < 1000) return x < 10 && x % 1 ? x.toFixed(1) : Math.floor(x).toString();
+  const e = Math.floor(Math.log10(x) / 3); return e < SUF.length ? (x / Math.pow(1000, e)).toFixed(2) + SUF[e] : x.toExponential(2).replace('+', '');
 }
-export function fmtTime(sec) {
-  sec = Math.floor(sec); const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), s2 = sec % 60;
-  return h ? `${h}h ${m}m` : m ? `${m}m ${s2}s` : `${s2}s`;
-}
+export const fmtTime = sec => { sec = Math.floor(sec); const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60); return h ? `${h}h ${m}m` : m ? `${m}m ${sec % 60}s` : `${sec}s`; };
 export function load(json, now = Date.now()) {
-  const base = newState(now);
-  try { const o = JSON.parse(json); if (!o || o.v !== VERSION) return base; return Object.assign(base, o, { gens: GENS.map((_, i) => o.gens?.[i] || 0) }); } catch { return base; }
+  const b = newState(now);
+  try { const o = JSON.parse(json); if (!o || o.v !== VERSION) return b; return Object.assign(b, o, { ore: ORES.map((_, i) => o.ore?.[i] || 0), oreEver: ORES.map((_, i) => o.oreEver?.[i] || 0) }); } catch { return b; }
 }

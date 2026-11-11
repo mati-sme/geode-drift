@@ -1,285 +1,209 @@
-// Geode Drift — Three.js scene: lit faceted geode, glowing crystals, orbiting drones, bloom, particles.
+// Geode Drift v2 — 3D mining shaft: drill rig, destructible asteroids, lasers, bloom, particles.
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
-import { GENS, STRATA } from './core.js';
+import { ORES, zoneHue, ZONE_LEN } from './core.js';
 
-function hash(x, y, z) { const s = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453; return s - Math.floor(s); }
-function noise3(p) { // cheap value noise
-  const i = p.clone().floor(), f = p.clone().sub(i); const u = f.clone().multiply(f).multiply(new THREE.Vector3(3, 3, 3).sub(f.clone().multiplyScalar(2)));
-  let r = 0;
-  for (let dx = 0; dx < 2; dx++) for (let dy = 0; dy < 2; dy++) for (let dz = 0; dz < 2; dz++) {
-    const w = (dx ? u.x : 1 - u.x) * (dy ? u.y : 1 - u.y) * (dz ? u.z : 1 - u.z);
-    r += w * hash(i.x + dx, i.y + dy, i.z + dz);
-  }
-  return r;
+const hash = (x, y, z) => { const s = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453; return s - Math.floor(s); };
+function rockGeo(seed, r = 0.5, detail = 1, rough = 0.32) {
+  const g = new THREE.IcosahedronGeometry(r, detail), p = g.attributes.position, v = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i); const n = v.clone().normalize();
+    const k = 1 + (hash(Math.round(n.x * 3) + seed, Math.round(n.y * 3), Math.round(n.z * 3)) - 0.5) * rough + Math.sin(n.x * 4 + seed) * 0.06; v.copy(n).multiplyScalar(r * k); p.setXYZ(i, v.x, v.y, v.z); }
+  g.computeVertexNormals(); return g;
+}
+function dotTex() {
+  const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
+  const g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.3, 'rgba(255,255,255,.6)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+  x.fillStyle = g; x.fillRect(0, 0, 64, 64); return new THREE.CanvasTexture(c);
 }
 
 export class Scene3D {
   constructor(canvas) {
     this.canvas = canvas;
     const r = this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
-    r.setPixelRatio(Math.min(devicePixelRatio, 2));
-    r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.05;
-    r.outputColorSpace = THREE.SRGBColorSpace;
-    this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(42, 1, 0.1, 400);
-    this.camera.position.set(0, 0.6, 9);
-    this.clock = new THREE.Clock();
-    this.time = 0; this.squash = 0; this.hue = new THREE.Color(STRATA[0].hue); this.targetHue = this.hue.clone();
-    this.raycaster = new THREE.Raycaster(); this.pointer = new THREE.Vector2();
-    this.buildBackground(); this.buildLights(); this.buildGeode(); this.buildParticles(); this.buildDrones(); this.buildComet(); this.buildShock();
-    const comp = this.composer = new EffectComposer(r);
-    comp.addPass(new RenderPass(this.scene, this.camera));
-    this.bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 0.5, 0.4, 0.82);
-    comp.addPass(this.bloom); comp.addPass(new OutputPass());
+    r.setPixelRatio(Math.min(devicePixelRatio, 2)); r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 1.1; r.outputColorSpace = THREE.SRGBColorSpace;
+    this.scene = new THREE.Scene(); this.scene.fog = new THREE.FogExp2(0x0a0718, 0.028);
+    this.camera = new THREE.PerspectiveCamera(48, 1, 0.1, 300); this.scene.add(this.camera);
+    this.clock = new THREE.Clock(); this.t = 0; this.dot = dotTex(); this.camY = 0; this.shake = 0;
+    this.hue = new THREE.Color(zoneHue(0)); this.tHue = this.hue.clone();
+    this.ray = new THREE.Raycaster(); this.ptr = new THREE.Vector2(); this._m = new THREE.Matrix4(); this._q = new THREE.Quaternion(); this._s = new THREE.Vector3();
+    this.buildSky(); this.buildLights(); this.buildWalls(); this.buildRig(); this.buildRocks(); this.buildBeams(); this.buildParticles(); this.buildBoss(); this.buildDust();
+    const comp = this.composer = new EffectComposer(r); comp.addPass(new RenderPass(this.scene, this.camera));
+    this.bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), 0.45, 0.4, 0.9); comp.addPass(this.bloom); comp.addPass(new OutputPass());
     this.resize(); addEventListener('resize', () => this.resize());
+    this.run = null; this.meshes = new Map();
   }
-  resize() {
-    const w = this.canvas.clientWidth || innerWidth, h = this.canvas.clientHeight || innerHeight;
-    this.renderer.setSize(w, h, false); this.composer.setSize(w, h);
-    this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
-    // keep the geode left of the side panel on wide screens
-    this.offsetX = w > 900 ? -1.55 * (w / h) / 1.6 : 0;
-  }
-  buildBackground() {
-    const g = new THREE.SphereGeometry(200, 48, 24);
-    const m = new THREE.ShaderMaterial({
-      side: THREE.BackSide, depthWrite: false,
-      uniforms: { uTime: { value: 0 }, uHue: { value: new THREE.Color(0x6a4cff) } },
+  resize() { const w = innerWidth, h = innerHeight; this.renderer.setSize(w, h, false); this.composer.setSize(w, h); this.camera.aspect = w / h; this.camera.updateProjectionMatrix(); }
+  buildSky() {
+    const m = this.skyMat = new THREE.ShaderMaterial({ side: THREE.BackSide, depthWrite: false, fog: false,
+      uniforms: { uT: { value: 0 }, uHue: { value: new THREE.Color() }, uD: { value: 0 } },
       vertexShader: 'varying vec3 vP; void main(){ vP = normalize(position); gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
-      fragmentShader: `varying vec3 vP; uniform float uTime; uniform vec3 uHue;
+      fragmentShader: `varying vec3 vP; uniform float uT; uniform vec3 uHue; uniform float uD;
         float h(vec3 p){ return fract(sin(dot(p, vec3(12.9898,78.233,37.719)))*43758.5453); }
         float n(vec3 p){ vec3 i=floor(p), f=fract(p); f=f*f*(3.0-2.0*f);
-          return mix(mix(mix(h(i),h(i+vec3(1,0,0)),f.x),mix(h(i+vec3(0,1,0)),h(i+vec3(1,1,0)),f.x),f.y),
-                     mix(mix(h(i+vec3(0,0,1)),h(i+vec3(1,0,1)),f.x),mix(h(i+vec3(0,1,1)),h(i+vec3(1,1,1)),f.x),f.y),f.z); }
-        float fbm(vec3 p){ float a=0.5, r=0.0; for(int i=0;i<5;i++){ r+=a*n(p); p*=2.03; a*=0.5; } return r; }
-        void main(){ vec3 p = vP*2.2 + vec3(uTime*0.004, 0.0, uTime*0.002);
-          float c = fbm(p); float c2 = fbm(p*1.7 + 4.0);
-          vec3 deep = vec3(0.015,0.012,0.045);
-          vec3 neb = mix(vec3(0.10,0.04,0.22), uHue*0.35, 0.5);
-          vec3 col = deep + neb*smoothstep(0.45,0.95,c)*0.9 + vec3(0.02,0.10,0.16)*smoothstep(0.5,1.0,c2);
-          col += vec3(0.25,0.12,0.4)*pow(max(0.0, 1.0-abs(vP.y+0.15)*2.2),3.0)*0.25*c;
-          gl_FragColor = vec4(col,1.0); }`,
-    });
-    this.bgMat = m; this.scene.add(new THREE.Mesh(g, m));
-    const N = 2600, pos = new Float32Array(N * 3), col = new Float32Array(N * 3);
-    for (let i = 0; i < N; i++) {
-      const v = new THREE.Vector3().randomDirection().multiplyScalar(60 + Math.random() * 120);
-      pos.set([v.x, v.y, v.z], i * 3);
-      const c = new THREE.Color().setHSL(0.55 + Math.random() * 0.35, 0.6, 0.75 + Math.random() * 0.25);
-      col.set([c.r, c.g, c.b], i * 3);
-    }
-    const sg = new THREE.BufferGeometry(); sg.setAttribute('position', new THREE.BufferAttribute(pos, 3)); sg.setAttribute('color', new THREE.BufferAttribute(col, 3));
-    this.stars = new THREE.Points(sg, new THREE.PointsMaterial({ size: 0.7, vertexColors: true, sizeAttenuation: true, transparent: true, opacity: 0.9, depthWrite: false, map: this.dotTexture(), blending: THREE.AdditiveBlending }));
-    this.scene.add(this.stars);
-  }
-  dotTexture() {
-    if (this._dot) return this._dot;
-    const c = document.createElement('canvas'); c.width = c.height = 64; const x = c.getContext('2d');
-    const g = x.createRadialGradient(32, 32, 0, 32, 32, 32); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.25, 'rgba(255,255,255,0.7)'); g.addColorStop(1, 'rgba(255,255,255,0)');
-    x.fillStyle = g; x.fillRect(0, 0, 64, 64); this._dot = new THREE.CanvasTexture(c); return this._dot;
+          return mix(mix(mix(h(i),h(i+vec3(1,0,0)),f.x),mix(h(i+vec3(0,1,0)),h(i+vec3(1,1,0)),f.x),f.y),mix(mix(h(i+vec3(0,0,1)),h(i+vec3(1,0,1)),f.x),mix(h(i+vec3(0,1,1)),h(i+vec3(1,1,1)),f.x),f.y),f.z); }
+        float fbm(vec3 p){ float a=.5,r=0.; for(int i=0;i<5;i++){ r+=a*n(p); p*=2.03; a*=.5; } return r; }
+        void main(){ vec3 p = vP*2.4 + vec3(0., uD*0.004, uT*0.003); float c = fbm(p), c2 = fbm(p*1.8+3.);
+          vec3 col = vec3(0.012,0.01,0.03) + uHue*0.22*smoothstep(.45,.95,c) + vec3(.05,.02,.12)*smoothstep(.5,1.,c2);
+          col += uHue*0.08*pow(max(0., -vP.y), 2.);
+          float st = step(0.9985, h(floor(vP*420.))); col += st*0.8;
+          gl_FragColor = vec4(col,1.); }` });
+    const sky = new THREE.Mesh(new THREE.SphereGeometry(150, 32, 16), m); this.camera.add(sky);
   }
   buildLights() {
-    this.scene.add(new THREE.HemisphereLight(0x9fb8ff, 0x1a0b2e, 0.55));
-    const key = new THREE.DirectionalLight(0xfff0e0, 2.2); key.position.set(4, 5, 6); this.scene.add(key);
-    const rim = new THREE.DirectionalLight(0x8a6bff, 1.6); rim.position.set(-6, -2, -4); this.scene.add(rim);
-    this.coreLight = new THREE.PointLight(0xffffff, 10, 9, 1.6); this.scene.add(this.coreLight);
+    this.scene.add(new THREE.HemisphereLight(0xa8b8ff, 0x140a24, 0.7));
+    this.key = new THREE.DirectionalLight(0xfff2e6, 2.0); this.key.position.set(5, 8, 10); this.scene.add(this.key); this.scene.add(this.key.target);
+    this.rim = new THREE.DirectionalLight(0x8a6bff, 1.4); this.rim.position.set(-8, -3, -6); this.scene.add(this.rim);
+    this.rigLight = new THREE.PointLight(0x9fe7ff, 25, 12, 1.5); this.scene.add(this.rigLight);
   }
-  buildGeode() {
-    this.root = new THREE.Group(); this.scene.add(this.root);
-    const geo = new THREE.IcosahedronGeometry(1.35, 5); const p = geo.attributes.position, v = new THREE.Vector3();
-    for (let i = 0; i < p.count; i++) {
-      v.fromBufferAttribute(p, i); const n = v.clone().normalize();
-      const d = 1 + (noise3(n.clone().multiplyScalar(2.2)) - 0.5) * 0.38 + (noise3(n.clone().multiplyScalar(6.5)) - 0.5) * 0.12;
-      v.copy(n).multiplyScalar(1.35 * d); p.setXYZ(i, v.x, v.y, v.z);
-    }
-    geo.computeVertexNormals();
-    // vertex colours: dark crevices, lighter ridges and faint mineral veins
-    const cols = new Float32Array(p.count * 3);
-    for (let i = 0; i < p.count; i++) { v.fromBufferAttribute(p, i); const r = v.length() / 1.35; const vein = Math.pow(Math.abs(Math.sin(v.x * 5 + v.y * 3.3 + noise3(v.clone().multiplyScalar(3)) * 6)), 24);
-      const k = 0.45 + (r - 0.85) * 1.6 + vein * 0.8; cols.set([k, k * 0.95, k * (1.05 + vein * 0.6)], i * 3); }
-    geo.setAttribute('color', new THREE.BufferAttribute(cols, 3));
-    this.rockMat = new THREE.MeshStandardMaterial({ color: 0x5a4f72, roughness: 0.78, metalness: 0.2, flatShading: true, vertexColors: true });
-    this.rock = new THREE.Mesh(geo, this.rockMat); this.root.add(this.rock);
-    // inner glow shell
-    this.glow = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.dotTexture(), color: 0xffffff, transparent: true, opacity: 0.2, blending: THREE.AdditiveBlending, depthWrite: false })); this.glow.scale.set(6.5, 6.5, 1); this.glow.position.z = -1.2;
-    this.root.add(this.glow);
-    // crystals
-    this.crystalMat = new THREE.MeshPhysicalMaterial({ color: 0xdfe8ff, emissive: 0x8899ff, emissiveIntensity: 0.6, roughness: 0.12, metalness: 0.05, clearcoat: 1, clearcoatRoughness: 0.1, flatShading: true, transparent: true, opacity: 0.95 });
-    const cg = new THREE.ConeGeometry(0.12, 0.7, 6, 1); cg.translate(0, 0.35, 0);
-    this.MAXC = 90; this.crystals = new THREE.InstancedMesh(cg, this.crystalMat, this.MAXC); this.crystals.count = 0;
-    this.crystalData = [];
-    const up = new THREE.Vector3(0, 1, 0);
-    for (let i = 0; i < this.MAXC; i++) {
-      const dir = new THREE.Vector3().randomDirection(); const ray = new THREE.Raycaster(dir.clone().multiplyScalar(4), dir.clone().negate());
-      const hit = ray.intersectObject(this.rock)[0]; const at = hit ? hit.point : dir.clone().multiplyScalar(1.3);
-      const q = new THREE.Quaternion().setFromUnitVectors(up, dir.clone().lerp(new THREE.Vector3().randomDirection(), 0.25).normalize());
-      this.crystalData.push({ at: at.clone().multiplyScalar(0.96), q, s: 0.5 + Math.random() * 1.1, grow: 0 });
-    }
-    this.root.add(this.crystals);
-    this.targetCrystals = 6;
+  buildWalls() {
+    // big faceted cliffs left/right that scroll with depth
+    this.wallMat = new THREE.MeshStandardMaterial({ color: 0x2a2140, roughness: 0.9, metalness: 0.1, flatShading: true });
+    this.walls = []; const geos = [0, 1, 2, 3].map(i => rockGeo(i * 7, 1.6, 1, 0.5));
+    for (let i = 0; i < 44; i++) { const m = new THREE.Mesh(geos[i % 4], this.wallMat); const side = i % 2 ? 1 : -1;
+      m.userData = { side, k: Math.floor(i / 2), off: hash(i, 2, 3) }; m.scale.set(1.4 + hash(i, 5, 1), 1.2 + hash(i, 1, 9), 1.2); m.rotation.set(hash(i, 1, 1) * 6, hash(i, 2, 2) * 6, 0); this.scene.add(m); this.walls.push(m); }
+  }
+  buildRig() {
+    const g = this.rig = new THREE.Group(); this.scene.add(g);
+    const hull = new THREE.MeshPhysicalMaterial({ color: 0xe8ecff, roughness: 0.3, metalness: 0.6, clearcoat: 1, clearcoatRoughness: 0.2 });
+    const accent = new THREE.MeshStandardMaterial({ color: 0x6a4cff, roughness: 0.4, metalness: 0.5, emissive: 0x2a1060, emissiveIntensity: 0.4 });
+    const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.42, 0.5, 6, 16), hull); body.position.y = 0.55; g.add(body);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.52, 0.09, 10, 32), accent); ring.rotation.x = Math.PI / 2; ring.position.y = 0.35; g.add(ring);
+    const glass = new THREE.Mesh(new THREE.SphereGeometry(0.24, 20, 12), new THREE.MeshPhysicalMaterial({ color: 0x9fe7ff, emissive: 0x3fa7ff, emissiveIntensity: 0.6, roughness: 0.05, metalness: 0, clearcoat: 1, transparent: true, opacity: 0.9 }));
+    glass.position.set(0, 0.75, 0.3); g.add(glass);
+    for (const sx of [-1, 1]) { const pod = new THREE.Mesh(new THREE.CapsuleGeometry(0.12, 0.35, 4, 10), accent); pod.position.set(sx * 0.62, 0.45, 0); pod.rotation.z = sx * 0.3; g.add(pod);
+      const fl = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.dot, color: 0x9fe7ff, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false })); fl.position.set(sx * 0.7, 0.15, 0); fl.scale.setScalar(0.5); g.add(fl); (this.flames ||= []).push(fl); }
+    const drill = this.drill = new THREE.Mesh(new THREE.ConeGeometry(0.34, 0.9, 7, 3), new THREE.MeshStandardMaterial({ color: 0xffd27a, roughness: 0.25, metalness: 0.85, flatShading: true, emissive: 0x553300, emissiveIntensity: 0.3 }));
+    drill.rotation.x = Math.PI; drill.position.y = -0.25; g.add(drill);
+    this.emitter = new THREE.Object3D(); this.emitter.position.set(0, 0.2, 0.35); g.add(this.emitter);
+    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.dot, color: 0x9fe7ff, blending: THREE.AdditiveBlending, transparent: true, opacity: 0.16, depthWrite: false })); halo.scale.setScalar(2.4); g.add(halo);
+    // range ring
+    this.rangeRing = new THREE.Mesh(new THREE.RingGeometry(0.98, 1, 96), new THREE.MeshBasicMaterial({ color: 0x9fe7ff, transparent: true, opacity: 0.12, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }));
+    this.scene.add(this.rangeRing);
+  }
+  buildRocks() {
+    this.rockGeos = [0, 1, 2, 3, 4, 5].map(i => rockGeo(i * 13 + 1, 0.5, 1, 0.42));
+    this.gemGeo = new THREE.OctahedronGeometry(0.16, 0);
+    this.pool = [];
+  }
+  makeRock(rk) {
+    let m = this.pool.pop();
+    if (!m) { m = new THREE.Group();
+      const body = new THREE.Mesh(this.rockGeos[0], new THREE.MeshStandardMaterial({ roughness: 0.85, metalness: 0.15, flatShading: true }));
+      const gemMat = new THREE.MeshStandardMaterial({ roughness: 0.15, metalness: 0.3, flatShading: true, emissiveIntensity: 0.9 });
+      const gems = []; for (let i = 0; i < 3; i++) { const gm = new THREE.Mesh(this.gemGeo, gemMat); gems.push(gm); body.add(gm); }
+      m.add(body); m.userData = { body, gems, gemMat }; }
+    const u = m.userData, c = new THREE.Color(ORES[rk.tier].color);
+    u.body.geometry = this.rockGeos[rk.id % 6];
+    u.body.material.color.set(0x4a4060).lerp(c, 0.18); u.body.material.emissive.copy(c); u.body.material.emissiveIntensity = 0;
+    u.gemMat.color.copy(c); u.gemMat.emissive.copy(c);
+    u.gems.forEach((gm, i) => { const d = new THREE.Vector3(hash(rk.id, i, 1) - .5, hash(rk.id, i, 2) - .5, hash(rk.id, i, 3) - .5).normalize(); gm.position.copy(d.multiplyScalar(0.45)); gm.scale.setScalar(0.6 + hash(rk.id, i, 4)); gm.visible = i <= Math.min(2, rk.tier); });
+    m.rotation.set(rk.id, rk.id * 1.7, 0); m.visible = true; this.scene.add(m); return m;
+  }
+  buildBeams() {
+    this.beams = []; const geo = new THREE.CylinderGeometry(0.035, 0.035, 1, 6, 1, true); geo.translate(0, 0.5, 0); geo.rotateX(Math.PI / 2);
+    for (let i = 0; i < 6; i++) { const core = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+      const glow = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0x9fe7ff, transparent: true, opacity: 0.28, blending: THREE.AdditiveBlending, depthWrite: false })); glow.scale.set(3, 3, 1); core.add(glow);
+      const tip = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.dot, color: 0x9fe7ff, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false })); tip.scale.setScalar(0.9);
+      core.visible = false; tip.visible = false; this.scene.add(core, tip); this.beams.push({ core, glow, tip }); }
   }
   buildParticles() {
-    this.PMAX = 500;
-    const g = new THREE.OctahedronGeometry(0.05, 0);
-    this.partMat = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 0.45, roughness: 0.25, metalness: 0.3, flatShading: true });
-    this.parts = new THREE.InstancedMesh(g, this.partMat, this.PMAX); this.parts.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-    this.parts.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(this.PMAX * 3), 3);
-    this.pdata = Array.from({ length: this.PMAX }, () => ({ life: 0, p: new THREE.Vector3(), v: new THREE.Vector3(), r: new THREE.Euler(), s: 1 }));
-    this.pi = 0; this.scene.add(this.parts); this._m = new THREE.Matrix4(); this._q = new THREE.Quaternion(); this._s = new THREE.Vector3();
-    // sparkle points (soft glints)
-    const N = 200; this.spark = { n: N, pos: new Float32Array(N * 3), life: new Float32Array(N), vel: [] };
-    const sg = new THREE.BufferGeometry(); sg.setAttribute('position', new THREE.BufferAttribute(this.spark.pos, 3));
-    for (let i = 0; i < N; i++) this.spark.vel.push(new THREE.Vector3());
-    this.sparkPts = new THREE.Points(sg, new THREE.PointsMaterial({ size: 0.14, map: this.dotTexture(), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, color: 0xffffff }));
-    this.scene.add(this.sparkPts); this.si = 0;
+    this.PMAX = 600; const g = new THREE.OctahedronGeometry(0.06, 0);
+    this.parts = new THREE.InstancedMesh(g, new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 0.35, roughness: 0.3, metalness: 0.3, flatShading: true }), this.PMAX);
+    this.parts.instanceMatrix.setUsage(THREE.DynamicDrawUsage); this.parts.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(this.PMAX * 3), 3);
+    this.pd = Array.from({ length: this.PMAX }, () => ({ l: 0, p: new THREE.Vector3(), v: new THREE.Vector3(), r: new THREE.Euler(), s: 1 })); this.pi = 0; this.scene.add(this.parts);
+    this.parts.frustumCulled = false;
   }
-  burst(worldPoint, n = 14, color) {
-    const c = new THREE.Color(color ?? this.hue);
-    for (let k = 0; k < n; k++) {
-      const d = this.pdata[this.pi]; this.pi = (this.pi + 1) % this.PMAX;
-      d.life = 0.9 + Math.random() * 0.6; d.p.copy(worldPoint);
-      d.v.copy(worldPoint).sub(this.root.position).normalize().multiplyScalar(2 + Math.random() * 3).add(new THREE.Vector3().randomDirection().multiplyScalar(2));
-      d.r.set(Math.random() * 6, Math.random() * 6, 0); d.s = 0.5 + Math.random() * 0.9;
-      const cc = c.clone().offsetHSL((Math.random() - 0.5) * 0.08, 0, (Math.random() - 0.3) * 0.2);
-      this.parts.setColorAt((this.pi + this.PMAX - 1) % this.PMAX, cc);
-    }
+  burst(p, n, color, power = 1) {
+    const c = new THREE.Color(color);
+    for (let k = 0; k < n; k++) { const i = this.pi; this.pi = (this.pi + 1) % this.PMAX; const d = this.pd[i];
+      d.l = 0.7 + Math.random() * 0.7; d.p.copy(p); d.v.randomDirection().multiplyScalar((2 + Math.random() * 4) * power); d.s = 0.5 + Math.random() * 0.8 * power;
+      this.parts.setColorAt(i, c.clone().offsetHSL((Math.random() - .5) * .06, 0, (Math.random() - .4) * .25)); }
     this.parts.instanceColor.needsUpdate = true;
-    for (let k = 0; k < n; k++) { const i = this.si; this.si = (this.si + 1) % this.spark.n; this.spark.life[i] = 0.6 + Math.random() * 0.5;
-      this.spark.pos.set([worldPoint.x, worldPoint.y, worldPoint.z], i * 3); this.spark.vel[i].randomDirection().multiplyScalar(1 + Math.random() * 2.5); }
   }
-  buildDrones() {
-    this.droneGroups = GENS.map((g, gi) => {
-      const shapes = [() => new THREE.OctahedronGeometry(0.09), () => new THREE.CapsuleGeometry(0.05, 0.14, 4, 8), () => new THREE.ConeGeometry(0.08, 0.2, 8), () => new THREE.TorusGeometry(0.08, 0.03, 8, 16), () => new THREE.DodecahedronGeometry(0.09), () => new THREE.BoxGeometry(0.13, 0.13, 0.13), () => new THREE.TetrahedronGeometry(0.11), () => new THREE.IcosahedronGeometry(0.1)];
-      const geo = shapes[gi % shapes.length]();
-      const mat = new THREE.MeshStandardMaterial({ color: g.color, emissive: g.color, emissiveIntensity: 0.35, roughness: 0.35, metalness: 0.5 });
-      const mesh = new THREE.InstancedMesh(geo, mat, 14); mesh.count = 0;
-      const ring = { mesh, radius: 2.05 + gi * 0.2, tilt: new THREE.Euler((hash(gi, 1, 2) - 0.5) * 1.3, 0, (hash(gi, 3, 4) - 0.5) * 1.3), speed: 0.35 / (1 + gi * 0.12) * (gi % 2 ? -1 : 1), phase: hash(gi, 9, 9) * 6.28 };
-      const orbit = new THREE.Group(); orbit.rotation.copy(ring.tilt); orbit.add(mesh); this.root.add(orbit); ring.orbit = orbit;
-      // faint orbit line
-      const pts = []; for (let i = 0; i <= 96; i++) { const a = i / 96 * Math.PI * 2; pts.push(new THREE.Vector3(Math.cos(a) * ring.radius, 0, Math.sin(a) * ring.radius)); }
-      ring.line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), new THREE.LineBasicMaterial({ color: g.color, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
-      orbit.add(ring.line);
-      return ring;
-    });
-    // mining beams
-    this.beams = []; for (let i = 0; i < 10; i++) {
-      const geo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
-      const l = new THREE.Line(geo, new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
-      this.scene.add(l); this.beams.push({ l, life: 0 });
+  buildBoss() {
+    const g = this.boss = new THREE.Group(); g.visible = false; this.scene.add(g);
+    this.bossRock = new THREE.Mesh(rockGeo(99, 2.2, 3, 0.35), new THREE.MeshStandardMaterial({ color: 0x3a2f55, roughness: 0.7, metalness: 0.3, flatShading: true, emissiveIntensity: 0.15 })); g.add(this.bossRock);
+    const cg = new THREE.ConeGeometry(0.28, 1.6, 6); cg.translate(0, 0.8, 0);
+    this.bossCrystalMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, emissive: 0xffffff, emissiveIntensity: 0.5, roughness: 0.1, clearcoat: 1, flatShading: true });
+    for (let i = 0; i < 18; i++) { const c = new THREE.Mesh(cg, this.bossCrystalMat); const d = new THREE.Vector3().randomDirection(); c.position.copy(d.clone().multiplyScalar(1.8)); c.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d); c.scale.setScalar(0.6 + Math.random() * 0.8); this.bossRock.add(c); }
+    this.bossEye = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.dot, color: 0xffffff, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false })); this.bossEye.scale.setScalar(5); g.add(this.bossEye);
+  }
+  buildDust() {
+    const N = 500, pos = new Float32Array(N * 3); for (let i = 0; i < N; i++) pos.set([(Math.random() - .5) * 26, (Math.random() - .5) * 30, (Math.random() - .5) * 12 - 2], i * 3);
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    this.dust = new THREE.Points(g, new THREE.PointsMaterial({ size: 0.09, map: this.dot, transparent: true, opacity: 0.7, depthWrite: false, blending: THREE.AdditiveBlending, color: 0xffffff })); this.scene.add(this.dust);
+  }
+  setZone(z) { this.tHue.set(zoneHue(z)); }
+  pick(cx, cy) {
+    this.ptr.set(cx / innerWidth * 2 - 1, -cy / innerHeight * 2 + 1); this.ray.setFromCamera(this.ptr, this.camera);
+    const objs = []; this.meshes.forEach((m, id) => { m.userData.body.userData.rid = id; objs.push(m.userData.body); });
+    const h = this.ray.intersectObjects(objs, false)[0]; return h ? h.object.userData.rid : null;
+  }
+  toScreen(v) { const p = v.clone().project(this.camera); return { x: (p.x + 1) / 2 * innerWidth, y: (1 - p.y) / 2 * innerHeight }; }
+  rockWorld(rk) { return new THREE.Vector3(rk.x, -rk.y, rk.z); }
+  onBreak(rk) { const m = this.meshes.get(rk.id); const p = this.rockWorld(rk); this.burst(p, 10 + Math.round(rk.size * 6), ORES[rk.tier].color, 0.8 + rk.size * 0.3); if (m) { m.visible = false; this.scene.remove(m); this.pool.push(m); this.meshes.delete(rk.id); } }
+  bossDown(b) { this.burst(new THREE.Vector3(0, -b.y, 0), 160, zoneHue(b.zone + 1), 2.2); this.flash = 1; this.shake = 1; this.boss.visible = false; }
+  clearRun() { this.meshes.forEach(m => { m.visible = false; this.scene.remove(m); this.pool.push(m); }); this.meshes.clear(); this.boss.visible = false; }
+  frame(run, idle) {
+    const dt = Math.min(0.05, this.clock.getDelta()); this.t += dt; const t = this.t;
+    this.hue.lerp(this.tHue, 0.03); this.skyMat.uniforms.uT.value = t; this.skyMat.uniforms.uHue.value.copy(this.hue);
+    const depth = run ? run.depth : (idle || 0), rx = run ? run.x : Math.sin(t * 0.4) * 1.2;
+    this.skyMat.uniforms.uD.value = depth; this.scene.fog.color.copy(this.hue).multiplyScalar(0.06);
+    // rig
+    this.rig.position.set(rx, -depth + Math.sin(t * 3) * 0.05, 0); this.rig.rotation.z = Math.max(-0.4, Math.min(0.4, ((this._lx ?? rx) - rx) * 6)); this._lx = rx;
+    this.drill.rotation.y += dt * (run ? 18 : 4);
+    this.flames.forEach((f, i) => { f.scale.setScalar(0.4 + Math.random() * 0.25 + (run?.od ? 0.3 : 0)); f.material.color.set(run?.od ? 0xffb27a : 0x9fe7ff); });
+    this.rigLight.position.copy(this.rig.position).add(new THREE.Vector3(0, 0.5, 2)); this.rigLight.color.copy(this.hue).lerp(new THREE.Color(0x9fe7ff), 0.5);
+    const R = run ? run.st.range : 3.2; this.rangeRing.position.copy(this.rig.position); this.rangeRing.scale.setScalar(R); this.rangeRing.material.opacity = run ? 0.06 + Math.sin(t * 3) * 0.02 : 0;
+    // camera follows
+    this.camY += (-depth - this.camY) * Math.min(1, dt * 4);
+    this.shake *= Math.pow(0.02, dt); const sh = this.shake * 0.25;
+    this.camera.position.set(rx * 0.25 + Math.sin(t * 0.3) * 0.3 + (Math.random() - .5) * sh, this.camY - 3.2 + (Math.random() - .5) * sh, 15.5);
+    this.camera.lookAt(rx * 0.2, this.camY - 4.2, 0);
+    this.key.position.set(this.rig.position.x + 5, this.camY + 8, 10); this.key.target.position.set(0, this.camY, 0);
+    // walls
+    this.wallMat.color.set(0x241c38).lerp(this.hue, 0.1);
+    const span = 22 * 1.6;
+    this.walls.forEach(w => { const u = w.userData; let y = -(u.k * 1.6 + u.off) ; y = ((y - this.camY) % span + span) % span - span / 2 + this.camY; w.position.set(u.side * (8.8 + u.off * 1.2), y, -1.5 + u.off * 2); });
+    // dust drift
+    const dp = this.dust.geometry.attributes.position; for (let i = 0; i < dp.count; i++) { let y = dp.getY(i); if (y > this.camY + 15) y -= 30; if (y < this.camY - 15) y += 30; dp.setY(i, y); } dp.needsUpdate = true;
+    this.dust.material.color.copy(this.hue).lerp(new THREE.Color(0xffffff), 0.6);
+    // rocks
+    const live = new Set();
+    if (run) for (const rk of run.rocks) {
+      if (rk.y > depth + 16) continue; live.add(rk.id);
+      let m = this.meshes.get(rk.id); if (!m) { m = this.makeRock(rk); this.meshes.set(rk.id, m); }
+      const k = rk.hp / rk.max; m.position.set(rk.x, -rk.y, rk.z); m.scale.setScalar(rk.size * (0.82 + 0.18 * k) * (1 + rk.hit * 0.08));
+      m.rotation.y += dt * 0.3; m.rotation.x += dt * 0.15;
+      m.userData.body.material.emissiveIntensity = rk.hit * 0.6 + (run.prio === rk ? 0.35 + Math.sin(t * 10) * 0.15 : 0);
+      rk.hit *= Math.pow(0.001, dt);
     }
-  }
-  buildComet() {
-    const g = new THREE.Group();
-    const head = new THREE.Mesh(new THREE.IcosahedronGeometry(0.22, 1), new THREE.MeshStandardMaterial({ color: 0xfff2b0, emissive: 0xffd36b, emissiveIntensity: 2.2, flatShading: true }));
-    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.dotTexture(), color: 0xffd27a, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false })); halo.scale.set(1.6, 1.6, 1);
-    const hit = new THREE.Mesh(new THREE.SphereGeometry(0.75, 8, 8), new THREE.MeshBasicMaterial({ visible: false }));
-    g.add(head, halo, hit); g.visible = false; this.scene.add(g);
-    const N = 60; const tp = new Float32Array(N * 3); const tg = new THREE.BufferGeometry(); tg.setAttribute('position', new THREE.BufferAttribute(tp, 3));
-    this.trail = new THREE.Points(tg, new THREE.PointsMaterial({ size: 0.35, map: this.dotTexture(), color: 0xffc46b, transparent: true, opacity: 0.8, depthWrite: false, blending: THREE.AdditiveBlending }));
-    this.scene.add(this.trail); this.trail.visible = false;
-    this.comet = { g, head, hit, active: false, t: 0, from: new THREE.Vector3(), to: new THREE.Vector3(), dur: 12, trail: tp, tn: N };
-  }
-  spawnComet() {
-    const c = this.comet; const side = Math.random() < 0.5 ? -1 : 1;
-    c.from.set(side * 9, -2 + Math.random() * 4, -2 + Math.random() * 2).add(this.root.position);
-    c.to.set(-side * 9, -2 + Math.random() * 4, 1 + Math.random() * 1.5).add(this.root.position);
-    c.t = 0; c.active = true; c.g.visible = true; this.trail.visible = true;
-    for (let i = 0; i < c.tn; i++) c.trail.set([c.from.x, c.from.y, c.from.z], i * 3);
-  }
-  hideComet() { this.comet.active = false; this.comet.g.visible = false; this.trail.visible = false; }
-  buildShock() {
-    this.shock = new THREE.Mesh(new THREE.RingGeometry(0.9, 1.0, 96), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, depthWrite: false }));
-    this.scene.add(this.shock); this.shockT = 1;
-  }
-  shockwave(color = 0xffffff, big = false) { this.shock.material.color.set(color); this.shockT = 0; this.shockBig = big; this.flash = big ? 1 : 0.4; }
-  setStratum(i) { this.targetHue.set(STRATA[Math.min(i, STRATA.length - 1)].hue); this.targetCrystals = Math.min(this.MAXC, 6 + i * 8); this.stratum = i; }
-  setDrones(counts) { this.counts = counts; }
-  pick(clientX, clientY) {
-    const rect = this.canvas.getBoundingClientRect();
-    this.pointer.set(((clientX - rect.left) / rect.width) * 2 - 1, -((clientY - rect.top) / rect.height) * 2 + 1);
-    this.raycaster.setFromCamera(this.pointer, this.camera);
-    if (this.comet.active) { const h = this.raycaster.intersectObject(this.comet.hit)[0]; if (h) return { type: 'comet', point: this.comet.g.position.clone() }; }
-    const h = this.raycaster.intersectObjects([this.rock, this.crystals])[0];
-    return h ? { type: 'geode', point: h.point } : null;
-  }
-  toScreen(v) { const p = v.clone().project(this.camera); const r = this.canvas.getBoundingClientRect(); return { x: r.left + (p.x + 1) / 2 * r.width, y: r.top + (1 - p.y) / 2 * r.height }; }
-  hitGeode(point) { this.squash = 1; this.burst(point, 7); this.coreFlash = 1; }
-  fireBeam(gi) {
-    const ring = this.droneGroups[gi]; if (!ring || ring.mesh.count === 0) return;
-    const b = this.beams.find(x => x.life <= 0); if (!b) return;
-    const idx = Math.floor(Math.random() * ring.mesh.count); const m = new THREE.Matrix4(); ring.mesh.getMatrixAt(idx, m);
-    const from = new THREE.Vector3().setFromMatrixPosition(m).applyMatrix4(ring.orbit.matrixWorld);
-    const to = this.root.position.clone().add(from.clone().sub(this.root.position).normalize().multiplyScalar(1.25));
-    b.l.geometry.setFromPoints([from, to]); b.l.material.color.set(GENS[gi].color); b.life = 0.35;
-    if (Math.random() < 0.5) this.burst(to, 2, GENS[gi].color);
-  }
-  frame() {
-    const dt = Math.min(0.05, this.clock.getDelta()); this.time += dt; const t = this.time;
-    this.bgMat.uniforms.uTime.value = t; this.hue.lerp(this.targetHue, 0.03); this.bgMat.uniforms.uHue.value.copy(this.hue);
-    this.root.position.x += ((this.offsetX || 0) - this.root.position.x) * 0.1;
-    // geode
-    this.squash *= Math.pow(0.0008, dt); const sq = Math.sin(this.squash * 9) * this.squash * 0.08;
-    const baseScale = 1 + Math.min(0.35, (this.stratum || 0) * 0.03);
-    this.root.scale.set(baseScale * (1 + sq), baseScale * (1 - sq), baseScale * (1 + sq));
-    this.rock.rotation.y += dt * 0.12; this.rock.rotation.x = Math.sin(t * 0.2) * 0.15; this.crystals.rotation.copy(this.rock.rotation);
-    this.crystalMat.color.copy(this.hue).lerp(new THREE.Color(0xffffff), 0.15); this.crystalMat.emissive.copy(this.hue);
-    this.crystalMat.emissiveIntensity = 0.28 + Math.sin(t * 2) * 0.06 + (this.coreFlash || 0) * 0.35;
-    this.coreFlash = (this.coreFlash || 0) * Math.pow(0.02, dt);
-    this.glow.material.color.copy(this.hue); this.glow.material.opacity = 0.16 + (this.coreFlash || 0) * 0.08;
-    this.coreLight.color.copy(this.hue); this.coreLight.position.copy(this.root.position).add(new THREE.Vector3(0.6, 0.8, 2.2));
-    this.rockMat.color.copy(new THREE.Color(0x3e3550).lerp(this.hue, 0.12));
-    const want = this.targetCrystals; let shown = 0;
-    for (let i = 0; i < this.MAXC; i++) {
-      const d = this.crystalData[i]; d.grow += ((i < want ? 1 : 0) - d.grow) * Math.min(1, dt * 3);
-      if (d.grow < 0.01) continue;
-      this._s.setScalar(d.s * d.grow); this._m.compose(d.at, d.q, this._s); this.crystals.setMatrixAt(shown++, this._m);
-    }
-    this.crystals.count = shown; this.crystals.instanceMatrix.needsUpdate = true;
-    // drones
-    const counts = this.counts || [];
-    this.droneGroups.forEach((ring, gi) => {
-      const n = Math.min(14, counts[gi] ? Math.ceil(Math.log2(counts[gi] + 1) * 2) : 0); ring.mesh.count = n;
-      ring.line.material.opacity += ((n ? 0.13 : 0) - ring.line.material.opacity) * 0.05;
-      for (let k = 0; k < n; k++) {
-        const a = ring.phase + t * ring.speed + k / n * Math.PI * 2;
-        this._q.setFromEuler(new THREE.Euler(t * 1.5 + k, t + gi, 0)); this._s.setScalar(1 + 0.15 * Math.sin(t * 4 + k));
-        this._m.compose(new THREE.Vector3(Math.cos(a) * ring.radius, Math.sin(t * 2 + k) * 0.05, Math.sin(a) * ring.radius), this._q, this._s); ring.mesh.setMatrixAt(k, this._m);
-      }
-      ring.mesh.instanceMatrix.needsUpdate = true;
-      if (n && Math.random() < dt * (0.6 + gi * 0.15)) this.fireBeam(gi);
+    this.meshes.forEach((m, id) => { if (!live.has(id)) { m.visible = false; this.scene.remove(m); this.pool.push(m); this.meshes.delete(id); } });
+    // boss
+    if (run && run.boss) { const b = run.boss; this.boss.visible = true; this.boss.position.set(0, -b.y - 1.2, 0); this.bossRock.rotation.y += dt * 0.4; this.bossRock.rotation.x = Math.sin(t) * 0.2;
+      const c = new THREE.Color(zoneHue(b.zone + 1)); this.bossCrystalMat.color.copy(c); this.bossCrystalMat.emissive.copy(c); this.bossRock.material.emissive.copy(c); this.bossEye.material.color.copy(c);
+      this.bossEye.material.opacity = 0.35 + Math.sin(t * 4) * 0.1; this.boss.scale.setScalar(1 + Math.sin(t * 20) * 0.01 * (1 - b.hp / b.max)); }
+    else if (!run) this.boss.visible = false;
+    // beams
+    const ep = new THREE.Vector3(); this.emitter.getWorldPosition(ep);
+    this.beams.forEach((b, i) => {
+      const tg = run && !run.ended ? run.targets[i] : null;
+      if (!tg) { b.core.visible = b.tip.visible = false; return; }
+      const to = tg.max && tg.zone !== undefined ? new THREE.Vector3((i - 1) * 0.8, -tg.y - 1.2 + 1.6, 1.2) : this.rockWorld(tg);
+      const len = ep.distanceTo(to); b.core.position.copy(ep); b.core.lookAt(to); b.core.scale.set(1 + Math.random() * 0.3, 1 + Math.random() * 0.3, len);
+      b.glow.material.color.copy(this.hue).lerp(new THREE.Color(0x9fe7ff), 0.5); b.core.visible = true; b.tip.visible = true; b.tip.position.copy(to); b.tip.scale.setScalar(0.7 + Math.random() * 0.5);
+      if (Math.random() < dt * 25) this.burst(to, 1, tg.tier !== undefined ? ORES[tg.tier].color : 0xffffff, 0.4);
     });
-    this.beams.forEach(b => { if (b.life > 0) { b.life -= dt; b.l.material.opacity = Math.max(0, b.life / 0.35) * 0.9; } });
     // particles
-    for (let i = 0; i < this.PMAX; i++) {
-      const d = this.pdata[i];
-      if (d.life > 0) { d.life -= dt; d.v.multiplyScalar(Math.pow(0.25, dt)); d.v.y -= dt * 2.5; d.p.addScaledVector(d.v, dt); d.r.x += dt * 5; d.r.y += dt * 3;
-        this._q.setFromEuler(d.r); this._s.setScalar(Math.max(0, Math.min(1, d.life * 1.5)) * d.s); }
+    for (let i = 0; i < this.PMAX; i++) { const d = this.pd[i];
+      if (d.l > 0) { d.l -= dt; d.v.multiplyScalar(Math.pow(0.2, dt)); d.v.y -= dt * 3; d.p.addScaledVector(d.v, dt); d.r.x += dt * 6; d.r.y += dt * 4; this._q.setFromEuler(d.r); this._s.setScalar(Math.max(0, Math.min(1, d.l * 1.4)) * d.s); }
       else this._s.setScalar(0);
-      this._m.compose(d.p, this._q, this._s); this.parts.setMatrixAt(i, this._m);
-    }
+      this._m.compose(d.p, this._q, this._s); this.parts.setMatrixAt(i, this._m); }
     this.parts.instanceMatrix.needsUpdate = true;
-    const sp = this.spark; for (let i = 0; i < sp.n; i++) { if (sp.life[i] > 0) { sp.life[i] -= dt; const v = sp.vel[i]; sp.pos[i * 3] += v.x * dt; sp.pos[i * 3 + 1] += v.y * dt; sp.pos[i * 3 + 2] += v.z * dt; if (sp.life[i] <= 0) sp.pos[i * 3 + 1] = 9999; } }
-    this.sparkPts.geometry.attributes.position.needsUpdate = true; this.sparkPts.material.color.copy(this.hue).lerp(new THREE.Color(0xffffff), 0.5);
-    // comet
-    const c = this.comet;
-    if (c.active) {
-      c.t += dt / c.dur; if (c.t >= 1) this.hideComet();
-      const pos = c.from.clone().lerp(c.to, c.t); pos.y += Math.sin(c.t * Math.PI) * 1.2; c.g.position.copy(pos); c.head.rotation.x += dt * 3; c.head.rotation.y += dt * 2;
-      c.trail.copyWithin(3, 0, (c.tn - 1) * 3); c.trail.set([pos.x + (Math.random() - 0.5) * 0.1, pos.y + (Math.random() - 0.5) * 0.1, pos.z], 0);
-      this.trail.geometry.attributes.position.needsUpdate = true;
-    }
-    // shockwave + flash
-    if (this.shockT < 1) { this.shockT += dt / (this.shockBig ? 1.6 : 0.8); const s = 1 + this.shockT * (this.shockBig ? 14 : 4); this.shock.scale.set(s, s, s); this.shock.position.copy(this.root.position); this.shock.lookAt(this.camera.position); this.shock.material.opacity = (1 - this.shockT) * 0.8; }
-    this.flash = (this.flash || 0) * Math.pow(0.05, dt);
-    this.bloom.strength = 0.45 + this.flash * 1.2 + (this.frenzy ? 0.25 : 0);
-    // camera sway
-    this.camera.position.x = Math.sin(t * 0.07) * 0.35; this.camera.position.y = 0.6 + Math.sin(t * 0.05) * 0.25;
-    this.camera.lookAt(this.root.position.x * 0.35, 0, 0);
-    this.stars.rotation.y = t * 0.004;
+    this.flash = (this.flash || 0) * Math.pow(0.05, dt); this.bloom.strength = 0.42 + this.flash * 1.2 + (run?.od ? 0.25 : 0);
     this.composer.render();
   }
 }

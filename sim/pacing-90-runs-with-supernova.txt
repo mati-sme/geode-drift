@@ -1,0 +1,92 @@
+run   1 @    33s |  25s |    0→  21m ★ | rocks  33 bosses 0 | D42                                | bought 4
+run   2 @  1m 6s |  25s |    0→  24m ★ | rocks  40 bosses 0 | D73                                | bought 4
+run   3 @ 1m 42s |  28s |    0→  30m ★ | rocks  50 bosses 0 | D100                               | bought 5
+run   4 @ 2m 21s |  31s |    0→  34m ★ | rocks  60 bosses 0 | D158                               | bought 5
+run   5 @  3m 3s |  34s |    0→  43m ★ | rocks  68 bosses 0 | D217                               | bought 5
+run   6 @ 3m 45s |  34s |    0→  43m   | rocks  75 bosses 0 | D294                               | bought 5
+run   7 @ 4m 30s |  37s |    0→  53m ★ | rocks  90 bosses 0 | D400                               | bought 6
+run   8 @ 5m 29s |  52s |    0→  72m ★ | rocks 123 bosses 0 | D679 C3.9                          | bought 7
+run   9 @ 6m 32s |  55s |    0→  85m ★ | rocks 125 bosses 0 | D810 C11                           | bought 7
+run  10 @ 7m 36s |  56s |    0→  92m ★ | rocks 190 bosses 0 | D1.53K C8.3                        | bought 8
+run  11 @ 8m 40s |  56s |    0→ 102m ★ | rocks 215 bosses 0 | D1.84K C36                         | bought 9
+run  12 @ 9m 44s |  56s |    0→ 115m ★ | rocks 291 bosses 0 | D2.82K C76                         | bought 10
+run  13 @10m 54s |  62s |    0→ 126m ★ | rocks 378 bosses 0 | D4.07K C309                        | bought 16
+run  14 @ 12m 9s |  67s |   15→ 148m ★ | rocks 435 bosses 0 | D5.89K C642                        | bought 16
+run  15 @13m 30s |  73s |   45→ 185m ★ | rocks 423 bosses 1 | D6.62K C1.57K                      | bought 15
+run  16 @ 15m 2s |  84s |   60→ 225m ★ | rocks 455 bosses 1 | D7.93K C2.50K                      | bought 10
+run  17 @16m 34s |  84s |   90→ 253m ★ | rocks 432 bosses 1 | D7.08K C3.24K                      | bought 5
+run  18 @ 18m 6s |  84s |  105→ 275m ★ | rocks 410 bosses 1 | D5.21K C3.78K C1.8                 | bought 2
+run  19 @19m 38s |  84s |  135→ 284m ★ | rocks 211 bosses 1 | D1.25K C2.36K C13                  | bought 2
+run  20 @21m 10s |  84s |  135→ 285m ★ | rocks 284 bosses 1 | D1.88K C2.79K C19                  | bought 2
+run  21 @22m 43s |  84s |  135→ 298m ★ | rocks 286 bosses 1 | D2.21K C2.66K C42                  | bought 3
+run  22 @24m 15s |  84s |  150→ 298m   | rocks 315 bosses 0 | D1.20K C2.53K C89                  | bought 5
+run  23 @25m 47s |  84s |  150→ 298m   | rocks 410 bosses 0 | D1.33K C4.18K C97                  | bought 4
+run  24 @27m 19s |  84s |  150→ 298m   | rocks 406 bosses 0 | D1.79K C4.65K C182                 | bought 5
+run  25 @28m 59s |  92s |  150→ 324m ★ | rocks 519 bosses 1 | D1.98K C6.15K C546                 | bought 11
+run  26 @30m 43s |  96s |  150→ 355m ★ | rocks 731 bosses 1 | D1.96K C11.08K C1.25K              | bought 12
+run  27 @32m 27s |  96s |  150→ 380m ★ | rocks 853 bosses 1 | D3.26K C15.11K C2.82K              | bought 13
+run  28 @34m 11s |  96s |  150→ 401m ★ | rocks 1059 bosses 1 | D3.89K C24.85K C6.46K              | bought 13
+run  29 @35m 55s |  96s |  150→ 428m ★ | rocks 1298 bosses 1 | D5.41K C45.59K C14.76K             | bought 8
+run  30 @37m 39s |  96s |  150→ 455m ★ | rocks 1781 bosses 2 | D6.42K C50.63K C24.83K G134        | bought 11
+run  31 @39m 31s | 104s |  190→ 504m ★ | rocks 1878 bosses 2 | D2.21K C45.88K C43.25K G1.70K      | bought 24
+run  32 @41m 39s | 120s |  302→ 579m ★ | rocks 1335 bosses 1 | C5.75K C47.78K G11.37K             | bought 21
+run  33 @ 44m 3s | 136s |  347→ 633m ★ | rocks 1718 bosses 2 | C2.15K C45.17K G37.21K C916        | bought 27
+run  34 @46m 51s | 160s |  379→ 748m ★ | rocks 2111 bosses 2 | C56.35K G94.71K C17.40K            | bought 23 NOVA +25 dust
+run  35 @47m 26s |  27s |    0→  30m ★ | rocks  62 bosses 0 | D746                               | bought 26
+run  36 @48m 10s |  36s |    0→  51m ★ | rocks 140 bosses 0 | D4.82K                             | bought 33
+run  37 @49m 17s |  59s |    0→ 113m ★ | rocks 450 bosses 0 | D37.45K C1.55K                     | bought 57
+run  38 @50m 46s |  81s |   45→ 241m ★ | rocks 876 bosses 1 | D81.50K C34.11K C278               | bought 41
+run  39 @52m 33s |  99s |  144→ 383m ★ | rocks 859 bosses 2 | D14.74K C104.02K C13.10K           | bought 55
+run  40 @54m 21s |  99s |  150→ 506m ★ | rocks 2082 bosses 2 | D42.03K C372.66K C261.44K G6.24K   | bought 60
+run  41 @56m 48s | 139s |  303→ 710m ★ | rocks 2592 bosses 2 | C43.56K C374.84K G433.51K C24.85K  | bought 62
+run  42 @59m 55s | 179s |  425→ 993m ★ | rocks 3854 bosses 4 | C357.83K G1.31M C1.57M S248.23K V32.82K | bought 80 NOVA +39 dust
+run  43 @  1h 0m |  29s |    0→  32m ★ | rocks  72 bosses 0 | D2.03K                             | bought 41
+run  44 @  1h 1m |  62s |    0→  98m ★ | rocks 349 bosses 0 | D50.28K C1.55K                     | bought 75
+run  45 @  1h 3m |  84s |   45→ 249m ★ | rocks 998 bosses 1 | D199.19K C94.85K C2.51K            | bought 71
+run  46 @  1h 5m | 102s |  149→ 451m ★ | rocks 1664 bosses 3 | D53.71K C520.44K C252.95K G6.31K   | bought 85
+run  47 @  1h 7m | 142s |  270→ 735m ★ | rocks 3064 bosses 3 | C295.95K C1.05M G1.06M C79.01K     | bought 71
+run  48 @ 1h 10m | 182s |  441→1053m ★ | rocks 4523 bosses 5 | C435.86K G2.97M C3.46M S905.57K V309.63K | bought 93 NOVA +43 dust
+run  49 @ 1h 11m |  31s |    0→  34m ★ | rocks  73 bosses 0 | D3.04K                             | bought 48
+run  50 @ 1h 12m |  64s |    0→ 113m ★ | rocks 409 bosses 0 | D105.41K C6.21K                    | bought 86
+run  51 @ 1h 14m |  92s |   68→ 294m ★ | rocks 1206 bosses 1 | D281.11K C380.62K C17.77K          | bought 84
+run  52 @ 1h 16m | 106s |  150→ 568m ★ | rocks 2796 bosses 2 | D166.85K C1.50M C1.75M G114.55K    | bought 80
+run  53 @ 1h 18m | 146s |  340→ 892m ★ | rocks 3969 bosses 3 | C72.04K C1.30M G1.96M C427.24K S152.01K | bought 91 NOVA +33 dust
+run  54 @ 1h 19m |  33s |    0→  36m ★ | rocks  76 bosses 0 | D4.56K                             | bought 56
+run  55 @ 1h 20m |  67s |    0→ 129m ★ | rocks 527 bosses 0 | D215.82K C11.53K                   | bought 83
+run  56 @ 1h 22m |  95s |   77→ 298m ★ | rocks 1216 bosses 1 | D313.18K C567.87K C28.11K          | bought 83
+run  57 @ 1h 24m | 109s |  150→ 591m ★ | rocks 3145 bosses 2 | D220.71K C1.94M C2.51M G202.65K C529 | bought 93
+run  58 @ 1h 27m | 165s |  354→ 948m ★ | rocks 4491 bosses 4 | C50.61K C2.62M G3.79M C2.42M S637.44K V73.02K | bought 119 NOVA +36 dust
+run  59 @ 1h 27m |  35s |    0→  38m ★ | rocks  82 bosses 0 | D6.36K                             | bought 62
+run  60 @ 1h 29m |  70s |    0→ 146m ★ | rocks 644 bosses 0 | D366.48K C33.68K                   | bought 83
+run  61 @ 1h 31m |  98s |   87→ 324m ★ | rocks 1286 bosses 2 | D350.60K C673.50K C51.18K          | bought 80
+run  62 @ 1h 33m | 112s |  150→ 598m ★ | rocks 3531 bosses 2 | D283.53K C2.42M C3.14M G413.22K C39.38K | bought 119
+run  63 @ 1h 36m | 192s |  358→1075m ★ | rocks 5794 bosses 5 | C8.06K C5.85M G9.45M C9.36M S2.65M V1.47M | bought 117 NOVA +44 dust
+run  64 @ 1h 37m |  37s |    0→  41m ★ | rocks  88 bosses 0 | D8.25K                             | bought 66
+run  65 @ 1h 38m |  73s |    0→ 152m ★ | rocks 718 bosses 1 | D541.95K C38.94K                   | bought 79
+run  66 @ 1h 40m | 101s |   91→ 336m ★ | rocks 1356 bosses 2 | D443.44K C876.00K C71.19K          | bought 81
+run  67 @ 1h 42m | 115s |  150→ 604m ★ | rocks 3494 bosses 3 | D334.15K C2.94M C3.86M G524.63K C49.08K | bought 121
+run  68 @ 1h 45m | 195s |  362→1109m ★ | rocks 5724 bosses 5 | C7.17M G11.70M C11.57M S3.25M V1.70M | bought 116 NOVA +46 dust
+run  69 @ 1h 46m |  39s |    0→  43m ★ | rocks  93 bosses 0 | D11.16K                            | bought 71
+run  70 @ 1h 47m |  76s |    0→ 171m ★ | rocks 847 bosses 1 | D808.09K C57.31K                   | bought 76
+run  71 @ 1h 49m | 104s |  102→ 355m ★ | rocks 1377 bosses 2 | D453.69K C1.06M C105.27K           | bought 81
+run  72 @ 1h 51m | 118s |  150→ 623m ★ | rocks 3641 bosses 3 | D406.11K C3.65M C4.85M G736.21K C111.92K | bought 124
+run  73 @ 1h 55m | 198s |  373→1149m ★ | rocks 6023 bosses 5 | C7.36M G13.92M C14.44M S4.42M V3.05M | bought 116 NOVA +49 dust
+run  74 @ 1h 56m |  41s |    0→  45m ★ | rocks 102 bosses 0 | D14.60K                            | bought 75
+run  75 @ 1h 57m |  78s |    0→ 190m ★ | rocks 906 bosses 1 | D999.35K C74.90K                   | bought 73
+run  76 @ 1h 59m | 106s |  114→ 374m ★ | rocks 1380 bosses 2 | D412.49K C1.27M C134.15K G3.83K    | bought 119
+run  77 @  2h 2m | 154s |  224→ 748m ★ | rocks 3983 bosses 3 | C3.01M C5.24M G5.28M C584.86K S14.57K | bought 123 NOVA +25 dust
+run  78 @  2h 3m |  43s |    0→  47m ★ | rocks 102 bosses 0 | D15.41K                            | bought 76
+run  79 @  2h 4m |  81s |    0→ 197m ★ | rocks 937 bosses 1 | D1.07M C90.14K                     | bought 72
+run  80 @  2h 6m | 109s |  118→ 385m ★ | rocks 1418 bosses 2 | D386.72K C1.33M C175.58K G8.34K    | bought 129
+run  81 @  2h 9m | 165s |  231→ 800m ★ | rocks 4319 bosses 4 | C3.00M C5.53M G6.13M C1.03M S137.79K | bought 120 NOVA +27 dust
+run  82 @ 2h 10m |  45s |    0→  49m ★ | rocks 106 bosses 0 | D18.34K                            | bought 79
+run  83 @ 2h 11m |  84s |    0→ 204m ★ | rocks 1036 bosses 1 | D1.27M C132.26K                    | bought 71
+run  84 @ 2h 13m | 112s |  122→ 397m ★ | rocks 1460 bosses 2 | D377.29K C1.44M C196.01K G18.08K   | bought 132
+run  85 @ 2h 16m | 168s |  238→ 833m ★ | rocks 4496 bosses 4 | C2.93M C6.00M G6.35M C1.33M S354.17K | bought 119 NOVA +29 dust
+run  86 @ 2h 17m |  45s |    0→  49m ★ | rocks 107 bosses 0 | D20.02K                            | bought 80
+run  87 @ 2h 19m |  84s |    0→ 204m ★ | rocks 1049 bosses 1 | D1.42M C123.75K                    | bought 69
+run  88 @ 2h 21m | 112s |  122→ 397m ★ | rocks 1469 bosses 2 | D434.67K C1.48M C249.42K G13.95K   | bought 133
+run  89 @ 2h 24m | 168s |  238→ 843m ★ | rocks 4348 bosses 4 | C3.18M C6.57M G7.00M C1.30M S225.55K | bought 120 NOVA +30 dust
+run  90 @ 2h 24m |  45s |    0→  49m ★ | rocks 105 bosses 0 | D20.27K                            | bought 80
+
+best depth 49m, zone 0 (Dust Belt), nodes 81, novas 12, dust 426, longest streak of runs with nothing to buy: 0
