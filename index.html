@@ -5,25 +5,42 @@
 <link rel="icon" href="icon.png"><link rel="stylesheet" href="style.css">
 </head><body>
 <canvas id="scene"></canvas>
-<div id="fx"></div>
+<div id="fx"></div><div id="vignette"></div>
 <!-- in-run HUD -->
 <div id="runhud" class="hide">
-  <div id="timer"><div class="tlabel">TIME</div><div id="tsec">25.0</div><div id="tbar"><i></i></div></div>
-  <div id="depthbox"><div id="depth">0<small>m</small></div><div id="zone">Dust Belt</div><div id="gbar"><i></i></div><div id="gnext">Guardian at 150m</div><div id="best"></div></div>
+  <div id="timer"><div class="tlabel">BATTERY</div><div id="tsec">25.0</div><div id="tbar"><i></i></div></div>
+  <div id="depthbox"><div id="depth">0<small>m</small></div><div id="zone">Dust Belt</div><div id="gbar"><i></i></div><div id="gnext">Guardian at 150m</div><div id="best"></div><div id="rmission"></div></div>
   <div id="runore"></div>
-  <div id="bossbar" class="hide"><div id="bossname">Guardian</div><div class="bb"><i></i></div></div>
-  <div id="hint">Your rig drills and zaps by itself · click a rock to focus the lasers</div>
+  <div id="combo"><b>x0</b><span>COMBO</span><div class="cb"><i></i></div></div>
+  <div id="modsbar"></div>
+  <div id="bossbar" class="hide"><div id="bossname">Guardian</div><div class="bb"><i></i></div><div id="bossphase"></div></div>
+  <div id="hint"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or arrows to steer · <kbd>S</kbd> dives faster · lasers fire by themselves</div>
 </div>
-<!-- hub: upgrade web -->
+<!-- hub: camp with the ship -->
 <div id="hub">
   <div id="wallet"></div>
-  <div id="treewrap"><div id="tree"><svg id="links"></svg></div></div>
-  <div id="nodecard" class="hide"></div>
+  <div id="missions"></div>
+  <div id="shipcard"></div>
   <div id="hubbar">
     <div class="brand">GEODE <span>DRIFT</span><div id="recs"></div></div>
-    <div class="hubbtns"><button id="novabtn" class="ghost">🌟 Supernova</button><button id="setbtn" class="ghost">⚙</button><button id="launch">LAUNCH ▶<small id="launchsub">25s run</small></button></div>
+    <div class="hubbtns">
+      <button id="loadbtn" class="ghost">🧰 Loadout</button><button id="artbtn" class="ghost">🔮 Artifacts</button>
+      <button id="treebtn" class="ghost big">✦ Upgrade Web <em id="treecount"></em></button>
+      <button id="novabtn" class="ghost">🌟 Supernova</button><button id="setbtn" class="ghost">⚙</button>
+      <button id="launch">LAUNCH ▶<small id="launchsub">25s run</small></button>
+    </div>
   </div>
 </div>
+<!-- upgrade web overlay -->
+<div id="treeview" class="hide">
+  <div id="treewrap"><div id="tree"><svg id="links"></svg></div></div>
+  <div id="twallet"></div>
+  <button id="treeclose" class="ghost">← Back to camp <small>Esc</small></button>
+  <button id="treelaunch" class="ghost">Launch ▶ <small>Space</small></button>
+  <div id="nodecard" class="hide"></div>
+</div>
+<!-- story dialogue -->
+<div id="dialog" class="hide"><div class="dbox"><img id="dport" alt=""><div class="dright"><div id="dname"></div><div id="dtext"></div><div class="dnext">click or Space ▸</div></div></div></div>
 <div id="toasts"></div>
 <div id="modal"><div class="mcard"><div class="mbody"></div><div class="mbtns"><button class="mcancel">Cancel</button><button class="mok">OK</button></div></div></div>
 <script src="app.js"></script>
