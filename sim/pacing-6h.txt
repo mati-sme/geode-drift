@@ -1,0 +1,192 @@
+  2m 43s  stratum -> Quartz Vein
+  5m 38s  stratum -> Amethyst Hollow
+  10m 0s  rate     3.86K/s  tap       46  gems 0 dust 0  drones 47,39,23,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+  13m 2s  stratum -> Citrine Seam
+  20m 0s  rate   304.46K/s  tap    6.11K  gems 0 dust 0  drones 68,65,54,37,20,2,0,0,0,0,0,0,0,0,0,0,0,0
+  27m 7s  stratum -> Emerald Grotto
+  30m 0s  rate    24.26M/s  tap  485.30K  gems 0 dust 0  drones 76,74,68,56,38,21,3,0,0,0,0,0,0,0,0,0,0,0
+ 30m 38s  stratum -> Quartz Vein
+ 31m 40s  stratum -> Amethyst Hollow
+  34m 2s  stratum -> Citrine Seam
+ 39m 47s  stratum -> Emerald Grotto
+  40m 0s  rate    34.71M/s  tap  694.31K  gems 5 dust 0  drones 74,71,61,54,36,14,0,0,0,0,0,0,0,0,0,0,0,0
+ 42m 44s  stratum -> Quartz Vein
+ 43m 32s  stratum -> Amethyst Hollow
+ 44m 56s  stratum -> Citrine Seam
+ 47m 23s  stratum -> Emerald Grotto
+  50m 0s  rate       219/s  tap       22  gems 20 dust 0  drones 16,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+  50m 1s  stratum -> Quartz Vein
+ 50m 34s  stratum -> Amethyst Hollow
+ 51m 21s  stratum -> Citrine Seam
+ 52m 35s  stratum -> Emerald Grotto
+  55m 6s  stratum -> Sapphire Deep
+  56m 7s  stratum -> Quartz Vein
+ 56m 14s  stratum -> Amethyst Hollow
+ 56m 27s  stratum -> Citrine Seam
+ 57m 45s  stratum -> Emerald Grotto
+ 58m 25s  stratum -> Sapphire Deep
+   1h 0m  rate    15.38B/s  tap  615.32M  gems 40 dust 0  drones 97,94,88,81,74,61,48,29,6,0,0,0,0,0,0,0,0,0
+   1h 0m  stratum -> Quartz Vein
+   1h 0m  stratum -> Amethyst Hollow
+   1h 0m  stratum -> Citrine Seam
+   1h 0m  stratum -> Emerald Grotto
+   1h 1m  stratum -> Sapphire Deep
+   1h 2m  stratum -> Ruby Mantle
+   1h 3m  stratum -> Quartz Vein
+   1h 3m  stratum -> Amethyst Hollow
+   1h 3m  stratum -> Citrine Seam
+   1h 4m  stratum -> Emerald Grotto
+   1h 4m  stratum -> Sapphire Deep
+   1h 7m  stratum -> Ruby Mantle
+  1h 10m  rate     2.16T/s  tap  108.10B  gems 160 dust 0  drones 117,115,109,92,85,77,64,55,37,13,0,0,0,0,0,0,0,0
+  1h 13m  stratum -> Opal Abyss
+  1h 20m  rate    31.25T/s  tap    1.56T  gems 160 dust 0  drones 129,126,121,114,96,89,80,72,58,40,21,2,0,0,0,0,0,0
+  1h 20m  stratum -> Quartz Vein
+  1h 20m  stratum -> Amethyst Hollow
+  1h 21m  stratum -> Citrine Seam
+  1h 21m  stratum -> Emerald Grotto
+  1h 21m  stratum -> Sapphire Deep
+  1h 21m  stratum -> Ruby Mantle
+  1h 23m  stratum -> Opal Abyss
+  1h 30m  rate    85.82T/s  tap    5.15T  gems 283 dust 0  drones 129,126,120,113,96,88,80,71,58,44,28,2,0,0,0,0,0,0
+  1h 37m  stratum -> Quartz Vein
+  1h 37m  stratum -> Amethyst Hollow
+  1h 37m  stratum -> Citrine Seam
+  1h 38m  stratum -> Emerald Grotto
+  1h 38m  stratum -> Sapphire Deep
+  1h 39m  stratum -> Amethyst Hollow
+  1h 39m  stratum -> Citrine Seam
+  1h 39m  stratum -> Emerald Grotto
+  1h 39m  stratum -> Sapphire Deep
+  1h 40m  rate   135.79B/s  tap    4.07B  gems 0 dust 6  drones 91,88,82,75,63,55,37,13,0,0,0,0,0,0,0,0,0,0
+  1h 40m  stratum -> Ruby Mantle
+  1h 41m  stratum -> Opal Abyss
+  1h 41m  stratum -> Amethyst Hollow
+  1h 41m  stratum -> Citrine Seam
+  1h 41m  stratum -> Emerald Grotto
+  1h 41m  stratum -> Sapphire Deep
+  1h 41m  stratum -> Ruby Mantle
+  1h 41m  stratum -> Opal Abyss
+  1h 42m  stratum -> Moonstone Core
+  1h 43m  stratum -> Starglass Heart
+  1h 43m  stratum -> Amethyst Hollow
+  1h 43m  stratum -> Citrine Seam
+  1h 43m  stratum -> Emerald Grotto
+  1h 43m  stratum -> Sapphire Deep
+  1h 43m  stratum -> Ruby Mantle
+  1h 43m  stratum -> Opal Abyss
+  1h 44m  stratum -> Moonstone Core
+  1h 45m  stratum -> Starglass Heart
+  1h 45m  stratum -> Amethyst Hollow
+
+PRESTIGES
+#1 Polish at  30m 26s run length  30m 26s peak 3.63M/s  +5 gems (total 5, x2)  | prev-peak regained after n/a
+#2 Polish at  42m 38s run length  12m 12s peak 7.26M/s  +5 gems (total 10, x3)  | prev-peak regained after 9m 21s
+#3 Polish at  49m 56s run length   7m 18s peak 44.48M/s  +10 gems (total 20, x5)  | prev-peak regained after 5m 8s
+#4 Polish at   56m 6s run length   6m 10s peak 340.87M/s  +20 gems (total 40, x9)  | prev-peak regained after 3m 1s
+#5 Polish at    1h 0m run length    4m 0s peak 6.72B/s  +40 gems (total 80, x17)  | prev-peak regained after 2m 18s
+#6 Polish at    1h 3m run length   3m 32s peak 271.69B/s  +80 gems (total 160, x24)  | prev-peak regained after 1m 54s
+#7 Polish at   1h 20m run length   17m 6s peak 4.63T/s  +123 gems (total 283, x30)  | prev-peak regained after 6m 2s
+#8 Polish at   1h 37m run length  16m 42s peak 27.12T/s  +156 gems (total 439, x35)  | prev-peak regained after 4m 59s
+#9 NOVA   at   1h 39m run length    2m 1s peak 5.76B/s  +6 stardust, mult x35 -> x44  | prev-peak regained after n/a
+#10 Polish at   1h 41m run length    2m 1s peak 3.72T/s  +45 gems (total 45, x10)  | prev-peak regained after 26s
+#11 Polish at   1h 43m run length    2m 1s peak 19.35Qa/s  +147 gems (total 192, x26)  | prev-peak regained after 14s
+#12 Polish at   1h 45m run length   2m 14s peak 401.84Qa/s  +192 gems (total 384, x33)  | prev-peak regained after 1m 28s
+#13 Polish at    2h 4m run length  18m 49s peak 69.42Qi/s  +331 gems (total 715, x41)  | prev-peak regained after 1m 22s
+#14 NOVA   at    2h 6m run length    2m 1s peak 8.13Qi/s  +8 stardust, mult x1.84K -> x2.30K  | prev-peak regained after n/a
+#15 Polish at    2h 8m run length    2m 1s peak 6.46Qi/s  +143 gems (total 143, x23)  | prev-peak regained after n/a
+#16 Polish at   2h 10m run length    2m 1s peak 148.81Sx/s  +341 gems (total 484, x36)  | prev-peak regained after 9s
+#17 NOVA   at   2h 12m run length    2m 1s peak 1.52Sp/s  +6 stardust, mult x83.95K -> x104.94K  | prev-peak regained after 46s
+#18 Polish at   2h 14m run length    2m 1s peak 1.97Sp/s  +281 gems (total 281, x30)  | prev-peak regained after 1m 49s
+#19 Polish at   2h 16m run length    2m 1s peak 1.09Oc/s  +419 gems (total 700, x41)  | prev-peak regained after 10s
+#20 NOVA   at   2h 18m run length    2m 1s peak 2.84Oc/s  +8 stardust, mult x4.35M -> x5.44M  | prev-peak regained after 55s
+#21 Polish at   2h 20m run length    2m 1s peak 3.40Oc/s  +314 gems (total 314, x31)  | prev-peak regained after 1m 54s
+#22 Polish at   2h 22m run length    2m 1s peak 2.17No/s  +490 gems (total 804, x43)  | prev-peak regained after 7s
+#23 NOVA   at   2h 24m run length    2m 1s peak 3.14No/s  +8 stardust, mult x237.10M -> x296.37M  | prev-peak regained after 38s
+#24 Polish at   2h 26m run length    2m 1s peak 2.71No/s  +300 gems (total 300, x30)  | prev-peak regained after n/a
+#25 Polish at   2h 28m run length    2m 1s peak 1.05Dc/s  +475 gems (total 775, x43)  | prev-peak regained after 7s
+#26 NOVA   at   2h 30m run length    2m 1s peak 2.33Dc/s  +8 stardust, mult x12.74B -> x15.93B  | prev-peak regained after 34s
+#27 Polish at   2h 32m run length    2m 1s peak 3.74Dc/s  +385 gems (total 385, x33)  | prev-peak regained after 1m 17s
+#28 Polish at   2h 34m run length    2m 1s peak 543.52Dc/s  +513 gems (total 898, x45)  | prev-peak regained after 9s
+#29 NOVA   at   2h 36m run length    2m 1s peak 722.68Dc/s  +9 stardust, mult x721.25B -> x901.56B  | prev-peak regained after 1m 29s
+#30 Polish at   2h 38m run length    2m 1s peak 917.29Dc/s  +360 gems (total 360, x32)  | prev-peak regained after 42s
+#31 Polish at   2h 40m run length    2m 1s peak 98.86Ud/s  +468 gems (total 828, x44)  | prev-peak regained after 10s
+#32 NOVA   at   2h 42m run length    2m 1s peak 135.18Ud/s  +9 stardust, mult x39.68T -> x49.59T  | prev-peak regained after 1m 4s
+#33 Polish at   2h 44m run length    2m 1s peak 672.45Ud/s  +384 gems (total 384, x33)  | prev-peak regained after 21s
+#34 Polish at   2h 46m run length    2m 1s peak 46.46Dd/s  +491 gems (total 875, x44)  | prev-peak regained after 11s
+#35 NOVA   at   2h 48m run length    2m 1s peak 62.88Dd/s  +9 stardust, mult x2.23Qa -> x2.78Qa  | prev-peak regained after 48s
+#36 Polish at   2h 50m run length    2m 1s peak 78.56Dd/s  +356 gems (total 356, x32)  | prev-peak regained after 36s
+#37 Polish at   2h 52m run length    2m 1s peak 5.32Td/s  +455 gems (total 811, x43)  | prev-peak regained after 11s
+#38 NOVA   at   2h 54m run length    2m 1s peak 7.15Td/s  +9 stardust, mult x121.52Qa -> x151.90Qa  | prev-peak regained after 48s
+#39 Polish at   2h 56m run length    2m 1s peak 9.83Td/s  +337 gems (total 337, x32)  | prev-peak regained after 30s
+#40 Polish at   2h 58m run length    2m 1s peak 2.34e45/s  +462 gems (total 799, x43)  | prev-peak regained after 11s
+#41 NOVA   at    3h 1m run length    2m 1s peak 6.05e45/s  +8 stardust, mult x6.60Qi -> x8.25Qi  | prev-peak regained after 27s
+#42 Polish at    3h 3m run length    2m 1s peak 7.57e45/s  +343 gems (total 343, x32)  | prev-peak regained after 1m 28s
+#43 Polish at    3h 5m run length    2m 1s peak 4.90e47/s  +439 gems (total 782, x43)  | prev-peak regained after 14s
+#44 NOVA   at    3h 7m run length    2m 1s peak 6.61e47/s  +8 stardust, mult x355.97Qi -> x444.97Qi  | prev-peak regained after 1m 10s
+#45 Polish at    3h 9m run length    2m 1s peak 8.27e47/s  +313 gems (total 313, x31)  | prev-peak regained after 1m 21s
+#46 Polish at   3h 11m run length    2m 1s peak 4.50e49/s  +387 gems (total 700, x41)  | prev-peak regained after 14s
+#47 NOVA   at   3h 13m run length    2m 1s peak 1.08e50/s  +8 stardust, mult x18.46Sx -> x23.08Sx  | prev-peak regained after 1m 0s
+#48 Polish at   3h 15m run length    2m 1s peak 9.35e49/s  +262 gems (total 262, x29)  | prev-peak regained after n/a
+#49 Polish at   3h 17m run length    2m 1s peak 2.06e52/s  +416 gems (total 678, x41)  | prev-peak regained after 14s
+#50 NOVA   at   3h 19m run length    2m 1s peak 4.32e52/s  +8 stardust, mult x947.09Sx -> x1.18Sp  | prev-peak regained after 22s
+#51 Polish at   3h 21m run length    2m 1s peak 3.56e52/s  +274 gems (total 274, x29)  | prev-peak regained after n/a
+#52 Polish at   3h 23m run length    2m 1s peak 3.22e54/s  +392 gems (total 666, x40)  | prev-peak regained after 17s
+#53 NOVA   at   3h 25m run length    2m 1s peak 4.42e54/s  +8 stardust, mult x48.28Sp -> x60.35Sp  | prev-peak regained after 1m 40s
+#54 Polish at   3h 27m run length    2m 1s peak 3.57e54/s  +228 gems (total 228, x28)  | prev-peak regained after n/a
+#55 Polish at   3h 29m run length    2m 1s peak 1.62e56/s  +294 gems (total 522, x37)  | prev-peak regained after 17s
+#56 NOVA   at   3h 31m run length    2m 1s peak 3.15e56/s  +7 stardust, mult x2.26Oc -> x2.82Oc  | prev-peak regained after 28s
+#57 Polish at   3h 33m run length    2m 1s peak 1.03e57/s  +269 gems (total 269, x29)  | prev-peak regained after 27s
+#58 Polish at   3h 35m run length    2m 1s peak 6.01e58/s  +352 gems (total 621, x39)  | prev-peak regained after 18s
+#59 NOVA   at   3h 37m run length    2m 1s peak 8.02e58/s  +7 stardust, mult x112.40Oc -> x140.50Oc  | prev-peak regained after 42s
+#60 Polish at   3h 39m run length    2m 1s peak 1.01e59/s  +239 gems (total 239, x28)  | prev-peak regained after 25s
+#61 Polish at   3h 41m run length    2m 1s peak 5.71e60/s  +329 gems (total 568, x38)  | prev-peak regained after 18s
+#62 NOVA   at   3h 43m run length    2m 1s peak 7.74e60/s  +7 stardust, mult x5.42No -> x6.77No  | prev-peak regained after 25s
+#63 Polish at   3h 45m run length    2m 1s peak 9.99e60/s  +223 gems (total 223, x27)  | prev-peak regained after 28s
+#64 Polish at   3h 47m run length    2m 1s peak 1.05e63/s  +312 gems (total 535, x37)  | prev-peak regained after 18s
+#65 NOVA   at   3h 49m run length    2m 1s peak 1.44e63/s  +7 stardust, mult x255.84No -> x319.80No  | prev-peak regained after 44s
+#66 Polish at   3h 51m run length    2m 1s peak 2.69e63/s  +208 gems (total 208, x27)  | prev-peak regained after 51s
+#67 Polish at   3h 53m run length    2m 1s peak 9.49e64/s  +280 gems (total 488, x36)  | prev-peak regained after 20s
+#68 NOVA   at   3h 55m run length    2m 1s peak 1.28e65/s  +6 stardust, mult x11.70Dc -> x14.62Dc  | prev-peak regained after 28s
+#69 Polish at   3h 57m run length    2m 1s peak 2.41e65/s  +183 gems (total 183, x25)  | prev-peak regained after 48s
+#70 Polish at   3h 59m run length    2m 1s peak 1.26e67/s  +266 gems (total 449, x35)  | prev-peak regained after 20s
+#71 NOVA   at    4h 1m run length    2m 1s peak 1.73e67/s  +6 stardust, mult x519.35Dc -> x649.18Dc  | prev-peak regained after 1m 40s
+#72 Polish at    4h 3m run length    2m 1s peak 2.17e67/s  +165 gems (total 165, x25)  | prev-peak regained after 1m 12s
+#73 Polish at    4h 5m run length    2m 1s peak 2.05e69/s  +252 gems (total 417, x34)  | prev-peak regained after 20s
+#74 NOVA   at    4h 7m run length    2m 1s peak 2.82e69/s  +6 stardust, mult x22.47Ud -> x28.09Ud  | prev-peak regained after 1m 50s
+#75 Polish at    4h 9m run length    2m 1s peak 4.45e69/s  +160 gems (total 160, x24)  | prev-peak regained after 1m 10s
+#76 Polish at   4h 11m run length    2m 1s peak 2.15e71/s  +238 gems (total 398, x34)  | prev-peak regained after 21s
+#77 Polish at   4h 21m run length  10m 22s peak 3.00e71/s  +269 gems (total 667, x40)  | prev-peak regained after 31s
+#78 NOVA   at   4h 23m run length    2m 1s peak 3.56e71/s  +8 stardust, mult x1.15Dd -> x1.43Dd  | prev-peak regained after 1m 25s
+#79 Polish at   4h 25m run length    2m 1s peak 4.45e71/s  +149 gems (total 149, x24)  | prev-peak regained after 1m 11s
+#80 Polish at   4h 28m run length    2m 1s peak 1.66e73/s  +209 gems (total 358, x32)  | prev-peak regained after 21s
+#81 Polish at   4h 34m run length    6m 1s peak 4.28e73/s  +235 gems (total 593, x39)  | prev-peak regained after 31s
+#82 NOVA   at   4h 36m run length    2m 1s peak 3.37e73/s  +7 stardust, mult x56.09Dd -> x70.12Dd  | prev-peak regained after n/a
+#83 Polish at   4h 38m run length    2m 1s peak 4.24e73/s  +131 gems (total 131, x23)  | prev-peak regained after 1m 13s
+#84 Polish at   4h 40m run length    2m 1s peak 1.51e75/s  +187 gems (total 318, x31)  | prev-peak regained after 21s
+#85 Polish at   4h 46m run length   6m 12s peak 3.90e75/s  +210 gems (total 528, x37)  | prev-peak regained after 31s
+#86 NOVA   at   4h 48m run length    2m 1s peak 2.47e75/s  +7 stardust, mult x2.64Td -> x3.30Td  | prev-peak regained after n/a
+#87 Polish at   4h 50m run length    2m 1s peak 3.86e75/s  +107 gems (total 107, x21)  | prev-peak regained after 35s
+#88 Polish at   4h 52m run length    2m 1s peak 1.26e77/s  +133 gems (total 240, x28)  | prev-peak regained after 24s
+#89 Polish at   4h 57m run length    5m 5s peak 3.24e77/s  +193 gems (total 433, x35)  | prev-peak regained after 31s
+#90 NOVA   at   4h 59m run length    2m 1s peak 2.09e77/s  +6 stardust, mult x115.57Td -> x144.47Td  | prev-peak regained after n/a
+#91 Polish at    5h 1m run length    2m 1s peak 4.94e77/s  +99 gems (total 99, x20)  | prev-peak regained after 32s
+#92 Polish at    5h 3m run length    2m 1s peak 1.04e79/s  +113 gems (total 212, x27)  | prev-peak regained after 23s
+#93 Polish at    5h 7m run length   3m 56s peak 2.88e79/s  +161 gems (total 373, x33)  | prev-peak regained after 31s
+#94 Polish at   5h 13m run length   5m 49s peak 4.99e79/s  +175 gems (total 548, x38)  | prev-peak regained after 2m 6s
+#95 NOVA   at   5h 15m run length    2m 1s peak 4.01e79/s  +7 stardust, mult x5.50e45 -> x6.88e45  | prev-peak regained after n/a
+#96 Polish at   5h 17m run length    2m 1s peak 5.02e79/s  +83 gems (total 83, x17)  | prev-peak regained after 1m 43s
+#97 Polish at   5h 19m run length    2m 1s peak 3.30e81/s  +134 gems (total 217, x27)  | prev-peak regained after 24s
+#98 Polish at   5h 24m run length    5m 9s peak 6.56e81/s  +167 gems (total 384, x33)  | prev-peak regained after 49s
+#99 Polish at   5h 32m run length   7m 48s peak 8.03e81/s  +172 gems (total 556, x38)  | prev-peak regained after 1m 40s
+#100 NOVA   at   5h 34m run length    2m 1s peak 9.06e81/s  +7 stardust, mult x2.63e47 -> x3.29e47  | prev-peak regained after 1m 3s
+#101 Polish at   5h 36m run length    2m 1s peak 1.13e82/s  +74 gems (total 74, x15)  | prev-peak regained after 46s
+#102 Polish at   5h 38m run length    2m 1s peak 1.82e83/s  +110 gems (total 184, x25)  | prev-peak regained after 28s
+#103 Polish at   5h 43m run length   4m 56s peak 3.81e83/s  +140 gems (total 324, x31)  | prev-peak regained after 39s
+#104 Polish at   5h 48m run length   4m 56s peak 4.65e83/s  +141 gems (total 465, x35)  | prev-peak regained after 1m 21s
+#105 NOVA   at   5h 50m run length    2m 1s peak 5.24e83/s  +6 stardust, mult x1.18e49 -> x1.48e49  | prev-peak regained after 1m 45s
+#106 Polish at   5h 52m run length    2m 1s peak 6.58e83/s  +67 gems (total 67, x14)  | prev-peak regained after 1m 20s
+#107 Polish at   5h 54m run length    2m 1s peak 9.69e84/s  +95 gems (total 162, x24)  | prev-peak regained after 28s
+
+First hour: 1285 purchases, longest gap between purchases 1m 13s, longest wait to next affordable item 5s
+Whole sim (6h): 1106156 purchases, longest gap 2m 47s at 1h 54m

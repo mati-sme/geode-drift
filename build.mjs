@@ -1,0 +1,9 @@
+import { build } from 'esbuild';
+import { cpSync, mkdirSync, copyFileSync, existsSync, writeFileSync } from 'fs';
+mkdirSync('docs/fonts', { recursive: true });
+await build({ entryPoints: ['src/main.js'], bundle: true, minify: true, format: 'iife', target: 'es2020', outfile: 'docs/app.js', legalComments: 'none' });
+copyFileSync('index.html', 'docs/index.html'); copyFileSync('style.css', 'docs/style.css');
+for (const w of [400, 600, 700, 800]) copyFileSync(`node_modules/@fontsource/outfit/files/outfit-latin-${w}-normal.woff2`, `docs/fonts/outfit-${w}.woff2`);
+if (existsSync('build/icon.png')) copyFileSync('build/icon.png', 'docs/icon.png');
+writeFileSync('docs/.nojekyll', '');
+console.log('built docs/');

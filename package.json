@@ -1,0 +1,45 @@
+{
+  "name": "geode-drift",
+  "productName": "Geode Drift",
+  "version": "1.0.0",
+  "description": "A 3D incremental: crack a tiny space geode into a galaxy-sized crystal empire.",
+  "type": "module",
+  "main": "desktop/main.cjs",
+  "author": "Matias",
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "electron .",
+    "sim": "node sim/sim.mjs",
+    "dist:mac": "bash build/pack-mac.sh"
+  },
+  "build": {
+    "appId": "io.matisme.geodedrift",
+    "productName": "Geode Drift",
+    "files": [
+      "docs/**",
+      "desktop/**"
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "zip",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.games",
+      "identity": null,
+      "icon": "build/icon.png",
+      "minimumSystemVersion": "12.0"
+    }
+  },
+  "devDependencies": {
+    "@fontsource/outfit": "^5.3.0",
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.28.2",
+    "playwright-core": "^1.65.0",
+    "three": "^0.170.0"
+  }
+}

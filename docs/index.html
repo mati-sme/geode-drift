@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Geode Drift</title><meta name="theme-color" content="#0b0818">
+<link rel="icon" href="icon.png"><link rel="stylesheet" href="style.css">
+</head><body>
+<canvas id="scene"></canvas>
+<div id="fx"></div>
+<header id="hud">
+  <div class="logo">GEODE <span>DRIFT</span></div>
+  <div class="count"><div id="shards">0</div><div class="unit">shards</div></div>
+  <div id="rate">0 / sec</div>
+  <div class="tapline">Tap power <b id="tapval">1</b></div>
+  <div class="strat"><div id="stratum">Dusty Crust</div><div id="sbar"><i></i></div><div id="snext"></div></div>
+  <div id="boost"></div>
+</header>
+<aside id="panel">
+  <nav class="tabs">
+    <button class="tab on" data-tab="drones">Drones</button>
+    <button class="tab" data-tab="upgrades">Upgrades</button>
+    <button class="tab" data-tab="polish">Polish</button>
+    <button class="tab" data-tab="nova">Nova</button>
+    <button class="tab" data-tab="stats">⚙</button>
+  </nav>
+  <div class="amt"><button data-n="1">x1</button><button data-n="10">x10</button><button data-n="100">x100</button><button data-n="-1">Max</button></div>
+  <div id="list"></div>
+</aside>
+<button id="mute" title="Sound">♪</button>
+<div id="toasts"></div>
+<div id="modal"><div class="mcard"><div class="mbody"></div><div class="mbtns"><button class="mcancel">Cancel</button><button class="mok">OK</button></div></div></div>
+<script src="app.js"></script>
+</body></html>
