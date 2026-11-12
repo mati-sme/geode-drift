@@ -4,7 +4,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
-import { ORES, zoneHue, ZONE_LEN } from './core.js';
+import { ORES, zoneHue, ZONE_LEN, WORLDS } from './core.js';
 
 const hash = (x, y, z) => { const s = Math.sin(x * 127.1 + y * 311.7 + z * 74.7) * 43758.5453; return s - Math.floor(s); };
 function rockGeo(seed, r = 0.5, detail = 1, rough = 0.32) {
@@ -107,8 +107,12 @@ export class Scene3D {
     if (K === 'capsule') { bm.color.set(0x1a3a5a); bm.emissive.set(0x5fe7ff); glowC = 0x5fe7ff; gemN = -1; }
     if (K === 'pod') { bm.color.set(0xf2f0ff); bm.metalness = 0.6; bm.roughness = 0.3; bm.emissive.set(0x9fe7ff); glowC = 0x9fe7ff; gemN = -1; }
     if (K === 'geode') { bm.color.set(0x3a2a5a); glowC = 0xd08aff; gemN = 2; gemS = 2.2; u.gemMat.color.set(0xd08aff); u.gemMat.emissive.set(0xd08aff); }
-    if (K === 'cluster') { gemN = 2; gemS = 2.4; glowC = ORES[rk.tier].color; }
-    u.glow.visible = !!glowC; if (glowC) u.glow.material.color.set(glowC); u.glow.material.opacity = K === 'cluster' ? 0.25 : 0.55;
+    if (K === 'cluster') { gemN = 2; gemS = rk.split ? 1.6 : 2.4; glowC = ORES[rk.tier].color; }
+    if (K === 'frost') { bm.color.set(0xd8f4ff); bm.metalness = 0.4; bm.roughness = 0.1; bm.emissive.set(0x7fd8ff); glowC = 0xaef4ff; }
+    if (K === 'magma') { bm.color.set(0x2a1410); bm.emissive.set(0xff5a1a); glowC = 0xff7a2a; gemN = -1; }
+    if (K === 'prism') { bm.color.set(0xffc8f4); bm.metalness = 0.2; bm.roughness = 0.05; bm.emissive.set(0xff9ef0); glowC = 0xff9ef0; gemN = 2; gemS = 1.8; }
+    if (K === 'well') { bm.color.set(0x05040a); bm.metalness = 1; bm.roughness = 0.2; bm.emissive.set(0x8a5cff); glowC = 0xb08aff; gemN = -1; }
+    u.glow.visible = !!glowC; if (glowC) u.glow.material.color.set(glowC); u.glow.material.opacity = K === 'cluster' ? 0.25 : K === 'well' ? 0.8 : 0.55; u.glow.userData.k = K;
     u.gems.forEach((gm, i) => { const d = new THREE.Vector3(hash(rk.id, i, 1) - .5, hash(rk.id, i, 2) - .5, hash(rk.id, i, 3) - .5).normalize(); gm.position.copy(d.multiplyScalar(0.45)); gm.scale.setScalar((0.6 + hash(rk.id, i, 4)) * gemS); gm.visible = i <= gemN; });
     if (K === 'pod' || K === 'capsule') u.body.geometry = K === 'pod' ? this.podGeo : this.capGeo;
     m.rotation.set(rk.id, rk.id * 1.7, 0); m.visible = true; this.scene.add(m); return m;
@@ -190,8 +194,8 @@ export class Scene3D {
       let m = this.meshes.get(rk.id); if (!m) { m = this.makeRock(rk); this.meshes.set(rk.id, m); }
       const k = rk.hp / rk.max; m.position.set(rk.x, -rk.y, rk.z); m.scale.setScalar(rk.size * (0.82 + 0.18 * k) * (1 + rk.hit * 0.08));
       m.rotation.y += dt * 0.3; m.rotation.x += dt * 0.15;
-      const bm = m.userData.body.material; bm.emissiveIntensity = rk.hit * 0.6 + (rk.kind === 'bomb' ? 0.5 + Math.sin(t * 8) * 0.4 : rk.kind === 'capsule' || rk.kind === 'pod' ? 0.7 : 0);
-      if (m.userData.glow.visible) m.userData.glow.scale.setScalar(2.2 + Math.sin(t * 4 + rk.id) * 0.3);
+      const bm = m.userData.body.material; bm.emissiveIntensity = rk.hit * 0.6 + (rk.kind === 'bomb' ? 0.5 + Math.sin(t * 8) * 0.4 : rk.kind === 'magma' ? 0.6 + Math.sin(t * 5 + rk.id) * 0.35 : rk.kind === 'capsule' || rk.kind === 'pod' || rk.kind === 'well' ? 0.7 : rk.kind === 'frost' || rk.kind === 'prism' ? 0.3 : 0);
+      if (m.userData.glow.visible) m.userData.glow.scale.setScalar(rk.kind === 'well' ? 5 + Math.sin(t * 3 + rk.id) * 0.8 : 2.2 + Math.sin(t * 4 + rk.id) * 0.3);
       rk.hit *= Math.pow(0.001, dt);
     }
     this.meshes.forEach((m, id) => { if (!live.has(id)) { m.visible = false; this.scene.remove(m); this.pool.push(m); this.meshes.delete(id); } });
@@ -255,9 +259,11 @@ export class Scene3D {
   buildCamp() {
     const g = this.camp = new THREE.Group(); g.position.set(0, 40, 0); g.visible = false; this.scene.add(g); this.campOn = false;
     const ground = new THREE.Mesh(rockGeo(5, 7, 3, 0.25), new THREE.MeshStandardMaterial({ color: 0x2c2446, roughness: 0.95, flatShading: true }));
-    ground.scale.set(1.3, 0.28, 1); ground.position.y = -2.4; g.add(ground);
+    ground.scale.set(1.3, 0.28, 1); ground.position.y = -2.4; g.add(ground); this.ground = ground; this.campCrystals = [];
     for (let i = 0; i < 14; i++) { const c = new THREE.Mesh(new THREE.ConeGeometry(0.18, 0.9, 6), new THREE.MeshStandardMaterial({ color: ZONE_HUE_ARR[i % 7], emissive: ZONE_HUE_ARR[i % 7], emissiveIntensity: 0.7, flatShading: true, roughness: 0.2 }));
-      const a = i / 14 * Math.PI * 2; c.position.set(Math.cos(a) * (6 + hash(i, 1, 1) * 1.5), -0.6, Math.sin(a) * (4 + hash(i, 2, 1))); c.rotation.set(hash(i, 3, 1) - .5, 0, hash(i, 4, 1) - .5); c.scale.setScalar(0.7 + hash(i, 5, 1) * 1.2); g.add(c); }
+      const a = i / 14 * Math.PI * 2; c.position.set(Math.cos(a) * (6 + hash(i, 1, 1) * 1.5), -0.6, Math.sin(a) * (4 + hash(i, 2, 1))); c.rotation.set(hash(i, 3, 1) - .5, 0, hash(i, 4, 1) - .5); c.scale.setScalar(0.7 + hash(i, 5, 1) * 1.2); g.add(c); this.campCrystals.push(c); }
+    this.planet = new THREE.Mesh(new THREE.SphereGeometry(9, 40, 24), new THREE.MeshStandardMaterial({ color: 0x9fe7ff, roughness: 0.8, emissive: 0x9fe7ff, emissiveIntensity: 0.25, fog: false })); this.planet.position.set(-24, 6, -42); g.add(this.planet);
+    this.pRing = new THREE.Mesh(new THREE.TorusGeometry(14, 0.5, 6, 80), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.35, fog: false })); this.pRing.rotation.x = 1.2; this.planet.add(this.pRing);
     const holo = this.holoMat = new THREE.MeshBasicMaterial({ color: 0x5fe7ff, wireframe: true, transparent: true, opacity: 0.28, blending: THREE.AdditiveBlending, depthWrite: false });
     const hull = new THREE.MeshPhysicalMaterial({ color: 0xeef0ff, roughness: 0.3, metalness: 0.6, clearcoat: 1 });
     const purple = new THREE.MeshStandardMaterial({ color: 0x6a4cff, roughness: 0.4, metalness: 0.5, emissive: 0x2a1060, emissiveIntensity: 0.5 });
@@ -281,7 +287,11 @@ export class Scene3D {
     this.campLight = new THREE.PointLight(0xffb36a, 30, 14, 1.6); this.campLight.position.set(2.5, 0.5, 2.5); g.add(this.campLight);
     const fire = new THREE.Sprite(new THREE.SpriteMaterial({ map: this.dot, color: 0xffa64a, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false })); fire.position.set(2.5, -1.1, 2.6); fire.scale.setScalar(1.4); g.add(fire); this.fire = fire;
   }
-  setCamp(on, built = 0) {
+  setCamp(on, built = 0, world = 0) {
+    const W = WORLDS[world] || WORLDS[0], hues = [0, 1, 2, 3].map(k => zoneHue(W.z0 + k)); this.ground.material.color.set(W.ground);
+    this.campCrystals.forEach((c, i) => { c.material.color.set(world ? hues[i % 4] : c.material.color); c.material.emissive.copy(c.material.color); });
+    this.planet.visible = world > 0; if (world) { const pc = zoneHue(W.z0 + 1); this.planet.material.color.set(pc); this.planet.material.emissive.set(pc); this.pRing.material.color.set(zoneHue(W.z0 + 2)); }
+    if (on) this.setZone(W.z0 + (world ? 1 : 0));
     this.campOn = on; this.camp.visible = on; this.rig.visible = !on; this.rangeRing.visible = !on;
     this.shipParts.forEach((pg, i) => pg.traverse(m => { if (m.isMesh) { m.material = i < built ? m.userData.mat : this.holoMat; } if (m.isSprite) m.visible = i < built; }));
     this.built = built;
@@ -295,7 +305,7 @@ export class Scene3D {
     this.key.position.set(6, 50, 10); this.key.target.position.set(0, 40, 0);
     this.ship.position.y = 0.25 + Math.sin(t * 1.2) * 0.08; this.ship.rotation.z = Math.sin(t * 0.7) * 0.02;
     this.shipParts.forEach(pg => pg.scale.lerp(new THREE.Vector3(1, 1, 1), 0.08));
-    this.holoMat.opacity = 0.2 + Math.sin(t * 3) * 0.08;
+    this.holoMat.opacity = 0.2 + Math.sin(t * 3) * 0.08; this.planet.rotation.y += dt * 0.05;
     this.bolt.position.y = 0.4 + Math.sin(t * 2) * 0.15; this.bolt.rotation.y = Math.sin(t * 0.8) * 0.8;
     this.fire.scale.setScalar(1.2 + Math.random() * 0.4); this.campLight.intensity = 26 + Math.random() * 8;
     this.walls.forEach(w => w.position.y = -999); this.dust.position.y = 40;

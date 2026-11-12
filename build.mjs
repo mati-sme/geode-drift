@@ -5,6 +5,6 @@ await build({ entryPoints: ['src/main.js'], bundle: true, minify: true, format: 
 copyFileSync('index.html', 'docs/index.html'); copyFileSync('style.css', 'docs/style.css');
 for (const w of [400, 600, 700, 800]) copyFileSync(`node_modules/@fontsource/outfit/files/outfit-latin-${w}-normal.woff2`, `docs/fonts/outfit-${w}.woff2`);
 if (existsSync('build/icon.png')) copyFileSync('build/icon.png', 'docs/icon.png');
-for (const f of ['pip', 'bolt', 'nova']) copyFileSync(`art/${f}.jpg`, `docs/${f}.jpg`);
+for (const f of ['pip', 'bolt', 'nova', 'pingo', 'flare', 'lumi', 'echo']) copyFileSync(`art/${f}.jpg`, `docs/${f}.jpg`);
 writeFileSync('docs/.nojekyll', '');
 console.log('built docs/');

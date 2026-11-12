@@ -117,3 +117,14 @@ kbd { display: inline-block; min-width: 20px; padding: 1px 6px; margin: 0 1px; b
 .lslot .li { font-size: 28px; display: block; } .lslot.on { border-color: var(--acc); background: rgba(159, 231, 255, .12); box-shadow: 0 0 16px rgba(159, 231, 255, .3); } .lslot.lock { opacity: .35; cursor: default; } .lslot small { display: block; color: var(--dim); font-size: 11px; margin-top: 4px; }
 .mcard.wide { width: min(560px, 92vw); }
 #runhud:not(.hide) ~ #toasts, body:has(#runhud:not(.hide)) #toasts { top: 120px; }
+/* ---------- v4 ---------- */
+#metabar { position: absolute; right: 24px; top: 380px; width: 250px; display: flex; flex-direction: column; gap: 8px; } #metabar .ghost { text-align: left; padding: 11px 14px; font-size: 14px; }
+#metabar .ghost em { float: right; }
+.sbtn.can { color: #12082a; background: linear-gradient(135deg, #9fe7ff, #c7b2ff); border: 0; }
+.crew { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; } .cm { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 14px; background: rgba(0, 0, 0, .25); border: 1px solid var(--line); }
+.cm img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid var(--acc); } .cm small { display: block; color: var(--dim); font-size: 12px; margin-top: 3px; } .cm.lock { opacity: .4; } .cm .li { font-size: 30px; width: 64px; text-align: center; }
+.cm .sbtn { flex: none; min-width: 92px; }
+.mcard.wide { max-height: 88vh; overflow-y: auto; }
+.lgrid .lslot small + small { margin-top: 2px; color: var(--acc); }
+#rightcol { position: absolute; right: 24px; top: 80px; width: 250px; display: flex; flex-direction: column; gap: 10px; max-height: calc(100vh - 190px); }
+#rightcol #shipcard { position: static; } #rightcol #metabar { position: static; width: auto; }

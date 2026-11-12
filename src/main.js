@@ -2,18 +2,18 @@ import * as G from './core.js';
 import { Scene3D } from './render.js';
 import { Sfx } from './sfx.js';
 
-const KEY = 'geode-drift-save-v3';
+const KEY = 'geode-drift-save-v4';
 const $ = q => document.querySelector(q);
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 const fmt = G.fmt, hex = c => '#' + c.toString(16).padStart(6, '0');
-let s = G.load(localStorage.getItem(KEY) || '');
+let s = G.load(localStorage.getItem(KEY) || localStorage.getItem('geode-drift-save-v3') || '');
 const sfx = new Sfx(); sfx.muted = !!s.muted;
 const scene = new Scene3D($('#scene'));
 let mode = 'hub', run = null, sel = null, autoT = 0;
 function save() { s.lastSave = Date.now(); s.muted = sfx.muted; try { localStorage.setItem(KEY, JSON.stringify(s)); } catch {} }
 setInterval(() => { if (mode !== 'run') save(); }, 10000); addEventListener('beforeunload', save);
 
-const CAST = { pip: ['Pip', 'pip.jpg', '#ffb36a'], bolt: ['Bolt', 'bolt.jpg', '#9fe7ff'], nova: ['Captain Nova', 'nova.jpg', '#ffd27a'] };
+const CAST = { pip: ['Pip', 'pip.jpg', '#ffb36a'], bolt: ['Bolt', 'bolt.jpg', '#9fe7ff'], nova: ['Captain Nova', 'nova.jpg', '#ffd27a'], pingo: ['Pingo', 'pingo.jpg', '#aef4ff'], flare: ['Flare', 'flare.jpg', '#ff8a4a'], lumi: ['Lumi', 'lumi.jpg', '#ff9ef0'], echo: ['Echo', 'echo.jpg', '#c8b8ff'] };
 const LORE = [
   'Starling crashed on a lonely asteroid. Before anything else, the hull needs patching. Dust ore will do for now.',
   'The engine is cold. Bolt detected one of our lost helper drones somewhere below 20m. Find it!',
@@ -25,6 +25,26 @@ const LORE = [
   'The warp coil needs crystal energy. Collect artifacts and bring the lost drones home.',
   'Starsteel is the toughest metal in the Drift. Two Guardians stand guard, and you need more stardust.',
   'The Starheart sleeps in the Void Rift. This is it, Captain. Bring it home to Lumen.',
+  'Starling touches down on Frostveil, a sparkly ice moon. Someone small is waving from the snow...',
+  'The Snowglobe Guardian froze the moon\'s lights. Beat it, and start your first research project in the Lab.',
+  'Frost rocks hold Frost Opal, but break them close and your rig gets slippery and slow.',
+  'The Icicle Maze winds deep. Train your crew and keep researching.',
+  'The Frozen Heart Guardian guards the last snow-light. Free it!',
+  'Emberforge, the lava planet! It is hot, bubbly and full of Ember Ruby.',
+  'Captain Nova has a new idea: the Constellation. Fold all your stardust into a Star Chart for huge permanent power.',
+  'Magma rocks are hot to touch. Steer around them, or carry a Bubble Shield.',
+  'Flare\'s ovens are still trapped deep in the forge. Research and train to get stronger.',
+  'The Forge Core Guardian is the hottest one yet. Map more Constellations to beat it.',
+  'Welcome to the Prisma Nebula, where the rocks are made of rainbows... that are fading.',
+  'Prism rocks split into little treasure clusters when they break.',
+  'Glimmer Deep: map a third Constellation and break lots of prism rocks.',
+  'The crystals want to sing again. Keep researching and training the crew.',
+  'The Prism Throne Guardian holds the Nebula\'s last color.',
+  'The Void Core: the quiet center of the galaxy. A sad song echoes from below.',
+  'The Starless Sea is dark and deep. Research lights the way.',
+  'Gravity wells pull your rig in! Steer away, or break them for big Void Pearls.',
+  'The Lost Light: you are almost there, Captain.',
+  'The Core Guardian. The last one. Give Echo back her voice!',
 ];
 
 // ---------- helpers ----------
@@ -114,15 +134,17 @@ function refreshHub() {
   const c = G.chapter(s), done = G.chapterDone(s);
   let h;
   if (c) { const r = c.reward;
-    h = `<div class="mhead">CHAPTER ${s.chapter + 1} OF ${G.CHAPTERS.length}</div><div class="mch">${c.title}</div><div class="mlore">${LORE[s.chapter]}</div>${c.goals.map(goalHtml).join('')}
-      <div class="mreward">Reward: 🛠 ${G.PARTS[c.part]}${r.mod ? ` · ${G.MODULES[r.mod].icon} ${G.MODULES[r.mod].name}` : ''}${r.ore ? ` · ${fmt(r.ore[1])} ${G.ORES[r.ore[0]].name}` : ''}</div>`;
+    h = `<div class="mhead">ACT ${c.act || 1} · CHAPTER ${s.chapter + 1} OF ${G.CHAPTERS.length}</div><div class="mch">${c.title}</div><div class="mlore">${LORE[s.chapter]}</div>${c.goals.map(goalHtml).join('')}
+      <div class="mreward">Reward: 🛠 ${c.part != null ? G.PARTS[c.part] : c.upg}${r.crew ? ` · 👥 ${G.CREW[r.crew].name} joins` : ''}${r.unlock ? ` · 🔓 ${{ lab: 'Research Lab', daily: 'Daily Contracts', const: 'Constellations' }[r.unlock]}` : ''}${r.world ? ` · ✈ fly to ${G.WORLDS[r.world].name}` : ''}${r.mod ? ` · ${G.MODULES[r.mod].icon} ${G.MODULES[r.mod].name}` : ''}${r.ore ? ` · ${fmt(r.ore[1])} ${G.ORES[r.ore[0]].name}` : ''}</div>`;
   } else { const g = G.endlessGoal(s);
     h = `<div class="mhead">ENDLESS · DEEP RIFT CONTRACT #${s.endless + 1}</div><div class="mch">Explore the Deep Rifts</div><div class="mlore">Starling is whole and Lumen shines again! The Drift keeps going down. Every contract you finish pays out in rare ore.</div>${goalHtml(g)}<div class="mreward">Reward: ${fmt(200 * (1 + s.endless))} ${G.ORES[Math.min(6, s.bossEver)].name}</div>`; }
   if (done) h += `<button id="claim">✓ Claim reward</button>`;
   $('#missions').innerHTML = h; const cb = $('#claim'); if (cb) cb.onclick = claim;
-  $('#shipcard').innerHTML = `<div class="mhead">STARSHIP STARLING</div><div class="mch" style="font-size:18px">${s.parts}/${G.PARTS.length} parts rebuilt</div><div class="sbar"><i style="width:${s.parts / G.PARTS.length * 100}%"></i></div>
-    <div class="parts">${G.PARTS.map((p, i) => `<span class="${i < s.parts ? 'ok' : ''}">${p}</span>`).join('')}</div>
-    <div class="dim" style="margin-top:10px">Drones rescued: <b>${s.pods}</b> · Artifacts: <b>${Object.keys(s.artifacts).length}/${G.ARTIFACTS.length}</b></div>`;
+  const W = G.WORLDS[s.world], ups = G.CHAPTERS.filter(c => c.upg);
+  $('#shipcard').innerHTML = `<div class="mhead">STARSHIP STARLING</div>${s.world ? `<div class="mch" style="font-size:17px">✈ ${W.name}</div><div class="dim">${W.about}</div><div class="sbar"><i style="width:${s.upgrades / ups.length * 100}%"></i></div><div class="dim" style="margin-top:6px">Ship upgrades: <b>${s.upgrades}/${ups.length}</b>${s.upgrades ? ` · latest: ${ups[s.upgrades - 1].upg}` : ''}</div>` : `<div class="mch" style="font-size:18px">${s.parts}/${G.PARTS.length} parts rebuilt</div><div class="sbar"><i style="width:${s.parts / G.PARTS.length * 100}%"></i></div>
+    <div class="parts">${G.PARTS.map((p, i) => `<span class="${i < s.parts ? 'ok' : ''}">${p}</span>`).join('')}</div>`}
+    <div class="dim" style="margin-top:10px">Drones: <b>${fmt(s.drones)}</b> to spend · Artifacts: <b>${Object.keys(s.artifacts).length}/${G.ARTIFACTS.length}</b></div>`;
+  refreshMeta();
   const st = G.stats(s), aff = G.TREE.filter(n => G.canBuy(s, n)).length;
   $('#treecount').textContent = aff ? aff : '';
   $('#launchsub').textContent = `${Math.round(st.time)}s run${st.launch && s.bestDepth ? ` · start ${Math.min(st.launch, Math.floor(s.bestDepth * 0.6))}m` : ''}`;
@@ -134,9 +156,10 @@ function refreshHub() {
 function claim() {
   const c = G.claimChapter(s); if (!c) return; sfx.prestige?.(); save();
   if (c.endless) { toast(`<b>Contract complete!</b> ${oreChip(c.ore[0], c.ore[1], '+')}`, 'gold'); refreshTree(); return; }
-  scene.setCamp(true, s.parts - 1); refreshTree();
-  setTimeout(() => { scene.setCamp(true, s.parts); scene.partPop(s.parts - 1); sfx.nova(); toast(`<b>🛠 ${G.PARTS[c.part]} rebuilt!</b>${c.reward.mod ? `<br>New module: ${G.MODULES[c.reward.mod].icon} ${G.MODULES[c.reward.mod].name}` : ''}`, 'gold');
-    setTimeout(() => say(c.talk, () => { if (s.chapter >= G.CHAPTERS.length) toast('<b>🌟 THE END... or is it?</b><br>Endless Deep Rift contracts unlocked', 'gold'); refreshTree(); }), 900); }, 400);
+  const isPart = c.part != null; if (isPart) scene.setCamp(true, s.parts - 1, s.world); refreshTree();
+  setTimeout(() => { scene.setCamp(true, s.parts, s.world); if (isPart) scene.partPop(s.parts - 1); else { scene.flash = 1; scene.shake = 0.5; } sfx.nova();
+    toast(`<b>🛠 ${isPart ? G.PARTS[c.part] + ' rebuilt' : 'Ship upgrade: ' + c.upg}!</b>${c.reward.mod ? `<br>New module: ${G.MODULES[c.reward.mod].icon} ${G.MODULES[c.reward.mod].name}` : ''}${c.reward.crew ? `<br>👥 ${G.CREW[c.reward.crew].name} joined the crew!` : ''}${c.reward.unlock ? `<br>🔓 ${{ lab: 'Research Lab', daily: 'Daily Contracts', const: 'Constellations' }[c.reward.unlock]} unlocked` : ''}`, 'gold');
+    setTimeout(() => say(c.talk, () => { if (c.reward.world) toast(`<b>✈ Starling flies to ${G.WORLDS[c.reward.world].name}!</b><br>${G.WORLDS[c.reward.world].about}`, 'glow'); if (s.chapter >= G.CHAPTERS.length) toast('<b>🌟 THE END... or is it?</b><br>Endless Deep Rift contracts unlocked', 'gold'); refreshTree(); }), 900); }, 400);
 }
 
 // ---------- loadout + artifacts ----------
@@ -163,12 +186,12 @@ function launch() {
   $('#modsbar').innerHTML = s.loadout.slice(0, G.slots(s)).map(m => `<div class="mod" data-m="${m}">${G.MODULES[m].icon}<i></i></div>`).join('');
   readInput();
 }
-let lastZone = -1, breakSfx = 0;
+let lastZone = -1, breakSfx = 0; const achSeen = { ...s.achs };
 function runHud() {
   const left = Math.max(0, run.tmax - run.t);
   $('#tsec').textContent = left.toFixed(1); $('#tbar i').style.width = Math.min(100, left / run.tmax * 100) + '%'; $('#timer').classList.toggle('low', left < 5);
   $('#depth').innerHTML = `${Math.floor(run.depth)}<small>m</small>`;
-  const z = Math.floor(run.depth / G.ZONE_LEN); if (z !== lastZone) { if (lastZone >= 0 && z > lastZone) { toast(`<b>Entering ${G.zoneName(z)}</b>`, 'glow'); sfx.stratum?.(); } lastZone = z; scene.setZone(z); $('#zone').textContent = G.zoneName(z); $('#zone').style.color = hex(G.zoneHue(z)); }
+  const z = Math.floor(run.depth / G.ZONE_LEN); if (z !== lastZone) { if (lastZone >= 0 && z > lastZone) { toast(`<b>Entering ${G.zoneName(z)}</b>`, 'glow'); sfx.stratum?.(); } lastZone = z; scene.setZone(z); $('#zone').textContent = (z >= 7 ? G.WORLDS[G.worldOf(z)].name + ' · ' : '') + G.zoneName(z); $('#zone').style.color = hex(G.zoneHue(z)); }
   $('#gbar i').style.width = ((run.depth % G.ZONE_LEN) / G.ZONE_LEN * 100) + '%'; $('#gnext').textContent = `Guardian at ${(z + 1) * G.ZONE_LEN}m`;
   $('#best').innerHTML = run.depth > s.bestDepth && s.bestDepth > 0 ? '<b class="good">★ New record!</b>' : `Record ${Math.floor(s.bestDepth)}m`;
   const c = G.chapter(s); $('#rmission').innerHTML = c ? `<b>Mission:</b> ${c.goals.map(g => { const [p, m, l] = G.goalProgress(s, g); return (p >= m ? '✓ ' : '· ') + l; }).join('<br>')}` : `<b>Contract:</b> ${G.goalProgress(s, G.endlessGoal(s))[2]}`;
@@ -190,6 +213,7 @@ function handleEvents() {
     if (e.type === 'boom') { scene.burst(scene.rockWorld(e.rock), 40, 0xff3355, 1.6); scene.shake = Math.max(scene.shake, 0.5); scene.flash = 0.4; }
     if (e.type === 'hurt') { scene.shake = Math.max(scene.shake, 0.8); vfx('hurt'); sfx.deny(); popup(innerWidth / 2, 150, `-${e.sec}s`, '#ff6a8a', 'big'); }
     if (e.type === 'shield') { vfx('shield'); popup(innerWidth / 2, 150, '🛡 BLOCKED', '#9fe7ff', 'big'); sfx.ui(); }
+    if (e.type === 'frost') { popup(innerWidth / 2, 190, '❄ Slippery!', '#aef4ff', 'big'); vfx('shield'); }
     if (e.type === 'chain') { scene.lightning(e.path); sfx.tap?.(); }
     if (e.type === 'missile') { scene.missile({ x: run.x, y: run.depth }, e.to); sfx.whoosh?.(); }
     if (e.type === 'boss') { sfx.boss(); toast(`<b>⚠ ${G.zoneName(e.boss.zone)} Guardian!</b><br>Dodge its crystal shards with WASD`, 'gold'); scene.shake = 0.8; }
@@ -198,7 +222,7 @@ function handleEvents() {
   run.ev.length = 0;
 }
 function endRun() {
-  const sum = run.summary; mode = 'summary'; sfx.end(); save();
+  const sum = run.summary; const newAch = G.ACHS.filter(a => s.achs[a.id] && !achSeen[a.id]); newAch.forEach(a => { achSeen[a.id] = 1; toast(`<b>🏆 ${a.name}</b><br>${a.label} · +4% power forever`, 'gold'); }); mode = 'summary'; sfx.end(); save();
   const pct = sum.prevBest > 0 ? Math.round((sum.depth / sum.prevBest - 1) * 100) : 0;
   const affordable = G.TREE.filter(n => G.canBuy(s, n)).length, ready = G.chapterDone(s);
   const auto = G.lvl(s, 'u1') && s.autoRelaunch && !ready;
@@ -210,7 +234,7 @@ function endRun() {
     ready ? 'Back to camp' : 'Upgrade web', () => { toHub(); if (!ready && affordable) openTree(); }, 'Launch again ▶', () => { autoT = 0; launch(); });
   autoT = auto ? 4 : 0;
 }
-function toHub() { mode = 'hub'; run = null; autoT = 0; scene.clearRun(); scene.setCamp(true, s.parts); $('#runhud').classList.add('hide'); $('#hub').classList.remove('hide'); refreshTree(); 
+function toHub() { mode = 'hub'; run = null; autoT = 0; scene.clearRun(); scene.setCamp(true, s.parts, s.world); $('#runhud').classList.add('hide'); $('#hub').classList.remove('hide'); refreshTree(); 
   if (s.noRec === 3 && G.canNova(s) && s.novas) setTimeout(() => say([['bolt', `Beep... we keep hitting the same depth. Time for a Supernova! It would give us +${fmt(G.dustFor(s))} stardust.`]]), 600); }
 $('#launch').onclick = () => launch();
 addEventListener('keydown', e => {
@@ -240,7 +264,7 @@ $('#setbtn').onclick = () => {
     ${G.lvl(s, 'ap') ? `<label class="toggle"><input type="checkbox" id="optap" ${s.autopilot ? 'checked' : ''}> Autopilot steers when you let go of the keys</label>` : ''}
     ${G.lvl(s, 'u1') ? `<label class="toggle"><input type="checkbox" id="optauto" ${s.autoRelaunch ? 'checked' : ''}> Auto-relaunch runs</label>` : ''}
     <div class="btnrow"><button class="sbtn" id="optstory">Replay intro</button><button class="sbtn" id="optexp">Export save</button><button class="sbtn" id="optimp">Import save</button><button class="sbtn danger" id="optreset">Reset</button></div>
-    <p class="dim small">Geode Drift v3.0 · WASD/arrows steer · S dives · Space launches · U opens the upgrade web</p>`, 'Done');
+    <p class="dim small">Geode Drift v4.0 · WASD/arrows steer · S dives · Space launches · U opens the upgrade web</p>`, 'Done');
   $('#optmute').onchange = e => { sfx.muted = !e.target.checked; save(); };
   const oa = $('#optauto'); if (oa) oa.onchange = e => { s.autoRelaunch = e.target.checked; save(); };
   const op = $('#optap'); if (op) op.onchange = e => { s.autopilot = e.target.checked; save(); };
@@ -257,6 +281,65 @@ function welcomeBack() {
 }
 document.addEventListener('visibilitychange', () => { if (document.hidden) save(); else welcomeBack(); });
 
+// ---------- v4: research, crew, daily, constellations, achievements ----------
+const badge = (id, n) => { const b = $(id); if (!b) return; let e = b.querySelector('em'); if (!e) { e = el('em'); b.appendChild(e); } e.textContent = n ? n : ''; };
+function refreshMeta() {
+  const now = Date.now(); G.ensureDaily(s, now);
+  $('#labbtn').style.display = s.unlocks.lab ? '' : 'none'; $('#crewbtn').style.display = Object.keys(s.crew).length ? '' : 'none';
+  $('#dailybtn').style.display = s.unlocks.daily ? '' : 'none'; $('#chartbtn').style.display = s.unlocks.const ? '' : 'none';
+  $('#achbtn').style.display = s.runs ? '' : 'none';
+  badge('#labbtn', G.labSlots(s) - s.labQ.length > 0 ? '!' : '');
+  badge('#crewbtn', Object.keys(s.crew).filter(id => s.drones >= G.crewCost(s, id) && s.crew[id] < 99).length);
+  const d = s.daily; badge('#dailybtn', d ? (!d.supply ? 1 : 0) + d.list.filter(c => !c.claimed && c.prog >= c.n).length : 0);
+  badge('#chartbtn', G.CHARTS.filter(c => G.chartLvl(s, c.id) < c.max && s.charts >= G.chartCost(s, c.id)).length || (G.canConst(s) && G.chartsFor(s) >= Math.max(1, s.chartsEver * 0.6) ? '★' : ''));
+  badge('#achbtn', G.achCount(s));
+}
+const dur = sec => sec < 60 ? `${Math.ceil(sec)}s` : G.fmtTime(sec);
+function labModal() {
+  const draw = () => { const now = Date.now(); G.labTick(s, now); const slots = G.labSlots(s);
+    $('#mlab').innerHTML = `<p class="dim">${s.labQ.length}/${slots} lab slots busy. Research keeps going while the game is closed. More slots at 10 and 60 total crew levels.</p>` +
+      s.labQ.map(q => { const p = G.LABN[q.id], k = Math.min(1, (now - q.start) / (q.end - q.start)); return `<div class="goal"><span class="ck">${p.icon}</span><div style="flex:1">${p.name} → Lv ${G.labLvl(s, q.id) + 1}<div class="gb"><i style="width:${k * 100}%"></i></div></div><span class="gp">${dur((q.end - now) / 1000)}</span></div>`; }).join('') +
+      `<div class="lgrid">${G.LAB.map(p => { const L = G.labLvl(s, p.id), busy = s.labQ.some(q => q.id === p.id), can = !busy && s.labQ.length < slots && L < p.max;
+        return `<div class="lslot ${busy ? 'on' : ''} ${can ? '' : 'lock'}" data-id="${p.id}"><span class="li">${p.icon}</span><b>${p.name}</b><small>${p.desc} · Lv ${L}/${p.max}</small><small>${L >= p.max ? 'Done!' : busy ? 'Researching…' : '⏱ ' + dur(G.labDur(s, p.id))}</small></div>`; }).join('')}</div>`;
+    document.querySelectorAll('#mlab .lslot').forEach(d => d.onclick = () => { if (G.labStart(s, d.dataset.id)) { sfx.upgrade(); save(); draw(); refreshTree(); } else sfx.deny(); }); };
+  modal(`<div class="mtitle">🔬 Research Lab</div><div id="mlab"></div>`, 'Close', () => refreshTree(), null, null, true); draw(); labDraw = draw;
+}
+let labDraw = null;
+function crewModal() {
+  const draw = () => { $('#mcrew').innerHTML = `<p class="dim">Train your crew with rescued drones. You have <b>🤖 ${fmt(s.drones)}</b> drones.</p><div class="crew">${Object.entries(G.CREW).map(([id, c]) => { const L = G.crewLvl(s, id);
+      return L ? `<div class="cm"><img src="${c.img}"><div style="flex:1"><b>${c.name}</b> <span class="dim">${c.role} · Lv ${L}</span><small>${c.desc}</small></div><button class="sbtn ${s.drones >= G.crewCost(s, id) ? 'can' : ''}" data-id="${id}">Train<br>🤖 ${fmt(G.crewCost(s, id))}</button></div>`
+        : `<div class="cm lock"><span class="li">❔</span><div><b>???</b><small>Meet them later in the story</small></div></div>`; }).join('')}</div>`;
+    document.querySelectorAll('#mcrew button').forEach(b => b.onclick = () => { if (G.crewUp(s, b.dataset.id)) { sfx.upgrade(); save(); draw(); refreshTree(); } else sfx.deny(); }); };
+  modal(`<div class="mtitle">👥 Crew</div><div id="mcrew"></div>`, 'Close', () => refreshTree(), null, null, true); draw();
+}
+function dailyModal() {
+  const draw = () => { const d = G.ensureDaily(s), rw = (big) => { const r = G.dailyReward(s, big); return `${oreChip(r.tier, r.ore, '+')} · 🔬 −${r.lab / 60}min research · 🤖 +${r.drones}`; };
+    $('#mdaily').innerHTML = `<div class="goal ${d.supply ? 'done' : ''}"><span class="ck">🎁</span><div style="flex:1"><b>Daily supply drop</b><div class="dim">${rw(true)}</div></div>${d.supply ? '<span class="gp">Claimed</span>' : '<button class="sbtn can" data-i="supply">Open</button>'}</div>` +
+      d.list.map((c, i) => `<div class="goal ${c.claimed ? 'done' : ''}"><span class="ck">${c.claimed ? '✓' : ''}</span><div style="flex:1">${G.dailyLabel(c)}<div class="gb"><i style="width:${Math.min(100, c.prog / c.n * 100)}%"></i></div><div class="dim">${rw(false)}</div></div>${c.claimed ? '<span class="gp">Claimed</span>' : c.prog >= c.n ? `<button class="sbtn can" data-i="${i}">Claim</button>` : `<span class="gp">${fmt(c.prog)}/${fmt(c.n)}</span>`}</div>`).join('') +
+      `<p class="dim small">New contracts every day at midnight.</p>`;
+    document.querySelectorAll('#mdaily button').forEach(b => b.onclick = () => { const i = b.dataset.i; if (G.claimDaily(s, i === 'supply' ? 'supply' : +i)) { sfx.prestige?.(); save(); draw(); refreshTree(); } }); };
+  modal(`<div class="mtitle">📅 Daily Contracts</div><div id="mdaily"></div>`, 'Close', () => refreshTree(), null, null, true); draw();
+}
+function chartModal() {
+  const draw = () => { const g = G.chartsFor(s), ok = G.canConst(s);
+    $('#mchart').innerHTML = `<p class="dim">A <b>Constellation</b> folds all your stardust into Star Charts. It resets your upgrade web, ore, depth and 90% of your stardust, but keeps the story, crew, research, artifacts and modules. Every chart ever earned also gives <b>+50% damage, drill and ore</b> forever.</p>
+      <div class="sumgrid"><div><small>Star Charts</small><b>🌌 ${s.charts}</b></div><div><small>Earned ever</small><b>${s.chartsEver}</b></div><div><small>Constellation now gives</small><b class="good">+${g}</b></div></div>
+      <button id="constgo" class="sbtn ${ok ? 'can' : ''}" style="width:100%;padding:13px">${ok ? `🌌 Map a Constellation (+${g} charts)` : 'Earn more stardust from Supernovas first'}</button>
+      <div class="lgrid">${G.CHARTS.map(c => { const L = G.chartLvl(s, c.id), can = L < c.max && s.charts >= G.chartCost(s, c.id);
+        return `<div class="lslot ${can ? 'on' : ''} ${L >= c.max ? 'lock' : ''}" data-id="${c.id}"><span class="li">${c.icon}</span><b>${c.name}</b><small>${c.desc} · Lv ${L}${c.max < 99 ? '/' + c.max : ''}</small><small>${L >= c.max ? 'Maxed' : '🌌 ' + G.chartCost(s, c.id)}</small></div>`; }).join('')}</div>`;
+    document.querySelectorAll('#mchart .lslot').forEach(d => d.onclick = () => { if (G.chartBuy(s, d.dataset.id)) { sfx.upgrade(); save(); draw(); refreshTree(); } else sfx.deny(); });
+    $('#constgo').onclick = () => { if (!G.canConst(s)) return sfx.deny(); const n = G.constellation(s); sfx.nova(); scene.flash = 1.6; scene.shake = 1; toast(`<b>🌌 CONSTELLATION MAPPED! +${n} Star Charts</b><br>Spend them for permanent power`, 'gold'); sel = null; save(); draw(); refreshTree(); }; };
+  modal(`<div class="mtitle">🌌 Star Chart</div><div id="mchart"></div>`, 'Close', () => refreshTree(), null, null, true); draw();
+}
+function achModal() {
+  modal(`<div class="mtitle">🏆 Achievements</div><p class="dim">${G.achCount(s)}/${G.ACHS.length} earned · each gives +4% damage, drill and ore forever (now x${fmt(Math.pow(1.04, G.achCount(s)))}).</p>
+    <div class="lgrid">${G.ACHS.map(a => `<div class="lslot ${s.achs[a.id] ? 'on' : 'lock'}"><span class="li">${s.achs[a.id] ? '🏆' : '🔒'}</span><b>${a.name}</b><small>${a.label}</small></div>`).join('')}</div>`, 'Close', null, null, null, true);
+}
+$('#labbtn').onclick = labModal; $('#crewbtn').onclick = crewModal; $('#dailybtn').onclick = dailyModal; $('#chartbtn').onclick = chartModal; $('#achbtn').onclick = achModal;
+setInterval(() => { const done = G.labTick(s); done.forEach(id => toast(`<b>🔬 Research done: ${G.LABN[id].name} Lv ${G.labLvl(s, id)}</b><br>${G.LABN[id].desc}`, 'glow'));
+  if (done.length) { save(); if (mode !== 'run') refreshTree(); } if (labDraw && modalOpen() && $('#mlab')) labDraw(); }, 1000);
+setInterval(() => { if (mode === 'hub') refreshMeta(); }, 30000);
+
 // ---------- loop ----------
 let last = performance.now(), acc = 0, hudT = 0;
 function loop(now) {
@@ -269,7 +352,9 @@ function loop(now) {
   if (mode === 'summary' && autoT > 0) { autoT -= dt; const a = $('#autot'); if (a) a.textContent = Math.ceil(autoT); if (autoT <= 0 && modalOpen()) { $('#modal').classList.remove('show'); launch(); } }
   scene.frame(mode === 'run' || mode === 'summary' ? run : null, 0); requestAnimationFrame(loop);
 }
-buildTree(); centerView(); addEventListener('resize', centerView); scene.setCamp(true, s.parts); refreshTree(); welcomeBack();
+buildTree(); centerView(); addEventListener('resize', centerView); scene.setCamp(true, s.parts, s.world); refreshTree(); welcomeBack();
 if (!s.seenIntro) { s.seenIntro = true; save(); say(G.INTRO, () => toast('<b>Mission 1: Crash Landing</b><br>Press LAUNCH (or Space) to dive', 'glow')); }
+else if (s.migrated) { delete s.migrated; save(); setTimeout(() => say([['bolt', 'Beep! Welcome back, Captain Pip. Your whole crew, ship and stardust are safe.'], ['nova', 'And there is more to see: new worlds out there need our help. Claim your mission to fly to the ice moon Frostveil!']]), 800); }
+{ const d = G.ensureDaily(s); if (d && !d.supply) setTimeout(() => toast('<b>🎁 Your daily supply drop is ready!</b><br>Open Daily Contracts', 'gold'), 2500); }
 requestAnimationFrame(loop);
 window.__gd = { get s() { return s; }, set s(v) { s = v; }, get run() { return run; }, G, scene, launch, toHub, refreshTree, openTree, closeTree, say, claim, keys, set sel(v) { sel = v; } };

@@ -1,0 +1,434 @@
+d1 r   1   0.0h |  30s |    0→  24m ★ | Du59                         | buy   5 | dust 0 ch 0/0 lab 0 crew 0 ach 0
+d1 r   2   0.0h |  33s |    0→  30m ★ | Du124                        | buy   9 | dust 0 ch 0/0 lab 0 crew 0 ach 0 [CH1]
+d1 r   3   0.0h |  39s |    0→  42m ★ | Du316                        | buy   9 | dust 0 ch 0/0 lab 0 crew 0 ach 0
+d1 r   4   0.1h |  42s |    0→  53m ★ | Du459                        | buy   8 | dust 0 ch 0/0 lab 0 crew 0 ach 0
+d1 r   5   0.1h |  63s |    0→  79m ★ | Du619 Co0.7                  | buy   7 | dust 0 ch 0/0 lab 0 crew 0 ach 0
+d1 r   6   0.1h |  67s |    0→  91m ★ | Du749 Co7.5                  | buy   7 | dust 0 ch 0/0 lab 0 crew 0 ach 0 [CH2]
+d1 r   7   0.1h |  70s |    0→ 104m ★ | Du1.86K Co11                 | buy  11 | dust 0 ch 0/0 lab 0 crew 0 ach 2
+d1 r   8   0.1h |  61s |    0→ 111m ★ | Du3.57K Co56                 | buy  14 | dust 0 ch 0/0 lab 0 crew 0 ach 2
+d1 r   9   0.2h |  79s |    0→ 142m ★ | Du5.37K Co33                 | buy  10 | dust 0 ch 0/0 lab 0 crew 0 ach 2
+d1 r  10   0.2h |  77s |    0→ 142m   | Du5.40K Co63                 | buy   8 | dust 0 ch 0/0 lab 0 crew 0 ach 3
+d1 r  11   0.2h |  74s |    0→ 141m   | Du9.32K Co199                | buy  11 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  12   0.2h |  77s |   15→ 141m   | Du11.56K Co489               | buy  10 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  13   0.3h |  82s |   30→ 195m ★ | Du15.25K Co1.00K             | buy  11 | dust 0 ch 0/0 lab 0 crew 0 ach 4 [CH3]
+d1 r  14   0.3h |  90s |   45→ 221m ★ | Du16.54K Co1.76K             | buy   9 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  15   0.3h | 100s |   75→ 230m ★ | Du13.43K Co2.48K             | buy   7 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  16   0.3h |  97s |   90→ 246m ★ | Du12.35K Co2.81K             | buy   3 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  17   0.4h | 106s |  105→ 258m ★ | Du8.79K Co2.70K              | buy   2 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  18   0.4h | 103s |  135→ 260m ★ | Du4.69K Co2.46K              | buy   1 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  19   0.4h |  92s |  135→ 257m   | Du5.50K Co2.63K              | buy   1 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  20   0.5h |  98s |  135→ 266m ★ | Du4.01K Co1.80K              | buy   7 | dust 0 ch 0/0 lab 0 crew 0 ach 4 [CH4]
+d1 r  21   0.5h | 102s |  135→ 267m ★ | Du4.92K Co3.05K              | buy   1 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  22   0.5h | 107s |  135→ 268m ★ | Du6.23K Co2.81K              | buy   1 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  23   0.6h |  92s |  150→ 265m   | Du2.76K Co2.50K              | buy   1 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  24   0.6h |  85s |  150→ 263m   | Du5.49K Co2.46K Co11         | buy   0 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  25   0.6h |  98s |  150→ 267m   | Du6.82K Co4.43K Co23         | buy   3 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  26   0.6h |  86s |  150→ 279m ★ | Du5.57K Co3.09K Co1.8        | buy   1 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  27   0.7h |  89s |  150→ 280m ★ | Du5.75K Co3.61K              | buy   0 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  28   0.7h |  96s |  150→ 282m ★ | Du8.10K Co2.57K              | buy   1 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  29   0.7h | 113s |  150→ 287m ★ | Du6.79K Co3.33K              | buy   0 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  30   0.8h | 113s |  150→ 287m   | Du7.51K Co2.97K Co20         | buy   2 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  31   0.8h | 107s |  150→ 293m ★ | Du8.69K Co5.65K Co16         | buy   1 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  32   0.8h | 102s |  150→ 291m   | Du6.96K Co5.00K Co16         | buy   2 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  33   0.9h | 112s |  150→ 295m ★ | Du7.42K Co5.15K Co31         | buy   1 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  34   0.9h | 113s |  150→ 291m   | Du8.03K Co5.11K Co33         | buy   1 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  35   0.9h | 106s |  150→ 292m   | Du6.72K Co4.07K Co20         | buy   2 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  36   1.0h | 113s |  150→ 291m   | Du10.82K Co7.19K Co125       | buy   5 | dust 0 ch 0/0 lab 0 crew 0 ach 4
+d1 r  37   1.0h | 113s |  150→ 291m   | Du11.88K Co9.16K Co240       | buy   7 | dust 0 ch 0/0 lab 0 crew 0 ach 5
+d1 r  38   1.0h | 113s |  150→ 292m   | Du15.33K Co11.10K Co408      | buy   7 | dust 0 ch 0/0 lab 0 crew 0 ach 5
+d1 r  39   1.1h | 104s |  150→ 291m   | Du15.76K Co12.32K Co583      | buy   7 | dust 0 ch 0/0 lab 0 crew 0 ach 6
+d1 r  40   1.1h | 101s |  150→ 311m ★ | Du28.53K Co17.66K Co1.17K    | buy  11 | dust 0 ch 0/0 lab 0 crew 0 ach 7 [CH5]
+d1 r  41   1.1h | 101s |  150→ 332m ★ | Du44.74K Co32.81K Co3.28K    | buy  14 | dust 0 ch 0/0 lab 0 crew 0 ach 8
+d1 r  42   1.2h | 101s |  150→ 358m ★ | Du49.30K Co40.03K Co6.43K    | buy  12 | dust 0 ch 0/0 lab 0 crew 0 ach 8
+d1 r  43   1.2h | 113s |  150→ 373m ★ | Du84.82K Co86.19K Co19.53K   | buy  11 | dust 0 ch 0/0 lab 0 crew 0 ach 9
+d1 r  44   1.2h | 112s |  150→ 404m ★ | Co162.18K Co69.13K Go904     | buy  32 | dust 0 ch 0/0 lab 0 crew 0 ach 10
+d1 r  45   1.3h | 118s |  242→ 451m ★ | Co190.05K Co124.68K Go9.78K  | buy  39 | dust 0 ch 0/0 lab 0 crew 0 ach 11
+d1 r  46   1.3h | 158s |  270→ 492m ★ | Co181.89K Co160.50K Go44.92K | buy  20 | dust 0 ch 0/0 lab 0 crew 0 ach 11
+d1 r  47   1.4h | 158s |  295→ 521m ★ | Co191.40K Go72.37K Cr453     | buy  22 | dust 19 ch 0/0 lab 0 crew 0 ach 11 NOVA +19 [CH6]
+d1 r  48   1.4h |  48s |    0→  77m ★ | Du10.48K Co435               | buy  88 | dust 19 ch 0/0 lab 0 crew 0 ach 12
+d1 r  49   1.4h |  85s |   45→ 251m ★ | Du287.62K Co34.45K Co93      | buy  72 | dust 19 ch 0/0 lab 0 crew 0 ach 12
+d1 r  50   1.4h | 104s |  150→ 334m ★ | Du285.57K Co237.20K Co13.20K | buy  72 | dust 19 ch 0/0 lab 0 crew 0 ach 13
+d1 r  51   1.5h | 112s |  200→ 436m ★ | Co1.59M Co655.56K Go5.86K    | buy  80 | dust 19 ch 0/0 lab 0 crew 0 ach 13
+d1 r  52   1.5h | 162s |  261→ 550m ★ | Co2.36M Go823.76K Cr17.63K   | buy  96 | dust 19 ch 0/0 lab 0 crew 0 ach 14 [CH7]
+d1 r  53   1.6h | 207s |  330→ 714m ★ | Go7.91M Cr3.45M St68.39K     | buy  67 | dust 19 ch 0/0 lab 0 crew 0 ach 16 [CH8]
+d1 r  54   1.6h | 207s |  428→ 882m ★ | Cr9.53M St4.45M Vo128.03K    | buy  56 | dust 69 ch 0/0 lab 0 crew 0 ach 16 NOVA +50
+d1 r  55   1.6h |  58s |    0→ 119m ★ | Du168.65K Co12.54K           | buy 147 | dust 69 ch 0/0 lab 0 crew 0 ach 16
+d1 r  56   1.7h | 107s |   71→ 372m ★ | Du4.78M Co2.52M Co79.35K     | buy 105 | dust 69 ch 0/0 lab 0 crew 0 ach 16
+d1 r  57   1.7h | 121s |  222→ 526m ★ | Co15.43M Go1.25M Cr29.66K    | buy 170 | dust 69 ch 0/0 lab 0 crew 0 ach 16
+d1 r  58   1.8h | 211s |  315→ 774m ★ | Go62.90M Cr36.52M St1.97M    | buy  89 | dust 69 ch 0/0 lab 0 crew 0 ach 16
+d1 r  59   1.8h | 211s |  464→1006m ★ | St55.56M Vo5.86M Fr448.69K   | buy  66 | dust 69 ch 0/0 lab 0 crew 0 ach 17 [CH9]
+d1 r  60   1.9h | 187s |  603→1212m ★ | St7.62B Vo2.32B Fr1.43B      | buy  50 | dust 69 ch 0/0 lab 0 crew 0 ach 18
+d1 r  61   2.0h | 187s |  670→1369m ★ | St50.31B Vo15.51B Fr35.75B   | buy   9 | dust 69 ch 0/0 lab 0 crew 0 ach 18
+d1 r  62   2.0h | 211s |  670→1402m ★ | St107.70B Vo35.74B Fr97.95B  | buy   5 | dust 69 ch 0/0 lab 0 crew 0 ach 18
+d1 r  63   2.1h | 211s |  670→1420m ★ | St146.34B Vo45.25B Fr143.07B | buy   3 | dust 69 ch 0/0 lab 0 crew 0 ach 19
+d1 r  64   2.1h | 211s |  670→1429m ★ | St200.92B Vo59.89B Fr194.98B | buy   2 | dust 69 ch 0/0 lab 0 crew 0 ach 19
+d1 r  65   2.2h | 211s |  670→1429m   | St250.55B Vo79.68B Fr276.43B | buy   2 | dust 188 ch 0/0 lab 0 crew 0 ach 19 NOVA +119
+d1 r  66   2.2h |  57s |    0→ 151m ★ | Du1.42M Co175.64K            | buy 162 | dust 188 ch 0/0 lab 0 crew 0 ach 20 [CH10]
+d1 r  67   2.2h | 118s |   90→ 442m ★ | Co26.22M Co2.36M Go30.12K    | buy 183 | dust 188 ch 0/0 lab 0 crew 0 ach 20
+d1 r  68   2.3h | 169s |  265→ 676m ★ | Go125.35M Cr10.37M St369.66K | buy 171 | dust 188 ch 0/0 lab 0 crew 0 ach 20
+d1 r  69   2.4h | 214s |  405→1042m ★ | St1.74B Vo202.17M Fr26.15M   | buy 173 | dust 188 ch 0/0 lab 0 crew 0 ach 20
+d1 r  70   2.4h | 230s |  624→1491m ★ | St961.70B Vo303.51B Fr1.10T  | buy  67 | dust 188 ch 0/0 lab 0 crew 0 ach 20 [CH11]
+d1 r  71   2.5h | 230s |  730→1642m ★ | Vo21.06T Fr111.62T Em190.53B | buy  34 | dust 188 ch 0/0 lab 1 crew 0 ach 21
+d1 r  72   2.6h | 228s |  730→1645m ★ | Vo177.96T Fr1.30Qa Em3.21T   | buy  18 | dust 188 ch 0/0 lab 2 crew 0 ach 21
+d1 r  73   2.6h | 226s |  730→1761m ★ | Vo512.59T Fr4.26Qa Em68.88T  | buy  11 | dust 188 ch 0/0 lab 2 crew 0 ach 22
+d1 r  74   2.7h | 224s |  730→1794m ★ | Vo1.03Qa Fr8.67Qa Em151.66T  | buy   7 | dust 188 ch 0/0 lab 3 crew 0 ach 22
+d2 r  75   2.7h | 199s |  730→1791m   | Vo1.96Qa Fr16.88Qa Em336.08T | buy  34 | dust 188 ch 0/0 lab 4 crew 12 ach 22 [CH12] [CH13]
+d2 r  76   2.8h | 147s |  730→1791m   | Vo14.33Qa Fr136.22Qa Em4.54Qa | buy   0 | dust 188 ch 0/0 lab 5 crew 13 ach 23
+d2 r  77   2.8h | 147s |  730→1792m   | Vo16.06Qa Fr141.59Qa Em4.48Qa | buy   1 | dust 368 ch 0/0 lab 7 crew 13 ach 24 NOVA +180
+d2 r  78   2.9h |  67s |    0→ 229m ★ | Du15.67M Co4.82M Co186.34K   | buy 258 | dust 368 ch 0/0 lab 7 crew 13 ach 24
+d2 r  79   2.9h | 115s |  137→ 646m ★ | Co1.12B Go104.28M Cr9.84M    | buy 225 | dust 368 ch 0/0 lab 7 crew 13 ach 24
+d2 r  80   3.0h | 217s |  387→1016m ★ | St688.41M Vo217.27M Fr1.23M  | buy 197 | dust 368 ch 0/0 lab 9 crew 13 ach 24
+d2 r  81   3.0h | 226s |  609→1492m ★ | St4.90T Vo1.65T Fr5.24T      | buy  92 | dust 368 ch 0/0 lab 9 crew 13 ach 24 [CH14]
+d2 r  82   3.1h | 232s |  830→1642m ★ | Vo322.99T Fr2.40Qa Em3.70T   | buy  43 | dust 368 ch 0/0 lab 11 crew 14 ach 24
+d2 r  83   3.1h | 144s |  830→1791m ★ | Vo3.76Qa Fr30.60Qa Em323.53T | buy  20 | dust 368 ch 0/0 lab 11 crew 14 ach 24
+d2 r  84   3.2h | 148s |  830→1791m ★ | Vo12.11Qa Fr113.25Qa Em3.49Qa | buy  11 | dust 368 ch 0/0 lab 11 crew 14 ach 24
+d2 r  85   3.2h | 150s |  830→1791m   | Vo29.29Qa Fr255.56Qa Em9.22Qa | buy   8 | dust 368 ch 0/0 lab 12 crew 14 ach 24
+d2 r  86   3.3h | 158s |  830→1794m ★ | Vo51.15Qa Fr510.08Qa Em20.64Qa | buy 134 | dust 368 ch 0/0 lab 13 crew 14 ach 24 [CH15] [CH16]
+d2 r  87   3.3h | 156s |  830→1943m ★ | Vo8.06Qi Fr80.06Qi Em13.65Qi | buy  55 | dust 368 ch 0/0 lab 13 crew 14 ach 24
+d2 r  88   3.4h | 148s |  830→2091m ★ | Vo181.32Qi Fr1.84Sx Em588.39Qi | buy  36 | dust 368 ch 0/0 lab 13 crew 15 ach 25
+d2 r  89   3.4h | 153s |  830→2092m ★ | Vo1.79Sx Fr16.36Sx Em7.70Sx  | buy  27 | dust 368 ch 0/0 lab 14 crew 15 ach 25
+d2 r  90   3.4h | 142s |  830→2243m ★ | Vo8.60Sx Fr84.05Sx Em48.26Sx | buy  20 | dust 368 ch 0/0 lab 15 crew 15 ach 25
+d2 r  91   3.5h | 149s |  830→2241m   | Vo28.14Sx Fr279.54Sx Em186.22Sx | buy  15 | dust 368 ch 0/0 lab 15 crew 15 ach 25
+d2 r  92   3.5h | 154s |  830→2241m   | Vo71.05Sx Fr718.33Sx Em509.26Sx | buy  10 | dust 36 ch 1/2 lab 15 crew 15 ach 26 CONST +2
+d2 r  93   3.6h |  68s |    0→ 203m ★ | Du1.25M Co232.87K            | buy 163 | dust 36 ch 1/2 lab 16 crew 24 ach 27 [CH17] [CH18]
+d2 r  94   3.6h | 131s |  121→ 442m ★ | Co20.20M Co2.16M Go167.89K   | buy 194 | dust 36 ch 1/2 lab 16 crew 24 ach 28
+d2 r  95   3.6h | 176s |  264→ 729m ★ | Go100.26M Cr10.34M St1.14M   | buy 152 | dust 36 ch 1/2 lab 17 crew 24 ach 28
+d2 r  96   3.7h | 194s |  437→1057m ★ | St325.30M Vo38.65M Fr6.08M   | buy 159 | dust 36 ch 1/2 lab 17 crew 25 ach 28
+d2 r  97   3.8h | 238s |  634→1479m ★ | St410.63B Vo144.47B Fr387.48B | buy  85 | dust 163 ch 1/2 lab 18 crew 25 ach 28 NOVA +127
+d2 r  98   3.8h |  72s |    0→ 258m ★ | Du19.84M Co7.93M Co671.25K   | buy 266 | dust 163 ch 1/2 lab 18 crew 25 ach 28
+d2 r  99   3.8h | 124s |  154→ 688m ★ | Co1.31B Go197.02M Cr36.28M   | buy 224 | dust 163 ch 1/2 lab 19 crew 26 ach 28
+d2 r 100   3.9h | 220s |  412→1042m ★ | St1.14B Vo483.21M Fr61.91M   | buy 207 | dust 163 ch 1/2 lab 19 crew 26 ach 29
+d2 r 101   4.0h | 208s |  625→1593m ★ | St14.13T Vo4.45T Fr19.07T    | buy  83 | dust 163 ch 1/2 lab 20 crew 26 ach 29
+d2 r 102   4.0h | 174s |  930→1755m ★ | Vo656.65T Fr5.51Qa Em33.07T  | buy 146 | dust 163 ch 1/2 lab 20 crew 26 ach 30
+d2 r 103   4.1h | 145s |  930→1941m ★ | Vo323.06Qa Fr3.54Qi Em233.30Qa | buy  78 | dust 163 ch 1/2 lab 21 crew 27 ach 30
+d2 r 104   4.1h | 155s |  930→2091m ★ | Vo33.37Qi Fr339.56Qi Em92.91Qi | buy  67 | dust 163 ch 1/2 lab 23 crew 27 ach 30
+d2 r 105   4.1h | 162s |  930→2094m ★ | Vo1.26Sx Fr13.13Sx Em6.50Sx  | buy  32 | dust 163 ch 1/2 lab 23 crew 27 ach 30
+d2 r 106   4.2h | 136s |  930→2241m ★ | Vo9.35Sx Fr101.27Sx Em59.97Sx | buy  23 | dust 163 ch 1/2 lab 23 crew 28 ach 30
+d2 r 107   4.2h | 148s |  930→2241m   | Vo33.94Sx Fr345.90Sx Em245.15Sx | buy  15 | dust 163 ch 1/2 lab 23 crew 28 ach 30
+d2 r 108   4.3h | 151s |  930→2241m   | Fr877.88Sx Em656.76Sx Pr769.57Qi | buy  13 | dust 163 ch 1/2 lab 25 crew 28 ach 30
+d2 r 109   4.3h | 165s |  970→2241m   | Fr1.33Sp Em1.13Sp Pr3.40Sx   | buy   7 | dust 16 ch 2/3 lab 25 crew 28 ach 30 CONST +1 [CH19]
+d2 r 110   4.3h |  66s |    0→ 199m ★ | Du799.93K Co184.92K          | buy 162 | dust 16 ch 2/3 lab 25 crew 28 ach 31
+d2 r 111   4.4h | 135s |  119→ 442m ★ | Co13.07M Co1.36M Go94.37K    | buy 187 | dust 16 ch 2/3 lab 25 crew 29 ach 31
+d2 r 112   4.4h | 182s |  265→ 707m ★ | Go63.89M Cr6.31M St441.42K   | buy 151 | dust 54 ch 2/3 lab 25 crew 29 ach 31 NOVA +38
+d2 r 113   4.5h |  77s |    0→ 255m ★ | Du5.36M Co1.96M Co130.48K    | buy 254 | dust 54 ch 2/3 lab 25 crew 29 ach 32
+d2 r 114   4.5h | 125s |  152→ 629m ★ | Co362.82M Go37.21M Cr4.51M   | buy 218 | dust 54 ch 2/3 lab 26 crew 29 ach 32
+d2 r 115   4.6h | 222s |  377→ 985m ★ | St214.72M Vo74.26M Fr1.61M   | buy 199 | dust 54 ch 2/3 lab 27 crew 29 ach 32
+d2 r 116   4.6h | 235s |  590→1493m ★ | St1.25T Vo382.95B Fr1.19T    | buy  88 | dust 225 ch 2/3 lab 27 crew 29 ach 32 NOVA +171
+d2 r 117   4.7h |  76s |    0→ 301m ★ | Du75.58M Co35.76M Co5.76M    | buy 280 | dust 225 ch 2/3 lab 27 crew 29 ach 32
+d2 r 118   4.7h | 144s |  180→ 743m ★ | Go1.24B Cr530.21M St71.24M   | buy 274 | dust 225 ch 2/3 lab 27 crew 29 ach 32
+d2 r 119   4.8h | 198s |  446→1279m ★ | St15.52B Vo5.18B Fr3.16B     | buy 168 | dust 225 ch 2/3 lab 28 crew 29 ach 32
+d2 r 120   4.8h | 238s |  767→1645m ★ | Vo65.05T Fr404.58T Em1.25T   | buy 174 | dust 225 ch 2/3 lab 28 crew 30 ach 32
+d2 r 121   4.9h | 173s |  986→1943m ★ | Vo194.27Qa Fr2.49Qi Em160.75Qa | buy 103 | dust 225 ch 2/3 lab 29 crew 30 ach 32
+d2 r 122   4.9h | 147s | 1166→2094m ★ | Vo9.61Qi Fr658.76Qi Em182.88Qi | buy  59 | dust 225 ch 2/3 lab 29 crew 30 ach 32
+d2 r 123   5.0h | 156s | 1240→2091m   | Fr14.03Sx Em6.69Sx           | buy  23 | dust 225 ch 2/3 lab 29 crew 30 ach 32
+d2 r 124   5.0h | 185s | 1240→2244m ★ | Fr37.81Sx Em21.43Sx          | buy   8 | dust 225 ch 2/3 lab 29 crew 30 ach 32
+d2 r 125   5.1h | 172s | 1240→2241m   | Fr56.43Sx Em33.64Sx          | buy   6 | dust 225 ch 2/3 lab 30 crew 30 ach 32
+d2 r 126   5.1h | 156s | 1240→2241m   | Fr98.98Sx Em61.38Sx          | buy   4 | dust 225 ch 2/3 lab 30 crew 30 ach 32
+d2 r 127   5.2h | 148s | 1240→2241m   | Fr111.74Sx Em71.54Sx         | buy   3 | dust 582 ch 2/3 lab 30 crew 30 ach 32 NOVA +357
+d2 r 128   5.2h |  86s |    0→ 358m ★ | Co455.11M Co158.54M Go629.67K | buy 390 | dust 582 ch 2/3 lab 31 crew 30 ach 32
+d2 r 129   5.2h | 194s |  214→ 891m ★ | Cr12.61B St5.52B Vo630.96M   | buy 249 | dust 582 ch 2/3 lab 31 crew 31 ach 32
+d2 r 130   5.3h | 200s |  534→1566m ★ | St77.52T Vo23.84T Fr125.39T  | buy 155 | dust 582 ch 2/3 lab 31 crew 31 ach 32
+d2 r 131   5.4h | 192s |  939→1791m ★ | Vo43.36Qa Fr431.86Qa Em9.21Qa | buy 183 | dust 582 ch 2/3 lab 31 crew 31 ach 32
+d2 r 132   5.4h | 146s | 1074→2093m ★ | Vo133.68Qi Fr2.40Sx Em618.93Qi | buy 102 | dust 582 ch 2/3 lab 32 crew 31 ach 32
+d3 r 133   5.4h | 134s | 1255→2244m ★ | Fr550.20Sx Em392.80Sx        | buy  69 | dust 582 ch 2/3 lab 36 crew 31 ach 32
+d3 r 134   5.5h | 225s | 1340→2393m ★ | Fr18.98Sp Em21.52Sp Pr204.59Sx | buy 201 | dust 582 ch 2/3 lab 38 crew 32 ach 33 [CH20] [CH21]
+d3 r 135   5.6h | 265s | 1340→2544m ★ | Fr93.03Oc Em135.07Oc Pr18.45Oc | buy  95 | dust 582 ch 2/3 lab 38 crew 37 ach 34 [CH22]
+d3 r 136   5.7h | 238s | 1340→2694m ★ | Fr13.11No Em18.84No Pr6.02No | buy  52 | dust 582 ch 2/3 lab 38 crew 39 ach 34
+d3 r 137   5.7h | 266s | 1340→2691m   | Fr186.13No Em267.69No Pr119.96No | buy  28 | dust 582 ch 2/3 lab 38 crew 40 ach 34
+d3 r 138   5.8h | 269s | 1340→2695m ★ | Fr754.03No Em1.08Dc Pr593.13No | buy  20 | dust 582 ch 2/3 lab 38 crew 41 ach 34
+d3 r 139   5.9h | 268s | 1340→2695m   | Fr1.78Dc Em2.51Dc Pr1.63Dc   | buy   9 | dust 582 ch 2/3 lab 40 crew 42 ach 34
+d3 r 140   5.9h | 232s | 1380→2841m ★ | Fr2.43Dc Em3.86Dc Pr2.55Dc   | buy   6 | dust 582 ch 2/3 lab 40 crew 43 ach 35
+d3 r 141   6.0h | 264s | 1380→2694m   | Fr4.30Dc Em7.17Dc Pr4.60Dc   | buy   6 | dust 582 ch 2/3 lab 40 crew 43 ach 35
+d3 r 142   6.1h | 269s | 1380→2691m   | Fr5.18Dc Em8.12Dc Pr5.16Dc   | buy   4 | dust 58 ch 3/6 lab 40 crew 44 ach 35 CONST +3
+d3 r 143   6.1h |  78s |    0→ 303m ★ | Du118.26M Co46.82M Co7.82M   | buy 283 | dust 58 ch 3/6 lab 40 crew 44 ach 35 [CH23]
+d3 r 144   6.2h | 151s |  181→ 733m ★ | Go1.50B Cr615.41M St90.34M   | buy 273 | dust 58 ch 3/6 lab 40 crew 44 ach 35
+d3 r 145   6.2h | 201s |  439→1268m ★ | St22.49B Vo6.74B Fr4.30B     | buy 168 | dust 205 ch 3/6 lab 40 crew 44 ach 35 NOVA +147
+d3 r 146   6.3h |  92s |    0→ 373m ★ | Co804.58M Co239.55M Go2.37M  | buy 400 | dust 205 ch 3/6 lab 40 crew 45 ach 35
+d3 r 147   6.3h | 178s |  223→ 915m ★ | Cr19.74B St9.65B Vo1.66B     | buy 243 | dust 205 ch 3/6 lab 40 crew 45 ach 35
+d3 r 148   6.4h | 228s |  548→1577m ★ | Vo55.51T Fr305.86T Em65.59B  | buy 241 | dust 205 ch 3/6 lab 42 crew 45 ach 35
+d3 r 149   6.4h | 167s |  946→1941m ★ | Vo2.18Qi Fr23.05Qi Em1.51Qi  | buy 140 | dust 205 ch 3/6 lab 42 crew 45 ach 35
+d3 r 150   6.5h | 152s | 1164→2091m ★ | Vo908.81Qi Fr51.35Sx Em19.83Sx | buy  84 | dust 205 ch 3/6 lab 42 crew 46 ach 35
+d3 r 151   6.5h | 153s | 1254→2241m ★ | Fr4.22Sp Em3.47Sp Pr1.39Sx   | buy 195 | dust 205 ch 3/6 lab 42 crew 46 ach 35
+d3 r 152   6.6h | 269s | 1344→2392m ★ | Fr9.00Oc Em12.33Oc Pr714.25Sp | buy  97 | dust 666 ch 3/6 lab 42 crew 46 ach 35 NOVA +461
+d3 r 153   6.6h |  94s |    0→ 420m ★ | Co15.87B Co5.41B Go564.07M   | buy 400 | dust 666 ch 3/6 lab 42 crew 46 ach 36
+d3 r 154   6.7h | 197s |  252→ 952m ★ | Cr289.49B St173.35B Vo35.35B | buy 256 | dust 666 ch 3/6 lab 42 crew 46 ach 36
+d3 r 155   6.7h | 228s |  571→1643m ★ | Vo1.99Qa Fr14.76Qa Em36.96T  | buy 278 | dust 666 ch 3/6 lab 42 crew 46 ach 37
+d3 r 156   6.8h | 161s |  986→1942m ★ | Vo394.81Qi Fr4.84Sx Em920.39Qi | buy 153 | dust 666 ch 3/6 lab 44 crew 47 ach 37
+d3 r 157   6.8h | 159s | 1165→2241m ★ | Fr24.25Sp Em18.93Sp Pr5.15Sx | buy 260 | dust 666 ch 3/6 lab 44 crew 47 ach 37
+d3 r 158   6.9h | 270s | 1344→2541m ★ | Fr2.37No Em3.54No Pr719.71Oc | buy 140 | dust 666 ch 3/6 lab 44 crew 47 ach 37
+d3 r 159   7.0h | 273s | 1500→2694m ★ | Fr689.33No Em1.61Dc Pr887.94No | buy  64 | dust 666 ch 3/6 lab 44 crew 47 ach 37
+d3 r 160   7.1h | 259s | 1500→2841m ★ | Fr11.32Dc Em26.01Dc Pr19.71Dc | buy  29 | dust 666 ch 3/6 lab 44 crew 47 ach 37
+d3 r 161   7.2h | 271s | 1500→2841m   | Em92.58Dc Pr80.33Dc Vo15.91No | buy  14 | dust 666 ch 3/6 lab 44 crew 48 ach 37
+d3 r 162   7.2h | 273s | 1500→2841m   | Em215.43Dc Pr181.47Dc Vo46.68No | buy  12 | dust 666 ch 3/6 lab 44 crew 48 ach 37
+d3 r 163   7.3h | 271s | 1500→2841m   | Em328.70Dc Pr308.75Dc Vo531.84No | buy   6 | dust 1.39K ch 3/6 lab 44 crew 48 ach 37 NOVA +722
+d3 r 164   7.3h |  95s |    0→ 445m ★ | Co96.43B Co50.54B Go6.71B    | buy 400 | dust 1.39K ch 3/6 lab 45 crew 48 ach 37
+d3 r 165   7.4h | 205s |  266→ 983m ★ | St1.27T Vo397.70B Fr4.42B    | buy 342 | dust 1.39K ch 3/6 lab 46 crew 48 ach 37
+d3 r 166   7.4h | 156s |  589→1791m ★ | Vo619.44Qa Fr4.69Qi Em45.88Qa | buy 260 | dust 1.39K ch 3/6 lab 46 crew 48 ach 37
+d3 r 167   7.5h | 156s | 1074→2091m ★ | Vo118.14Sx Fr2.16Sp Em927.38Sx | buy 154 | dust 1.39K ch 3/6 lab 46 crew 48 ach 37
+d3 r 168   7.6h | 256s | 1254→2391m ★ | Fr6.38Oc Em7.08Oc Pr203.78Sp | buy 259 | dust 1.39K ch 3/6 lab 46 crew 48 ach 37
+d3 r 169   7.6h | 253s | 1434→2695m ★ | Fr231.77No Em423.53No Pr149.23No | buy 116 | dust 1.39K ch 3/6 lab 46 crew 49 ach 37
+d3 r 170   7.7h | 243s | 1560→2845m ★ | Fr18.32Dc Em63.46Dc Pr44.77Dc | buy  51 | dust 1.39K ch 3/6 lab 46 crew 49 ach 37
+d3 r 171   7.8h | 273s | 1560→2844m   | Em541.75Dc Pr473.86Dc Vo174.62No | buy  22 | dust 1.39K ch 3/6 lab 46 crew 49 ach 37
+d3 r 172   7.9h | 271s | 1560→2841m   | Em1.63e36 Pr1.52e36 Vo6.20Dc | buy  15 | dust 1.39K ch 3/6 lab 46 crew 49 ach 37
+d3 r 173   7.9h | 271s | 1560→2841m   | Em2.82e36 Pr2.91e36 Vo13.10Dc | buy   8 | dust 138 ch 4/10 lab 46 crew 49 ach 37 CONST +4
+d3 r 174   8.0h |  97s |    0→ 399m ★ | Co2.86B Co974.83M Go40.83M   | buy 400 | dust 138 ch 4/10 lab 46 crew 49 ach 38
+d3 r 175   8.0h | 182s |  239→ 916m ★ | Cr61.57B St30.66B Vo4.15B    | buy 247 | dust 138 ch 4/10 lab 47 crew 49 ach 38
+d3 r 176   8.1h | 230s |  549→1602m ★ | Vo215.17T Fr1.30Qa Em1.94T   | buy 259 | dust 524 ch 4/10 lab 48 crew 49 ach 38 NOVA +386
+d4 r 177   8.1h |  97s |    0→ 445m ★ | Co57.41B Co24.09B Go2.69B    | buy 400 | dust 524 ch 4/10 lab 52 crew 50 ach 38 [CH24]
+d4 r 178   8.2h | 207s |  266→ 968m ★ | Cr946.21B St572.43B Vo145.07B | buy 262 | dust 524 ch 4/10 lab 52 crew 50 ach 39
+d4 r 179   8.2h | 227s |  580→1643m ★ | Vo10.42Qa Fr67.62Qa Em161.38T | buy 306 | dust 524 ch 4/10 lab 52 crew 50 ach 39
+d4 r 180   8.3h | 149s |  986→2091m ★ | Vo6.04Sx Fr73.25Sx Em20.58Sx | buy 167 | dust 524 ch 4/10 lab 52 crew 50 ach 39
+d4 r 181   8.4h | 238s | 1254→2393m ★ | Fr673.23Sp Em668.96Sp Pr6.49Sp | buy 240 | dust 524 ch 4/10 lab 54 crew 50 ach 39
+d4 r 182   8.4h | 274s | 1435→2541m ★ | Fr13.82No Em24.78No Pr5.94No | buy 114 | dust 524 ch 4/10 lab 54 crew 50 ach 39
+d4 r 183   8.5h | 274s | 1524→2692m ★ | Fr1.60Dc Em4.41Dc Pr2.18Dc   | buy  53 | dust 1.66K ch 4/10 lab 54 crew 51 ach 39 NOVA +1.13K
+d4 r 184   8.5h |  88s |    0→ 451m ★ | Co991.53B Co454.37B Go80.27B | buy 400 | dust 1.66K ch 4/10 lab 54 crew 51 ach 39
+d4 r 185   8.6h | 206s |  270→1004m ★ | Cr17.32T St11.18T Vo2.46T    | buy 275 | dust 1.66K ch 4/10 lab 54 crew 51 ach 39
+d4 r 186   8.7h | 230s |  602→1780m ★ | Vo489.32Qa Fr4.14Qi Em79.09Qa | buy 328 | dust 1.66K ch 4/10 lab 54 crew 51 ach 39
+d4 r 187   8.7h | 168s | 1068→2091m ★ | Vo899.44Sx Fr15.32Sp Em7.28Sp | buy 175 | dust 1.66K ch 4/10 lab 54 crew 51 ach 39
+d4 r 188   8.8h | 230s | 1254→2544m ★ | Fr169.18Oc Em208.51Oc Pr14.55Oc | buy 282 | dust 1.66K ch 4/10 lab 54 crew 51 ach 39
+d4 r 189   8.9h | 269s | 1526→2693m ★ | Fr11.29Dc Em30.49Dc Pr19.67Dc | buy 124 | dust 1.66K ch 4/10 lab 54 crew 51 ach 39
+d4 r 190   8.9h | 274s | 1616→2841m ★ | Em6.35e36 Pr6.14e36 Vo29.64Dc | buy  51 | dust 1.66K ch 4/10 lab 54 crew 51 ach 39
+d4 r 191   9.0h | 240s | 1704→2991m ★ | Em5.73e37 Pr6.20e37 Vo483.16Dc | buy 298 | dust 1.66K ch 4/10 lab 56 crew 51 ach 40 [CH25] [CH26]
+d4 r 192   9.1h | 287s | 1760→3143m ★ | Em1.49e43 Pr1.84e43 Vo3.67e42 | buy 172 | dust 1.66K ch 4/10 lab 56 crew 52 ach 41
+d4 r 193   9.2h | 286s | 1760→3444m ★ | Em2.93e46 Pr3.56e46 Vo2.18e46 | buy 105 | dust 1.66K ch 4/10 lab 56 crew 52 ach 41
+d4 r 194   9.3h | 287s | 1760→3442m   | Em3.40e48 Pr4.07e48 Vo3.20e48 | buy  64 | dust 1.66K ch 4/10 lab 56 crew 52 ach 41
+d4 r 195   9.3h | 283s | 1760→3591m ★ | Em4.84e49 Pr5.85e49 Vo6.40e49 | buy  37 | dust 1.66K ch 4/10 lab 56 crew 52 ach 43
+d4 r 196   9.4h | 285s | 1760→3595m ★ | Em3.24e50 Pr4.10e50 Vo4.30e50 | buy  28 | dust 1.66K ch 4/10 lab 56 crew 52 ach 43
+d4 r 197   9.5h | 285s | 1760→3595m   | Em1.11e51 Pr1.42e51 Vo1.55e51 | buy  18 | dust 1.66K ch 4/10 lab 56 crew 53 ach 43
+d4 r 198   9.6h | 285s | 1760→3595m   | Em2.27e51 Pr2.89e51 Vo3.14e51 | buy  62 | dust 1.66K ch 4/10 lab 58 crew 53 ach 43
+d4 r 199   9.7h | 284s | 1760→3741m ★ | Em3.22e52 Pr3.96e52 Vo5.86e52 | buy   2 | dust 1.66K ch 4/10 lab 58 crew 53 ach 43
+d4 r 200   9.8h | 284s | 1760→3741m   | Em3.21e52 Pr3.95e52 Vo5.96e52 | buy   4 | dust 1.66K ch 4/10 lab 58 crew 53 ach 44
+d4 r 201   9.8h | 285s | 1760→3741m ★ | Em4.38e52 Pr5.53e52 Vo8.05e52 | buy   2 | dust 1.66K ch 4/10 lab 58 crew 54 ach 44
+d4 r 202   9.9h | 288s | 1760→3742m ★ | Em5.82e52 Pr7.48e52 Vo1.07e53 | buy   2 | dust 1.66K ch 4/10 lab 58 crew 54 ach 44
+d4 r 203  10.0h | 288s | 1760→3742m   | Em5.78e52 Pr7.48e52 Vo1.09e53 | buy   3 | dust 1.66K ch 4/10 lab 58 crew 54 ach 44
+d4 r 204  10.1h | 287s | 1760→3742m ★ | Em6.96e52 Pr8.08e52 Vo1.23e53 | buy   1 | dust 1.66K ch 4/10 lab 58 crew 54 ach 44
+d4 r 205  10.2h | 288s | 1760→3742m   | Em6.62e52 Pr8.27e52 Vo1.25e53 | buy   3 | dust 1.66K ch 4/10 lab 58 crew 54 ach 44
+d4 r 206  10.2h | 287s | 1760→3742m   | Em7.82e52 Pr9.60e52 Vo1.44e53 | buy   2 | dust 1.66K ch 4/10 lab 58 crew 55 ach 44
+d4 r 207  10.3h | 285s | 1760→3742m   | Em8.74e52 Pr1.10e53 Vo1.63e53 | buy   2 | dust 3.70K ch 4/10 lab 58 crew 55 ach 44 NOVA +2.05K
+d4 r 208  10.4h |  94s |    0→ 512m ★ | Co7.23T Co5.03T Go1.68T      | buy 400 | dust 3.70K ch 4/10 lab 58 crew 55 ach 44
+d4 r 209  10.4h | 207s |  307→1043m ★ | St108.13T Vo33.79T Fr468.26B | buy 377 | dust 3.70K ch 4/10 lab 58 crew 55 ach 44
+d4 r 210  10.5h | 162s |  625→1944m ★ | Vo315.98Qi Fr3.19Sx Em214.54Qi | buy 303 | dust 3.70K ch 4/10 lab 58 crew 55 ach 44
+d4 r 211  10.5h | 230s | 1166→2393m ★ | Fr6.71Oc Em6.32Oc Pr52.18Sp  | buy 358 | dust 3.70K ch 4/10 lab 58 crew 55 ach 44
+d4 r 212  10.6h | 243s | 1435→2841m ★ | Fr107.92Dc Em194.82Dc Pr135.44Dc | buy 187 | dust 3.70K ch 4/10 lab 59 crew 55 ach 44
+d4 r 213  10.7h | 269s | 1704→2992m ★ | Em6.42e38 Pr7.21e38 Vo1.81e37 | buy 363 | dust 3.70K ch 4/10 lab 60 crew 55 ach 44
+d4 r 214  10.8h | 289s | 1795→3291m ★ | Em2.49e45 Pr3.22e45 Vo1.37e45 | buy 161 | dust 3.70K ch 4/10 lab 60 crew 55 ach 44
+d4 r 215  10.8h | 286s | 1820→3443m ★ | Em2.66e48 Pr3.51e48 Vo2.57e48 | buy  72 | dust 3.70K ch 4/10 lab 60 crew 56 ach 44
+d5 r 216  10.9h | 287s | 1820→3591m ★ | Em7.56e49 Pr9.81e49 Vo1.08e50 | buy  58 | dust 3.70K ch 4/10 lab 62 crew 56 ach 44
+d5 r 217  11.0h | 289s | 1820→3594m ★ | Em1.24e51 Pr1.60e51 Vo1.81e51 | buy   9 | dust 3.70K ch 4/10 lab 64 crew 56 ach 44
+d5 r 218  11.1h | 289s | 1860→3591m   | Em1.38e51 Pr1.83e51 Vo2.06e51 | buy   6 | dust 3.70K ch 4/10 lab 64 crew 56 ach 44
+d5 r 219  11.2h | 287s | 1860→3591m   | Em1.80e51 Pr2.42e51 Vo2.76e51 | buy   5 | dust 3.70K ch 4/10 lab 64 crew 56 ach 44
+d5 r 220  11.3h | 287s | 1860→3591m   | Em2.02e51 Pr2.76e51 Vo3.16e51 | buy   3 | dust 370 ch 5/17 lab 64 crew 56 ach 44 CONST +7
+d5 r 221  11.3h | 100s |    0→ 483m ★ | Co353.22B Co174.79B Go39.23B | buy 400 | dust 370 ch 5/17 lab 64 crew 57 ach 44
+d5 r 222  11.3h | 209s |  289→ 996m ★ | Cr8.12T St4.49T Vo1.20T      | buy 272 | dust 370 ch 5/17 lab 64 crew 57 ach 44
+d5 r 223  11.4h | 235s |  597→1750m ★ | Vo232.59Qa Fr1.79Qi Em30.21Qa | buy 321 | dust 370 ch 5/17 lab 64 crew 57 ach 44
+d5 r 224  11.5h | 162s | 1050→2091m ★ | Vo260.91Sx Fr3.93Sp Em1.66Sp | buy 170 | dust 1.20K ch 5/17 lab 64 crew 57 ach 44 NOVA +825
+d5 r 225  11.5h | 104s |    0→ 538m ★ | Co3.46T Go1.29T Cr30.41B     | buy 400 | dust 1.20K ch 5/17 lab 64 crew 57 ach 45
+d5 r 226  11.6h | 209s |  322→1000m ★ | Cr1.12Qa St157.05T Vo24.88T  | buy 285 | dust 1.20K ch 5/17 lab 64 crew 57 ach 45
+d5 r 227  11.6h | 178s |  599→1791m ★ | Vo6.13Qi Fr54.44Qi Em1.52Qi  | buy 346 | dust 1.20K ch 5/17 lab 64 crew 57 ach 45
+d5 r 228  11.7h | 154s | 1074→2241m ★ | Vo23.33Sp Fr366.62Sp Em243.12Sp | buy 184 | dust 1.20K ch 5/17 lab 64 crew 57 ach 45
+d5 r 229  11.7h | 261s | 1344→2541m ★ | Fr7.35No Em10.74No Pr1.58No  | buy 301 | dust 1.20K ch 5/17 lab 64 crew 57 ach 45
+d5 r 230  11.8h | 276s | 1524→2841m ★ | Em2.73e36 Pr2.48e36 Vo2.82Dc | buy 384 | dust 1.20K ch 5/17 lab 64 crew 57 ach 45
+d5 r 231  11.9h | 291s | 1704→3292m ★ | Em2.97e43 Pr3.49e43 Vo9.40e42 | buy 234 | dust 1.20K ch 5/17 lab 64 crew 57 ach 45
+d5 r 232  12.0h | 286s | 1975→3444m ★ | Em5.84e47 Pr9.49e47 Vo6.97e47 | buy 104 | dust 1.20K ch 5/17 lab 64 crew 57 ach 45
+d5 r 233  12.1h | 291s | 2066→3592m ★ | Em5.00e49 Pr1.11e50 Vo1.20e50 | buy  47 | dust 1.20K ch 5/17 lab 64 crew 58 ach 45
+d5 r 234  12.1h | 292s | 2070→3592m ★ | Em3.43e50 Pr7.83e50 Vo8.77e50 | buy  21 | dust 1.20K ch 5/17 lab 66 crew 58 ach 45
+d5 r 235  12.2h | 291s | 2070→3595m ★ | Em1.24e51 Pr2.76e51 Vo3.01e51 | buy  15 | dust 1.20K ch 5/17 lab 66 crew 66 ach 45 [CH27] [CH28]
+d5 r 236  12.3h | 299s | 2070→3591m   | Em1.85e51 Pr4.15e51 Vo4.61e51 | buy  45 | dust 3.71K ch 5/17 lab 68 crew 71 ach 45 NOVA +2.52K [CH29] [CH30]
+d5 r 237  12.4h | 129s |    0→ 593m ★ | Co45.79T Go25.89T Cr1.88T    | buy 400 | dust 3.71K ch 5/17 lab 68 crew 71 ach 45
+d5 r 238  12.4h | 243s |  355→1043m ★ | Cr14.20Qa St2.40Qa Vo545.58T | buy 299 | dust 3.71K ch 5/17 lab 68 crew 72 ach 46
+d5 r 239  12.5h | 242s |  626→1931m ★ | Vo216.51Qi Fr2.07Sx Em184.74Qi | buy 376 | dust 3.71K ch 5/17 lab 68 crew 72 ach 46
+d5 r 240  12.6h | 242s | 1158→2393m ★ | Fr44.24Oc Em40.82Oc Pr394.36Sp | buy 393 | dust 3.71K ch 5/17 lab 68 crew 72 ach 46
+d5 r 241  12.6h | 285s | 1435→2841m ★ | Em7.41e36 Pr7.19e36 Vo25.64Dc | buy 400 | dust 3.71K ch 5/17 lab 68 crew 73 ach 46
+d5 r 242  12.7h | 297s | 1704→3291m ★ | Em1.53e44 Pr1.97e44 Vo6.14e43 | buy 304 | dust 3.71K ch 5/17 lab 68 crew 73 ach 46
+d5 r 243  12.8h | 300s | 1974→3591m ★ | Em7.06e49 Pr1.17e50 Vo1.21e50 | buy 135 | dust 3.71K ch 5/17 lab 68 crew 73 ach 46
+d5 r 244  12.9h | 296s | 2130→3741m ★ | Em1.58e52 Pr4.86e52 Vo6.84e52 | buy  59 | dust 3.71K ch 5/17 lab 68 crew 74 ach 46
+d5 r 245  13.0h | 297s | 2130→3743m ★ | Em1.96e53 Pr5.72e53 Vo8.72e53 | buy  27 | dust 3.71K ch 5/17 lab 68 crew 74 ach 46
+d5 r 246  13.1h | 297s | 2130→3743m   | Em6.84e53 Pr2.01e54 Vo3.03e54 | buy  14 | dust 3.71K ch 5/17 lab 68 crew 74 ach 46
+d5 r 247  13.2h | 297s | 2130→3743m   | Em1.33e54 Pr3.94e54 Vo6.05e54 | buy   9 | dust 3.71K ch 5/17 lab 68 crew 74 ach 46
+d5 r 248  13.2h | 297s | 2130→3743m   | Em2.14e54 Pr6.12e54 Vo9.22e54 | buy   7 | dust 6.42K ch 5/17 lab 68 crew 75 ach 46 NOVA +2.71K
+d5 r 249  13.3h | 132s |    0→ 592m ★ | Co216.98T Go81.62T Cr9.83T   | buy 400 | dust 6.42K ch 5/17 lab 69 crew 75 ach 46
+d5 r 250  13.4h | 245s |  355→1043m ★ | St9.56Qa Vo3.02Qa Fr23.34T   | buy 400 | dust 6.42K ch 5/17 lab 70 crew 75 ach 46
+d5 r 251  13.4h | 163s |  625→1942m ★ | Vo46.97Sx Fr444.84Sx Em78.97Sx | buy 338 | dust 6.42K ch 5/17 lab 71 crew 75 ach 47
+d5 r 252  13.5h | 242s | 1165→2543m ★ | Fr7.73No Em8.77No Pr668.35Oc | buy 400 | dust 6.42K ch 5/17 lab 71 crew 75 ach 47
+d5 r 253  13.6h | 288s | 1526→2994m ★ | Em1.18e39 Pr1.25e39 Vo3.47e37 | buy 400 | dust 6.42K ch 5/17 lab 71 crew 75 ach 47
+d5 r 254  13.6h | 301s | 1796→3441m ★ | Em3.26e46 Pr4.14e46 Vo2.17e46 | buy 277 | dust 6.42K ch 5/17 lab 71 crew 76 ach 47
+d6 r 255  13.7h | 300s | 2064→3741m ★ | Em3.58e51 Pr7.35e51 Vo9.91e51 | buy 129 | dust 6.42K ch 5/17 lab 76 crew 78 ach 47
+d6 r 256  13.8h | 302s | 2230→3741m   | Em3.88e53 Pr2.03e54 Vo3.08e54 | buy  47 | dust 6.42K ch 5/17 lab 77 crew 79 ach 47
+d6 r 257  13.9h | 303s | 2230→3891m ★ | Em3.80e54 Pr2.31e55 Vo4.26e55 | buy  25 | dust 6.42K ch 5/17 lab 77 crew 79 ach 47
+d6 r 258  14.0h | 301s | 2230→3891m   | Em9.41e54 Pr5.44e55 Vo1.01e56 | buy  12 | dust 6.42K ch 5/17 lab 77 crew 79 ach 47
+d6 r 259  14.1h | 301s | 2230→3891m   | Em1.82e55 Pr1.09e56 Vo2.01e56 | buy   9 | dust 6.42K ch 5/17 lab 77 crew 79 ach 47
+d6 r 260  14.2h | 301s | 2230→3891m   | Em2.32e55 Pr1.40e56 Vo2.65e56 | buy   8 | dust 9.76K ch 5/17 lab 77 crew 79 ach 47 NOVA +3.34K
+d6 r 261  14.2h | 124s |    0→ 658m ★ | Co908.58T Go409.35T Cr87.30T | buy 400 | dust 9.76K ch 5/17 lab 79 crew 79 ach 47
+d6 r 262  14.3h | 245s |  394→1041m ★ | St55.14Qa Vo20.62Qa Fr1.04Qa | buy 400 | dust 9.76K ch 5/17 lab 79 crew 79 ach 47
+d6 r 263  14.3h | 174s |  624→1941m ★ | Vo165.12Sx Fr1.62Sp Em331.61Sx | buy 352 | dust 9.76K ch 5/17 lab 79 crew 79 ach 47
+d6 r 264  14.4h | 273s | 1164→2543m ★ | Fr69.36No Em76.76No Pr9.21No | buy 400 | dust 9.76K ch 5/17 lab 79 crew 79 ach 47
+d6 r 265  14.5h | 286s | 1525→2994m ★ | Em1.04e40 Pr1.23e40 Vo5.32e38 | buy 400 | dust 9.76K ch 5/17 lab 79 crew 80 ach 47
+d6 r 266  14.6h | 303s | 1796→3441m ★ | Em1.93e47 Pr2.45e47 Vo1.65e47 | buy 298 | dust 9.76K ch 5/17 lab 79 crew 80 ach 47
+d6 r 267  14.7h | 303s | 2064→3745m ★ | Em8.43e52 Pr1.77e53 Vo2.56e53 | buy 135 | dust 9.76K ch 5/17 lab 79 crew 80 ach 47
+d6 r 268  14.7h | 299s | 2246→3892m ★ | Em1.11e55 Pr7.26e55 Vo1.31e56 | buy  57 | dust 9.76K ch 5/17 lab 80 crew 80 ach 47
+d6 r 269  14.8h | 305s | 2330→3891m   | Em6.08e55 Pr8.90e56 Vo1.60e57 | buy  23 | dust 9.76K ch 5/17 lab 80 crew 80 ach 47
+d6 r 270  14.9h | 298s | 2330→3894m ★ | Em1.86e56 Pr2.29e57 Vo4.43e57 | buy  13 | dust 9.76K ch 5/17 lab 80 crew 80 ach 47
+d6 r 271  15.0h | 305s | 2330→4045m ★ | Em3.07e56 Pr4.03e57 Vo8.76e57 | buy   8 | dust 9.76K ch 5/17 lab 80 crew 80 ach 48
+d6 r 272  15.1h | 296s | 2330→4045m   | Em4.91e56 Pr6.48e57 Vo1.45e58 | buy  44 | dust 9.76K ch 5/17 lab 83 crew 81 ach 48
+d6 r 273  15.2h | 298s | 2330→4045m ★ | Em3.32e57 Pr4.48e58 Vo1.01e59 | buy   0 | dust 9.76K ch 5/17 lab 83 crew 82 ach 48
+d6 r 274  15.3h | 302s | 2330→4042m   | Em3.02e57 Pr4.51e58 Vo1.02e59 | buy   1 | dust 9.76K ch 5/17 lab 83 crew 82 ach 48
+d6 r 275  15.3h | 303s | 2330→4041m   | Em3.34e57 Pr4.49e58 Vo1.03e59 | buy   0 | dust 9.76K ch 5/17 lab 83 crew 82 ach 48
+d6 r 276  15.4h | 302s | 2330→4044m   | Em2.82e57 Pr4.65e58 Vo1.04e59 | buy   2 | dust 976 ch 6/29 lab 83 crew 82 ach 48 CONST +12
+d6 r 277  15.5h | 136s |    0→ 592m ★ | Co18.45T Go9.74T Cr441.11B   | buy 400 | dust 976 ch 6/29 lab 83 crew 82 ach 49
+d6 r 278  15.5h | 247s |  355→1044m ★ | Cr5.99Qa St905.29T Vo211.64T | buy 294 | dust 976 ch 6/29 lab 83 crew 82 ach 49
+d6 r 279  15.6h | 213s |  626→1867m ★ | Vo68.30Qi Fr651.21Qi Em38.76Qi | buy 368 | dust 976 ch 6/29 lab 83 crew 82 ach 49
+d6 r 280  15.7h | 207s | 1119→2394m ★ | Fr9.62Oc Em8.57Oc Pr69.22Sp  | buy 387 | dust 976 ch 6/29 lab 83 crew 82 ach 49
+d6 r 281  15.7h | 278s | 1436→2841m ★ | Em1.37e36 Pr1.16e36 Vo55.73No | buy 400 | dust 3.16K ch 6/29 lab 83 crew 82 ach 49 NOVA +2.18K
+d6 r 282  15.8h | 125s |    0→ 630m ★ | Co366.63T Go149.88T Cr26.87T | buy 400 | dust 3.16K ch 6/29 lab 83 crew 82 ach 49
+d6 r 283  15.8h | 247s |  378→1041m ★ | St15.33Qa Vo4.75Qa Fr92.25T  | buy 400 | dust 3.16K ch 6/29 lab 83 crew 82 ach 49
+d6 r 284  15.9h | 168s |  624→1942m ★ | Vo51.65Sx Fr477.88Sx Em96.56Sx | buy 339 | dust 3.16K ch 6/29 lab 83 crew 83 ach 49
+d6 r 285  16.0h | 242s | 1165→2544m ★ | Fr11.21No Em12.32No Pr994.84Oc | buy 400 | dust 3.16K ch 6/29 lab 83 crew 83 ach 49
+d6 r 286  16.1h | 289s | 1526→2992m ★ | Em1.67e39 Pr1.91e39 Vo5.42e37 | buy 400 | dust 3.16K ch 6/29 lab 83 crew 83 ach 49
+d6 r 287  16.1h | 303s | 1795→3444m ★ | Em4.58e46 Pr5.85e46 Vo3.45e46 | buy 282 | dust 3.16K ch 6/29 lab 83 crew 83 ach 49
+d6 r 288  16.2h | 302s | 2066→3744m ★ | Em5.68e51 Pr1.25e52 Vo1.72e52 | buy 124 | dust 3.16K ch 6/29 lab 83 crew 83 ach 49
+d6 r 289  16.3h | 301s | 2246→3891m ★ | Em4.21e53 Pr2.56e54 Vo4.39e54 | buy  49 | dust 3.16K ch 6/29 lab 83 crew 83 ach 49
+d6 r 290  16.4h | 302s | 2334→3891m   | Em1.74e54 Pr2.66e55 Vo5.05e55 | buy  23 | dust 3.16K ch 6/29 lab 83 crew 83 ach 49
+d7 r 291  16.5h | 303s | 2334→3891m   | Em6.55e54 Pr9.08e55 Vo1.77e56 | buy  55 | dust 3.16K ch 6/29 lab 86 crew 85 ach 49
+d7 r 292  16.6h | 303s | 2334→3891m   | Em6.32e55 Pr9.93e56 Vo1.90e57 | buy   1 | dust 7.00K ch 6/29 lab 88 crew 85 ach 49 NOVA +3.84K
+d7 r 293  16.6h | 130s |    0→ 698m ★ | Co2.52Qa Go1.92Qa Cr365.62T  | buy 400 | dust 7.00K ch 6/29 lab 89 crew 85 ach 49
+d7 r 294  16.7h | 228s |  418→1051m ★ | St148.53Qa Vo63.83Qa Fr6.05Qa | buy 400 | dust 7.00K ch 6/29 lab 89 crew 86 ach 49
+d7 r 295  16.7h | 177s |  630→2094m ★ | Vo435.62Sx Fr3.86Sp Em933.98Sx | buy 363 | dust 7.00K ch 6/29 lab 89 crew 86 ach 49
+d7 r 296  16.8h | 276s | 1256→2541m ★ | Fr288.14No Em361.69No Pr67.07No | buy 373 | dust 7.00K ch 6/29 lab 89 crew 86 ach 49
+d7 r 297  16.9h | 270s | 1524→2995m ★ | Em2.32e39 Pr2.34e39 Vo2.52e37 | buy 400 | dust 7.00K ch 6/29 lab 89 crew 86 ach 49
+d7 r 298  17.0h | 300s | 1796→3294m ★ | Em5.56e46 Pr6.92e46 Vo2.91e46 | buy 228 | dust 7.00K ch 6/29 lab 89 crew 86 ach 49
+d7 r 299  17.1h | 303s | 1976→3592m ★ | Em8.52e50 Pr1.40e51 Vo1.44e51 | buy 103 | dust 7.00K ch 6/29 lab 89 crew 86 ach 49
+d7 r 300  17.1h | 299s | 2154→3595m ★ | Em4.27e52 Pr1.42e53 Vo1.61e53 | buy  44 | dust 7.00K ch 6/29 lab 89 crew 86 ach 49
+d7 r 301  17.2h | 300s | 2156→3741m ★ | Em2.61e53 Pr8.65e53 Vo1.26e54 | buy  20 | dust 7.00K ch 6/29 lab 89 crew 86 ach 49
+d7 r 302  17.3h | 303s | 2244→3741m   | Em3.21e53 Pr2.06e54 Vo3.01e54 | buy  10 | dust 7.00K ch 6/29 lab 89 crew 86 ach 49
+d7 r 303  17.4h | 300s | 2244→3744m ★ | Em4.88e53 Pr3.07e54 Vo4.53e54 | buy   7 | dust 7.00K ch 6/29 lab 89 crew 87 ach 49
+d7 r 304  17.5h | 300s | 2246→3744m   | Em9.83e53 Pr5.90e54 Vo8.53e54 | buy   6 | dust 7.00K ch 6/29 lab 89 crew 87 ach 49
+d7 r 305  17.6h | 300s | 2246→3744m   | Em1.20e54 Pr7.65e54 Vo1.12e55 | buy   4 | dust 7.00K ch 6/29 lab 89 crew 87 ach 49
+d7 r 306  17.7h | 300s | 2246→3744m   | Em1.39e54 Pr8.39e54 Vo1.30e55 | buy   4 | dust 10.58K ch 6/29 lab 89 crew 87 ach 49 NOVA +3.58K
+d7 r 307  17.7h | 130s |    0→ 717m ★ | Co8.16Qa Go5.82Qa Cr1.40Qa   | buy 400 | dust 10.58K ch 6/29 lab 89 crew 87 ach 49
+d7 r 308  17.8h | 221s |  430→1132m ★ | St502.06Qa Vo219.61Qa Fr26.62Qa | buy 400 | dust 10.58K ch 6/29 lab 89 crew 87 ach 49
+d7 r 309  17.8h | 158s |  679→2092m ★ | Vo1.23Sp Fr11.74Sp Em3.12Sp  | buy 375 | dust 10.58K ch 6/29 lab 92 crew 88 ach 49
+d7 r 310  17.9h | 273s | 1255→2541m ★ | Fr2.00Dc Em2.40Dc Pr603.36No | buy 384 | dust 10.58K ch 6/29 lab 92 crew 88 ach 49
+d7 r 311  18.0h | 291s | 1524→2991m ★ | Em3.11e40 Pr3.44e40 Vo6.49e38 | buy 400 | dust 10.58K ch 6/29 lab 92 crew 88 ach 49
+d7 r 312  18.1h | 301s | 1794→3441m ★ | Em5.76e47 Pr7.24e47 Vo3.76e47 | buy 244 | dust 10.58K ch 6/29 lab 92 crew 88 ach 49
+d7 r 313  18.1h | 304s | 2064→3592m ★ | Em1.30e52 Pr2.89e52 Vo3.29e52 | buy 107 | dust 10.58K ch 6/29 lab 92 crew 88 ach 49
+d7 r 314  18.2h | 307s | 2155→3745m ★ | Em9.97e53 Pr3.35e54 Vo4.90e54 | buy  46 | dust 10.58K ch 6/29 lab 92 crew 88 ach 49
+d7 r 315  18.3h | 301s | 2246→3741m   | Em4.26e54 Pr2.78e55 Vo4.03e55 | buy  22 | dust 10.58K ch 6/29 lab 92 crew 88 ach 49
+d7 r 316  18.4h | 301s | 2246→3741m   | Em1.05e55 Pr6.40e55 Vo9.38e55 | buy  10 | dust 10.58K ch 6/29 lab 92 crew 89 ach 49
+d7 r 317  18.5h | 301s | 2246→3741m   | Em1.85e55 Pr1.10e56 Vo1.67e56 | buy   8 | dust 14.70K ch 6/29 lab 92 crew 89 ach 49 NOVA +4.12K
+d7 r 318  18.5h | 134s |    0→ 741m ★ | Co15.87Qa Go12.98Qa Cr3.64Qa | buy 400 | dust 14.70K ch 6/29 lab 92 crew 89 ach 49
+d7 r 319  18.6h | 222s |  444→1160m ★ | St1.09Qi Vo530.95Qa Fr80.07Qa | buy 400 | dust 14.70K ch 6/29 lab 92 crew 89 ach 49
+d7 r 320  18.6h | 153s |  695→2091m ★ | Vo2.54Sp Fr23.64Sp Em6.45Sp  | buy 383 | dust 14.70K ch 6/29 lab 92 crew 89 ach 49
+d7 r 321  18.7h | 247s | 1254→2691m ★ | Fr5.41Dc Em6.83Dc Pr2.00Dc   | buy 390 | dust 14.70K ch 6/29 lab 92 crew 89 ach 49
+d7 r 322  18.8h | 290s | 1614→2991m ★ | Em9.61e40 Pr1.13e41 Vo4.15e39 | buy 400 | dust 14.70K ch 6/29 lab 92 crew 89 ach 49
+d7 r 323  18.9h | 303s | 1794→3442m ★ | Em1.98e48 Pr2.59e48 Vo1.56e48 | buy 247 | dust 14.70K ch 6/29 lab 92 crew 89 ach 49
+d7 r 324  19.0h | 307s | 2065→3594m ★ | Em6.32e52 Pr1.40e53 Vo1.56e53 | buy 110 | dust 14.70K ch 6/29 lab 92 crew 89 ach 49
+d7 r 325  19.1h | 307s | 2156→3741m ★ | Em5.27e54 Pr1.80e55 Vo2.69e55 | buy  48 | dust 14.70K ch 6/29 lab 92 crew 89 ach 49
+d7 r 326  19.2h | 306s | 2244→3745m ★ | Em2.53e55 Pr1.49e56 Vo2.23e56 | buy  20 | dust 14.70K ch 6/29 lab 92 crew 89 ach 49
+d8 r 327  19.2h | 306s | 2246→3895m ★ | Em6.72e55 Pr4.98e56 Vo8.54e56 | buy  56 | dust 14.70K ch 6/29 lab 95 crew 91 ach 49
+d8 r 328  19.3h | 307s | 2336→3894m   | Em3.72e56 Pr6.05e57 Vo1.07e58 | buy   1 | dust 14.70K ch 6/29 lab 95 crew 91 ach 49
+d8 r 329  19.4h | 307s | 2336→3894m   | Em4.32e56 Pr6.71e57 Vo1.25e58 | buy   1 | dust 14.70K ch 6/29 lab 95 crew 91 ach 49
+d8 r 330  19.5h | 307s | 2336→3894m   | Em4.52e56 Pr6.64e57 Vo1.25e58 | buy   1 | dust 19.13K ch 6/29 lab 95 crew 91 ach 49 NOVA +4.42K
+d8 r 331  19.5h | 138s |    0→ 741m ★ | Go41.24Qa Cr11.53Qa St153.16T | buy 400 | dust 19.13K ch 6/29 lab 95 crew 91 ach 49
+d8 r 332  19.6h | 222s |  444→1174m ★ | St9.22Qi Vo1.51Qi Fr197.89Qa | buy 400 | dust 19.13K ch 6/29 lab 95 crew 91 ach 49
+d8 r 333  19.7h | 149s |  704→2091m ★ | Vo6.75Sp Fr70.17Sp Em18.20Sp | buy 394 | dust 19.13K ch 6/29 lab 96 crew 91 ach 49
+d8 r 334  19.7h | 254s | 1254→2691m ★ | Fr26.27Dc Em31.48Dc Pr11.33Dc | buy 400 | dust 19.13K ch 6/29 lab 98 crew 91 ach 49
+d8 r 335  19.8h | 290s | 1614→2991m ★ | Em6.34e41 Pr7.58e41 Vo3.54e40 | buy 400 | dust 19.13K ch 6/29 lab 98 crew 92 ach 49
+d8 r 336  19.9h | 308s | 1794→3444m ★ | Em1.32e49 Pr1.65e49 Vo1.17e49 | buy 256 | dust 19.13K ch 6/29 lab 98 crew 92 ach 49
+d8 r 337  20.0h | 304s | 2066→3743m ★ | Em7.69e53 Pr1.57e54 Vo2.19e54 | buy 115 | dust 19.13K ch 6/29 lab 98 crew 92 ach 49
+d8 r 338  20.1h | 308s | 2245→3891m ★ | Em3.88e55 Pr2.47e56 Vo4.15e56 | buy  47 | dust 19.13K ch 6/29 lab 98 crew 92 ach 49
+d8 r 339  20.2h | 305s | 2334→3895m ★ | Em1.01e56 Pr1.64e57 Vo3.14e57 | buy  19 | dust 19.13K ch 6/29 lab 98 crew 92 ach 49
+d8 r 340  20.2h | 308s | 2336→3891m   | Em2.65e56 Pr3.78e57 Vo7.15e57 | buy  10 | dust 19.13K ch 6/29 lab 98 crew 92 ach 49
+d8 r 341  20.3h | 308s | 2336→3891m   | Em4.71e56 Pr6.76e57 Vo1.25e58 | buy   9 | dust 19.13K ch 6/29 lab 98 crew 92 ach 49
+d8 r 342  20.4h | 308s | 2336→3891m   | Em6.51e56 Pr9.94e57 Vo1.89e58 | buy   6 | dust 19.13K ch 6/29 lab 98 crew 92 ach 49
+d8 r 343  20.5h | 304s | 2336→3891m   | Em7.21e56 Pr1.18e58 Vo2.20e58 | buy   3 | dust 19.13K ch 6/29 lab 98 crew 92 ach 49
+d8 r 344  20.6h | 308s | 2336→3891m   | Em9.04e56 Pr1.56e58 Vo2.87e58 | buy  39 | dust 19.13K ch 6/29 lab 101 crew 93 ach 50
+d8 r 345  20.7h | 308s | 2336→4042m ★ | Em5.26e57 Pr7.36e58 Vo1.61e59 | buy   0 | dust 19.13K ch 6/29 lab 101 crew 93 ach 50
+d8 r 346  20.8h | 292s | 2425→3892m   | Pr7.20e58 Vo1.41e59          | buy   0 | dust 19.13K ch 6/29 lab 101 crew 93 ach 50
+d8 r 347  20.9h | 307s | 2425→4043m ★ | Pr6.92e58 Vo1.59e59          | buy   1 | dust 19.13K ch 6/29 lab 101 crew 93 ach 50
+d8 r 348  20.9h | 289s | 2425→3897m   | Pr8.44e58 Vo1.66e59          | buy   1 | dust 19.13K ch 6/29 lab 101 crew 93 ach 50
+d8 r 349  21.0h | 302s | 2425→3891m   | Pr8.06e58 Vo1.62e59          | buy   0 | dust 19.13K ch 6/29 lab 101 crew 93 ach 50
+d8 r 350  21.1h | 287s | 2425→3897m   | Pr7.99e58 Vo1.61e59          | buy   0 | dust 19.13K ch 6/29 lab 101 crew 93 ach 51
+d8 r 351  21.2h | 308s | 2425→4041m   | Pr8.53e58 Vo1.89e59          | buy   0 | dust 19.13K ch 6/29 lab 101 crew 94 ach 52
+d8 r 352  21.3h | 308s | 2425→4042m   | Pr8.65e58 Vo2.02e59          | buy   0 | dust 19.13K ch 6/29 lab 101 crew 94 ach 52
+d8 r 353  21.4h | 305s | 2425→4041m   | Pr8.93e58 Vo1.99e59          | buy   1 | dust 19.13K ch 6/29 lab 101 crew 94 ach 52
+d8 r 354  21.5h | 308s | 2425→4045m ★ | Pr9.75e58 Vo2.33e59          | buy   0 | dust 19.13K ch 6/29 lab 101 crew 94 ach 52
+d8 r 355  21.5h | 292s | 2426→3892m   | Pr9.90e58 Vo2.04e59          | buy   0 | dust 19.13K ch 6/29 lab 101 crew 94 ach 52
+d8 r 356  21.6h | 307s | 2426→4041m   | Pr1.00e59 Vo2.34e59          | buy   0 | dust 19.13K ch 6/29 lab 101 crew 94 ach 52
+d8 r 357  21.7h | 283s | 2426→3901m   | Pr9.94e58 Vo2.07e59          | buy   1 | dust 19.13K ch 6/29 lab 101 crew 94 ach 52
+d8 r 358  21.8h | 307s | 2426→4045m   | Pr1.03e59 Vo2.31e59          | buy   0 | dust 19.13K ch 6/29 lab 101 crew 94 ach 52
+d8 r 359  21.9h | 308s | 2426→4042m   | Pr1.00e59 Vo2.30e59          | buy   0 | dust 19.13K ch 6/29 lab 101 crew 94 ach 52
+d9 r 360  22.0h | 308s | 2426→4043m   | Pr1.61e59 Vo3.69e59          | buy  17 | dust 19.13K ch 6/29 lab 104 crew 95 ach 52
+d9 r 361  22.1h | 302s | 2426→4041m   | Pr3.62e59 Vo8.72e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 362  22.2h | 306s | 2426→4041m   | Pr3.73e59 Vo8.58e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 363  22.2h | 309s | 2426→4044m   | Pr3.71e59 Vo8.96e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 364  22.3h | 306s | 2426→4042m   | Pr3.75e59 Vo8.85e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 365  22.4h | 301s | 2426→4041m   | Pr3.69e59 Vo8.59e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 366  22.5h | 304s | 2426→4042m   | Pr3.71e59 Vo8.70e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 367  22.6h | 309s | 2426→4045m   | Pr3.74e59 Vo8.67e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 368  22.7h | 307s | 2426→4045m   | Pr3.70e59 Vo8.71e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 369  22.8h | 306s | 2426→4041m   | Pr3.72e59 Vo8.64e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 370  22.9h | 304s | 2426→4041m   | Pr3.64e59 Vo8.61e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 371  22.9h | 307s | 2426→4045m   | Pr3.73e59 Vo8.63e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 372  23.0h | 306s | 2426→4041m   | Pr3.75e59 Vo8.81e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 373  23.1h | 304s | 2426→4042m   | Pr3.73e59 Vo8.66e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 374  23.2h | 304s | 2426→4041m   | Pr3.62e59 Vo8.62e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 96 ach 52
+d9 r 375  23.3h | 309s | 2426→4045m   | Pr3.78e59 Vo8.70e59          | buy   0 | dust 19.13K ch 6/29 lab 104 crew 97 ach 52
+d9 r 376  23.4h | 307s | 2426→4042m   | Pr3.79e59 Vo8.86e59          | buy   6 | dust 25.39K ch 6/29 lab 107 crew 97 ach 52 NOVA +6.26K
+d9 r 377  23.4h | 142s |    0→ 743m ★ | Go123.40Qa Cr46.71Qa St2.51Qa | buy 400 | dust 25.39K ch 6/29 lab 107 crew 97 ach 52
+d9 r 378  23.5h | 223s |  445→1191m ★ | St44.89Qi Vo5.26Qi Fr769.82Qa | buy 400 | dust 25.39K ch 6/29 lab 107 crew 97 ach 52
+d9 r 379  23.5h | 157s |  714→2091m ★ | Vo22.73Sp Fr227.44Sp Em73.80Sp | buy 400 | dust 25.39K ch 6/29 lab 107 crew 97 ach 52
+d9 r 380  23.6h | 267s | 1254→2694m ★ | Fr137.79Dc Em166.41Dc Pr73.29Dc | buy 400 | dust 25.39K ch 6/29 lab 107 crew 97 ach 52
+d9 r 381  23.7h | 274s | 1616→3143m ★ | Em3.59e42 Pr4.28e42 Vo3.63e41 | buy 400 | dust 25.39K ch 6/29 lab 107 crew 97 ach 52
+d9 r 382  23.8h | 306s | 1885→3442m ★ | Em5.91e49 Pr8.15e49 Vo5.82e49 | buy 278 | dust 25.39K ch 6/29 lab 107 crew 97 ach 52
+d9 r 383  23.9h | 306s | 2065→3742m ★ | Em1.28e55 Pr2.64e55 Vo3.93e55 | buy 127 | dust 25.39K ch 6/29 lab 107 crew 97 ach 52
+d9 r 384  24.0h | 309s | 2245→3891m ★ | Em1.10e57 Pr6.27e57 Vo1.13e58 | buy  52 | dust 25.39K ch 6/29 lab 107 crew 98 ach 52
+d9 r 385  24.0h | 309s | 2334→3891m   | Em3.66e57 Pr5.81e58 Vo1.06e59 | buy  21 | dust 25.39K ch 6/29 lab 107 crew 98 ach 52
+d9 r 386  24.1h | 305s | 2334→4043m ★ | Em1.03e58 Pr1.52e59 Vo3.30e59 | buy  11 | dust 25.39K ch 6/29 lab 107 crew 98 ach 52
+d9 r 387  24.2h | 307s | 2425→4043m ★ | Pr2.57e59 Vo5.84e59          | buy   6 | dust 25.39K ch 6/29 lab 107 crew 98 ach 52
+d9 r 388  24.3h | 309s | 2426→4041m   | Pr3.47e59 Vo7.44e59          | buy   4 | dust 25.39K ch 6/29 lab 107 crew 98 ach 52
+d9 r 389  24.4h | 309s | 2426→4041m   | Pr3.31e59 Vo7.83e59          | buy   2 | dust 25.39K ch 6/29 lab 107 crew 98 ach 52
+d9 r 390  24.5h | 303s | 2426→4041m   | Pr3.77e59 Vo9.14e59          | buy   2 | dust 2.54K ch 7/49 lab 107 crew 98 ach 52 CONST +20
+d9 r 391  24.5h | 146s |    0→ 713m ★ | Co1.69Qa Go872.45T Cr210.39T | buy 400 | dust 2.54K ch 7/49 lab 107 crew 98 ach 52
+d9 r 392  24.6h | 253s |  427→1041m ★ | St95.38Qa Vo41.72Qa Fr3.81Qa | buy 400 | dust 2.54K ch 7/49 lab 107 crew 98 ach 52
+d9 r 393  24.7h | 188s |  624→2091m ★ | Vo246.52Sx Fr2.45Sp Em530.21Sx | buy 357 | dust 2.54K ch 7/49 lab 107 crew 98 ach 52
+
+ch  1 Crash Landing        day 1, active 0.0h, runs 2
+ch  2 Sparks in the Dark   day 1, active 0.1h, runs 6
+ch  3 The First Guardian   day 1, active 0.3h, runs 13
+ch  4 Copper Skies         day 1, active 0.5h, runs 20
+ch  5 Cobalt Caverns       day 1, active 1.1h, runs 40
+ch  6 Heart of Gold        day 1, active 1.4h, runs 47
+ch  7 Starborn             day 1, active 1.5h, runs 52
+ch  8 Crystal Heart        day 1, active 1.6h, runs 53
+ch  9 Starsteel Depths     day 1, active 1.8h, runs 59
+ch 10 Into the Void        day 1, active 2.2h, runs 66
+ch 11 Ice Moon Landing     day 1, active 2.4h, runs 70
+ch 12 Snowglobe Shelf      day 2, active 2.7h, runs 75
+ch 13 Aurora Caves         day 2, active 2.7h, runs 75
+ch 14 Icicle Maze          day 2, active 3.0h, runs 81
+ch 15 Frozen Heart         day 2, active 3.3h, runs 86
+ch 16 Cinder Fields        day 2, active 3.3h, runs 86
+   constellation #1 +2 charts, day 2, active 3.5h
+ch 17 Lava Falls           day 2, active 3.6h, runs 93
+ch 18 Obsidian Halls       day 2, active 3.6h, runs 93
+ch 19 Molten Mystery       day 2, active 4.3h, runs 109
+   constellation #2 +1 charts, day 2, active 4.3h
+ch 20 Forge Core           day 3, active 5.5h, runs 134
+ch 21 Rainbow Reef         day 3, active 5.5h, runs 134
+ch 22 Mirror Spires        day 3, active 5.6h, runs 135
+   constellation #3 +3 charts, day 3, active 6.1h
+ch 23 Glimmer Deep         day 3, active 6.1h, runs 143
+   constellation #4 +4 charts, day 3, active 7.9h
+ch 24 Crystal Song         day 4, active 8.1h, runs 177
+ch 25 Prism Throne         day 4, active 9.0h, runs 191
+ch 26 Hush Belt            day 4, active 9.0h, runs 191
+   constellation #5 +7 charts, day 5, active 11.3h
+ch 27 Starless Sea         day 5, active 12.2h, runs 235
+ch 28 Echo Chasm           day 5, active 12.2h, runs 235
+ch 29 The Lost Light       day 5, active 12.3h, runs 236
+ch 30 The Core             day 5, active 12.3h, runs 236
+   constellation #6 +12 charts, day 6, active 15.4h
+   constellation #7 +20 charts, day 9, active 24.5h
+
+story chapter 30/30 | runs 393 | active 24.7h | best 4.04Km | novas 24 | constellations 7 | lab 107 | crew 98 | achievements 52
+runs with nothing to buy: 4/235 during story, 32/393 total; longest streak 15; after a prestige, runs to beat the old record: avg 6.3, max 15
